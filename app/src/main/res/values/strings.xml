@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">MPQR Merchant</string>
+    <string name="currency">Currency</string>
+    <string name="amount">Amount</string>
+    <string name="tip">Tip</string>
+    <string name="type">Type</string>
+    <string name="total_daily">Total (Daily)</string>
+    <string name="transactions_daily">Transactions (Daily)</string>
+    <string name="logo">Logo</string>
+    <string name="settings">settings</string>
+    <string name="generate">Generate</string>
+    <string name="transactions">Transactions</string>
+</resources>
