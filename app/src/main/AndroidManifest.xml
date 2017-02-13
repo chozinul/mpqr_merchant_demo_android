@@ -9,12 +9,25 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:name=".MainApplication">
-        <activity android:name=".main.MainActivity">
+        <activity
+                android:name=".activity.SplashActivity"
+                android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity
+                android:name=".main.MainActivity"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait">
+        </activity>
+        <activity
+                android:name=".login.LoginActivity"
+                android:label="@string/title_activity_login"
+                android:launchMode="singleTop"
+                android:screenOrientation="portrait">
         </activity>
     </application>
 

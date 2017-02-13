@@ -17,4 +17,13 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
+    <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorWhite</item>
+    </style>
+
+    <style name="LightEditTextStyle" parent="AppTheme">
+        <item name="colorControlNormal">@color/colorWhite</item>
+        <item name="colorControlActivated">@color/colorWhite</item>
+        <item name="colorControlHighlight">@color/colorWhite</item>
+    </style>
 </resources>

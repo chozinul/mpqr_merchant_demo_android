@@ -1,13 +1,81 @@
 <resources>
     <string name="app_name">MPQR Merchant</string>
-    <string name="currency">Currency</string>
-    <string name="amount">Amount</string>
-    <string name="tip">Tip</string>
     <string name="type">Type</string>
     <string name="total_daily">Total (Daily)</string>
     <string name="transactions_daily">Transactions (Daily)</string>
-    <string name="logo">Logo</string>
     <string name="settings">settings</string>
     <string name="generate">Generate</string>
     <string name="transactions">Transactions</string>
+
+    <string name="txt_available_balance">Available Balance</string>
+    <string name="placeholder_available_balance">$120.90</string>
+    <string name="txt_scan_qr">Scan QR Code</string>
+    <string name="paymentInstrument">Card</string>
+    <string name="transaction_history">Transaction History</string>
+    <string name="title_activity_payment">QR Code Payment</string>
+    <string name="flat_convenience_fee">Flat Tip</string>
+    <string name="percentage_convenience_fee">Tip %</string>
+    <string name="tip">Tip</string>
+    <string name="amount">Amount</string>
+    <string name="currency">Currency</string>
+    <string name="change">Change</string>
+    <string name="pay_with_card">Pay with %s</string>
+    <string name="cancel">Cancel</string>
+    <string name="balance_of_card">Balance: %s</string>
+    <string name="select">Select</string>
+    <string name="pay">Pay</string>
+    <string name="dsc_down_arrow">arrow</string>
+    <string name="enter_pin_title">Enter PIN</string>
+    <string name="enter_pin_message">Please enter your 6-digit PIN</string>
+    <string name="ok">OK</string>
+    <string name="processing_payment_message">Processing payment …</string>
+    <string name="error">Error</string>
+    <string name="invalid_pin">Invalid PIN</string>
+    <string name="payment_failed">Payment failed</string>
+    <string name="city">City</string>
+    <string name="payment_card_used">Payment card used</string>
+    <string name="tick">tick</string>
+    <string name="receipt_success_payment">You have made a successful payment!</string>
+    <string name="title_activity_receipt">Completion</string>
+    <string name="txt_return">Return</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_access_code">Access Code</string>
+    <string name="prompt_pin">6 Digit Pin</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="error_invalid_access_code">This access code is invalid. It should be %s digits</string>
+    <string name="access_code_length">8</string>
+    <string name="error_invalid_pin">This pin is too short</string>
+    <string name="error_incorrect_pin">This pin is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="logo">logo</string>
+    <string name="forgot_pin">Forgot PIN?</string>
+    <string name="pin_length">6</string>
+    <string name="unexpected_error">An unexpected error occurred. Please try again.</string>
+
+    <item name="visible" type="id"/>
+    <item name="masked" type="id"/>
+    <string name="title_activity_merchant">Merchant Account</string>
+    <string name="enter_merchant_code">Please enter 8-digit Merchant Code</string>
+    <string name="what_is_merchant_code">What is Merchant Code?</string>
+    <string name="merchant_code_length">8</string>
+    <string name="merchant_code">Merchant Code</string>
+    <string name="merchant_city">City</string>
+    <string name="action_next">Next</string>
+    <string name="invalid_merchant_error_message">Invalid merchant information. Please try again</string>
+    <string name="logout">Logout</string>
+    <string name="logout_failed">Logout Failed. Please try again.</string>
+    <string name="logging_out">Logging out…</string>
+    <string name="invalid_merchant_code">Invalid merchant code</string>
+    <string name="invalid_payment_data">Invalid payment data. Please try again</string>
+    <string name="insufficient_balance_error">Insufficient balance. Please try with another method.</string>
+    <string name="error_tip_change_not_allowed">Tip change is not allowed</string>
+    <string name="explain_merchant_code">It is a unique ID formatted of 8 digit number that assigned to identify a merchant once enrolled into Masterpass QR platform.  You can always inquire Merchant Code from merchant owner.</string>
+    <string name="error_cannot_scan_enter_manual">Cannot scan QR code successfully. Please try manual entry.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ask_cancel_confirmation">Do you want to cancel?</string>
+    <string name="merchant_name">Merchant Name</string>
 </resources>
