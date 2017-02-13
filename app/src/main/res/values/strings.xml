@@ -16,7 +16,7 @@
     <string name="flat_convenience_fee">Flat Tip</string>
     <string name="percentage_convenience_fee">Tip %</string>
     <string name="tip">Tip</string>
-    <string name="amount">Amount</string>
+    <string name="transactionAmount">Amount</string>
     <string name="currency">Currency</string>
     <string name="change">Change</string>
     <string name="pay_with_card">Pay with %s</string>
@@ -78,4 +78,10 @@
     <string name="no">No</string>
     <string name="ask_cancel_confirmation">Do you want to cancel?</string>
     <string name="merchant_name">Merchant Name</string>
+    <string name="no_tip">No Tip</string>
+    <string name="select_currency">Select currency</string>
+    <string name="tip_type_percentage">Percent</string>
+    <string name="tip_type_prompt">Prompt</string>
+    <string name="tip_type_fixed">Fixed</string>
+    <string name="tip_type_none">NA</string>
 </resources>

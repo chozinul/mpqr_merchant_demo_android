@@ -15,8 +15,7 @@ public class Transaction extends RealmObject {
     private String referenceId;
 
     private double transactionAmount;
-    private String tipType;
-    private double tip;
+    private double tipAmount;
     private String currencyNumericCode;
     private Date transactionDate;
     private String invoiceNumber;
@@ -36,22 +35,6 @@ public class Transaction extends RealmObject {
 
     public void setTransactionAmount(double transactionAmount) {
         this.transactionAmount = transactionAmount;
-    }
-
-    public String getTipType() {
-        return tipType;
-    }
-
-    public void setTipType(String tipType) {
-        this.tipType = tipType;
-    }
-
-    public double getTip() {
-        return tip;
-    }
-
-    public void setTip(double tip) {
-        this.tip = tip;
     }
 
     public String getCurrencyNumericCode() {
@@ -87,11 +70,11 @@ public class Transaction extends RealmObject {
     }
 
     public double getTipAmount() {
-        if (TipInfo.PERCENTAGE_CONVENIENCE_FEE.name().equals(tipType)) {
-            return transactionAmount * tip / 100;
-        } else {
-            return tip;
-        }
+        return tipAmount;
+    }
+
+    public void setTipAmount(double tipAmount) {
+        this.tipAmount = tipAmount;
     }
 
     public double getTotal() {

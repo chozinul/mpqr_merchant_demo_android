@@ -42,16 +42,17 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
 
         String dummyResponse = "{\n" +
                 "  \"user\": {\n" +
+                "    \"id\": 1,\n" +
                 "    \"code\": \"12345678\",\n" +
                 "    \"name\": \"FarmtoTable F&B\",\n" +
                 "    \"city\": \"Delhi\",\n" +
                 "    \"categoryCode\": \"123\",\n" +
+                "    \"currencyNumericCode\": \"356\",\n" +
                 "    \"identifierMastercard04\": \"5555222233334444\",\n" +
                 "    \"transactions\": [\n" +
                 "      {\n" +
                 "        \"referenceId\": \"0390284231\",\n" +
                 "        \"transactionAmount\": \"190.00\",\n" +
-                "        \"tipType\": \"FLAT_CONVENIENCE_FEE\",\n" +
                 "        \"tip\": \"15.00\",\n" +
                 "        \"currencyNumericCode\": 356,\n" +
                 "        \"transactionDate\": \"" + dateFormat.format(new Date()) + "\",\n" +
