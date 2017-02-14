@@ -75,8 +75,6 @@ public class QRCodeActivity extends AppCompatActivity implements QRCodeContract.
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        String pushPaymentString;
-        QRData qrData;
         if (savedInstanceState != null) {
             mPushPaymentString = savedInstanceState.getString(BUNDLE_PPSTRING_KEY);
             mQRData = savedInstanceState.getParcelable(BUNDLE_QR_DATA);
