@@ -46,6 +46,8 @@ interface MainContract {
         void showTipTypes(List<QRData.TipType> tipTypes, int selected);
 
         void setTotalAmount(double amount, String currencyCode);
+
+        void showQRCode(String merchantCode, String qrCodeString);
     }
 
     interface Presenter extends BasePresenter {
@@ -61,5 +63,7 @@ interface MainContract {
         void selectCurrency();
 
         void selectTipType();
+
+        void generateQRString();
     }
 }

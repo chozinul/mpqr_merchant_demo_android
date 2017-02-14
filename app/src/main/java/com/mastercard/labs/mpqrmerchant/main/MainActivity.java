@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     TextView tipTypeValue;
 
     @BindView(R.id.txt_amount)
-    TextView txtAmount;
+    TextView amountTitleTextView;
 
     @BindView(R.id.txt_amount_value)
     EditText amountEditText;
@@ -164,6 +164,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         mPresenter.selectTipType();
     }
 
+    @OnClick(value = R.id.btn_generate)
+    public void generateQRCode(View view) {
+        mPresenter.generateQRString();
+    }
+
     private double parseAmount(String amountText) {
         try {
             double amount = Double.parseDouble(amountText);
@@ -216,12 +221,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @Override
     public void showInvalidDataError() {
-        DialogUtils.customAlertDialogBuilder(this, R.string.invalid_payment_data).setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                finish();
-            }
-        }).show();
+        DialogUtils.showDialog(this, 0, R.string.invalid_payment_data);
     }
 
     @Override
@@ -343,6 +343,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         } else {
             totalAmountTextView.setTextColor(ContextCompat.getColor(this, R.color.colorTextMainColor));
         }
+    }
+
+    @Override
+    public void showQRCode(String merchantCode, String qrCodeString) {
+        // TODO: Implement it
     }
 
     private class AmountInputFilter implements InputFilter {
