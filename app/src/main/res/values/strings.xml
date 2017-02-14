@@ -89,4 +89,6 @@
     <string name="logout_confirmation">Are you sure you want to logout?</string>
     <string name="title_activity_qrcode">QRCodeActivity</string>
     <string name="qrcode">QR Code</string>
+    <string name="qr_code_generation_error">Cannot generate QR code. Please try again.</string>
+    <string name="qr_merchant_code">Merchant Code: %s</string>
 </resources>

@@ -7,16 +7,49 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.AsyncTask;
 
 /**
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/14/17
  */
-public class QRGenerator {
-    public static Bitmap encodeToQrCode(String text, int width, int height){
+public class QRGenerator extends AsyncTask<String, Void, Bitmap> {
+    private int mImageWidth, mImageHeight;
+    private QRGeneratorListener mListener;
+
+    public QRGenerator(int imageWidth, int imageHeight, QRGeneratorListener listener) {
+        this.mImageWidth = imageWidth;
+        this.mImageHeight = imageHeight;
+        this.mListener = listener;
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+
+        if (mListener != null) {
+            mListener.qrGenerationStarted();
+        }
+    }
+
+    @Override
+    protected Bitmap doInBackground(String... params) {
+        return encodeToQrCode(params[0], mImageWidth, mImageHeight);
+    }
+
+    @Override
+    protected void onPostExecute(Bitmap bitmap) {
+        super.onPostExecute(bitmap);
+
+        if (mListener != null) {
+            mListener.qrGenerated(bitmap);
+        }
+    }
+
+    private Bitmap encodeToQrCode(String text, int width, int height){
         QRCodeWriter writer = new QRCodeWriter();
         BitMatrix matrix;
         try {
-            matrix = writer.encode(text, BarcodeFormat.QR_CODE, 100, 100);
+            matrix = writer.encode(text, BarcodeFormat.QR_CODE, width, height);
         } catch (WriterException ex) {
             ex.printStackTrace();
             return null;
@@ -29,5 +62,11 @@ public class QRGenerator {
             }
         }
         return bmp;
+    }
+
+    public interface QRGeneratorListener {
+        void qrGenerationStarted();
+
+        void qrGenerated(Bitmap bitmap);
     }
 }
