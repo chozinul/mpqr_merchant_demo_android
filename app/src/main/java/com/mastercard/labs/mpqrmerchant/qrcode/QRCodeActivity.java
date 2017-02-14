@@ -21,6 +21,7 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class QRCodeActivity extends AppCompatActivity implements QRCodeContract.View {
     private static String BUNDLE_QR_DATA = "qrData";
@@ -51,7 +52,6 @@ public class QRCodeActivity extends AppCompatActivity implements QRCodeContract.
     private QRData mQRData;
 
     private QRCodeContract.Presenter mPresenter;
-
     private QRGenerator qrGenerator;
 
     public static Intent newIntent(Context context, QRData qrData, String pushPaymentString) {
@@ -101,6 +101,11 @@ public class QRCodeActivity extends AppCompatActivity implements QRCodeContract.
 
         outState.putString(BUNDLE_PPSTRING_KEY, mPushPaymentString);
         outState.putParcelable(BUNDLE_QR_DATA, mQRData);
+    }
+
+    @OnClick(value = R.id.btn_return)
+    public void returnBtnPressed() {
+        finish();
     }
 
     @Override
