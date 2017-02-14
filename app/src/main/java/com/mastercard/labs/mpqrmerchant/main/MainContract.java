@@ -27,6 +27,10 @@ interface MainContract {
 
         void setAmount(double transactionAmount);
 
+        void setStaticAmountTitle();
+
+        void setDynamicAmountTitle();
+
         void setFlatConvenienceFee(double tip);
 
         void enableTipChange();

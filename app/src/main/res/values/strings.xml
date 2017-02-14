@@ -84,4 +84,6 @@
     <string name="tip_type_prompt">Prompt</string>
     <string name="tip_type_fixed">Fixed</string>
     <string name="tip_type_none">NA</string>
+    <string name="amount_static">Amount - Static</string>
+    <string name="amount_dynamic">Amount - Dynamic</string>
 </resources>

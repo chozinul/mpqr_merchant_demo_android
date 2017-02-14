@@ -231,6 +231,16 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         blockAmountTextViewChange = false;
     }
 
+    @Override
+    public void setStaticAmountTitle() {
+        amountTitleTextView.setText(R.string.amount_static);
+    }
+
+    @Override
+    public void setDynamicAmountTitle() {
+        amountTitleTextView.setText(R.string.amount_dynamic);
+    }
+
     private void setTipHasPercentage(boolean hasPercentage) {
         tipEditText.setSuffix(hasPercentage ? " %" : "");
         tipInputFilter.setMax(hasPercentage ? 100 : Double.MAX_VALUE);

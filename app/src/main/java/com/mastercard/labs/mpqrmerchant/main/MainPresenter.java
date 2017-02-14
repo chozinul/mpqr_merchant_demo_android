@@ -5,6 +5,9 @@ import com.mastercard.labs.mpqrmerchant.data.model.QRData;
 import com.mastercard.labs.mpqrmerchant.data.model.Transaction;
 import com.mastercard.labs.mpqrmerchant.data.model.User;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
+import com.mastercard.mpqr.pushpayment.exception.FormatException;
+import com.mastercard.mpqr.pushpayment.model.AdditionalData;
+import com.mastercard.mpqr.pushpayment.model.PushPaymentData;
 
 import java.util.Arrays;
 import java.util.List;
@@ -85,13 +88,12 @@ class MainPresenter implements MainContract.Presenter {
             return;
         }
 
-        mView.setAmount(qrData.getTransactionAmount());
+        setAmount(qrData.getTransactionAmount());
 
-        updateTipView();
-        updateTotal();
+        updateTipAndTotalView();
     }
 
-    private void updateTipView() {
+    private void updateTipAndTotalView() {
         double tip = qrData.getTip();
 
         switch (qrData.getTipType()) {
@@ -119,6 +121,14 @@ class MainPresenter implements MainContract.Presenter {
     public void setAmount(double amount) {
         qrData.setTransactionAmount(amount);
 
+        if (amount == 0) {
+            mView.setStaticAmountTitle();
+        } else {
+            mView.setDynamicAmountTitle();
+        }
+
+        mView.setAmount(amount);
+
         updateTotal();
     }
 
@@ -130,8 +140,7 @@ class MainPresenter implements MainContract.Presenter {
             qrData.setTip(0);
         }
 
-        updateTipView();
-        updateTotal();
+        updateTipAndTotalView();
     }
 
     @Override
@@ -143,7 +152,7 @@ class MainPresenter implements MainContract.Presenter {
 
         qrData.setTip(tipAmount);
 
-        updateTotal();
+        updateTipAndTotalView();
     }
 
     @Override
