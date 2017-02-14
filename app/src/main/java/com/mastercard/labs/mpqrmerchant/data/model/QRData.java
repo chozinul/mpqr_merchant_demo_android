@@ -1,11 +1,14 @@
 package com.mastercard.labs.mpqrmerchant.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 
 /**
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/13/17
  */
-public class QRData {
+public class QRData implements Parcelable {
     private String merchantCode;
     private String merchantName;
     private String merchantCity;
@@ -183,4 +186,66 @@ public class QRData {
         PROMPT,
         NONE
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.merchantCode);
+        dest.writeString(this.merchantName);
+        dest.writeString(this.merchantCity);
+        dest.writeString(this.merchantCountryCode);
+        dest.writeString(this.merchantCategoryCode);
+        dest.writeString(this.merchantIdentifierVisa02);
+        dest.writeString(this.merchantIdentifierVisa03);
+        dest.writeString(this.merchantIdentifierMastercard04);
+        dest.writeString(this.merchantIdentifierMastercard05);
+        dest.writeString(this.merchantIdentifierNPCI06);
+        dest.writeString(this.merchantIdentifierNPCI07);
+        dest.writeString(this.merchantStoreId);
+        dest.writeString(this.merchantTerminalId);
+        dest.writeDouble(this.transactionAmount);
+        dest.writeInt(this.tipType == null ? -1 : this.tipType.ordinal());
+        dest.writeDouble(this.tip);
+        dest.writeString(this.currencyNumericCode);
+    }
+
+    public QRData() {
+    }
+
+    protected QRData(Parcel in) {
+        this.merchantCode = in.readString();
+        this.merchantName = in.readString();
+        this.merchantCity = in.readString();
+        this.merchantCountryCode = in.readString();
+        this.merchantCategoryCode = in.readString();
+        this.merchantIdentifierVisa02 = in.readString();
+        this.merchantIdentifierVisa03 = in.readString();
+        this.merchantIdentifierMastercard04 = in.readString();
+        this.merchantIdentifierMastercard05 = in.readString();
+        this.merchantIdentifierNPCI06 = in.readString();
+        this.merchantIdentifierNPCI07 = in.readString();
+        this.merchantStoreId = in.readString();
+        this.merchantTerminalId = in.readString();
+        this.transactionAmount = in.readDouble();
+        int tmpTipType = in.readInt();
+        this.tipType = tmpTipType == -1 ? null : TipType.values()[tmpTipType];
+        this.tip = in.readDouble();
+        this.currencyNumericCode = in.readString();
+    }
+
+    public static final Parcelable.Creator<QRData> CREATOR = new Parcelable.Creator<QRData>() {
+        @Override
+        public QRData createFromParcel(Parcel source) {
+            return new QRData(source);
+        }
+
+        @Override
+        public QRData[] newArray(int size) {
+            return new QRData[size];
+        }
+    };
 }
