@@ -4,6 +4,8 @@ import com.mastercard.labs.mpqrmerchant.data.DataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.QRData;
 import com.mastercard.labs.mpqrmerchant.data.model.Transaction;
 import com.mastercard.labs.mpqrmerchant.data.model.User;
+import com.mastercard.labs.mpqrmerchant.network.LoginManager;
+import com.mastercard.labs.mpqrmerchant.network.ServiceGenerator;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 import com.mastercard.mpqr.pushpayment.exception.FormatException;
 import com.mastercard.mpqr.pushpayment.model.AdditionalData;
@@ -11,6 +13,10 @@ import com.mastercard.mpqr.pushpayment.model.PushPaymentData;
 
 import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/13/17
@@ -260,5 +266,30 @@ class MainPresenter implements MainContract.Presenter {
         }
 
         mView.showQRCode(qrData.getMerchantCode(), paymentData.toString());
+    }
+
+    @Override
+    public void logout() {
+        mView.showLogoutProgress();
+
+        ServiceGenerator.getInstance().mpqrPaymentService().logout().enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                mView.hideLogoutProgress();
+
+                LoginManager.getInstance().logout();
+
+                mView.showLoginActivity();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                mView.hideLogoutProgress();
+
+                if (!call.isCanceled()) {
+                    mView.showLogoutFailed();
+                }
+            }
+        });
     }
 }

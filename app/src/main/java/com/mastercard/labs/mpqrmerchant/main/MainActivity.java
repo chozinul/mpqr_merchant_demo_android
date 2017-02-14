@@ -1,6 +1,8 @@
 package com.mastercard.labs.mpqrmerchant.main;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -15,12 +17,14 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mastercard.labs.mpqrmerchant.R;
 import com.mastercard.labs.mpqrmerchant.data.RealmDataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.QRData;
+import com.mastercard.labs.mpqrmerchant.login.LoginActivity;
 import com.mastercard.labs.mpqrmerchant.network.LoginManager;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 import com.mastercard.labs.mpqrmerchant.utils.DialogUtils;
@@ -95,6 +99,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     private boolean blockAmountTextViewChange;
     private boolean blockTipTextViewChange;
 
+    private ProgressDialog progressDialog;
+
     private AmountInputFilter tipInputFilter = new AmountInputFilter(0, Double.MAX_VALUE);
 
     @Override
@@ -167,6 +173,24 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @OnClick(value = R.id.btn_generate)
     public void generateQRCode(View view) {
         mPresenter.generateQRString();
+    }
+
+    @OnClick(value = R.id.btn_logout)
+    public void logout(View view) {
+        DialogUtils.customAlertDialogBuilder(this, R.string.logout_confirmation)
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        mPresenter.logout();
+                    }
+                })
+                .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 
     private double parseAmount(String amountText) {
@@ -358,6 +382,37 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void showQRCode(String merchantCode, String qrCodeString) {
         // TODO: Implement it
+    }
+
+    @Override
+    public void showLogoutProgress() {
+        hideLogoutProgress();
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage(getString(R.string.logging_out));
+        progressDialog.setCancelable(false);
+
+        progressDialog.show();
+    }
+
+    @Override
+    public void hideLogoutProgress() {
+        if (progressDialog != null) {
+            progressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void showLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        startActivity(intent);
+    }
+
+    @Override
+    public void showLogoutFailed() {
+        DialogUtils.showDialog(this, 0, R.string.logout_failed);
     }
 
     private class AmountInputFilter implements InputFilter {

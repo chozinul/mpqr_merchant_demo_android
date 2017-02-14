@@ -52,6 +52,14 @@ interface MainContract {
         void setTotalAmount(double amount, String currencyCode);
 
         void showQRCode(String merchantCode, String qrCodeString);
+
+        void showLogoutProgress();
+
+        void hideLogoutProgress();
+
+        void showLoginActivity();
+
+        void showLogoutFailed();
     }
 
     interface Presenter extends BasePresenter {
@@ -69,5 +77,7 @@ interface MainContract {
         void selectTipType();
 
         void generateQRString();
+
+        void logout();
     }
 }
