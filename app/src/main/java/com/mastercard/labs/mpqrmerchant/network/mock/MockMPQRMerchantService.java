@@ -46,7 +46,8 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
                 "    \"code\": \"12345678\",\n" +
                 "    \"name\": \"FarmtoTable F&B\",\n" +
                 "    \"city\": \"Delhi\",\n" +
-                "    \"categoryCode\": \"123\",\n" +
+                "    \"countryCode\": \"INR\",\n" +
+                "    \"categoryCode\": \"1234\",\n" +
                 "    \"currencyNumericCode\": \"356\",\n" +
                 "    \"identifierMastercard04\": \"5555222233334444\",\n" +
                 "    \"transactions\": [\n" +

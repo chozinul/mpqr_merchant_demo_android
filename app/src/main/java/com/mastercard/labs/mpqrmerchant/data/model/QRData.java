@@ -6,8 +6,10 @@ import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/13/17
  */
 public class QRData {
+    private String merchantCode;
     private String merchantName;
     private String merchantCity;
+    private String merchantCountryCode;
     private String merchantCategoryCode;
     private String merchantIdentifierVisa02;
     private String merchantIdentifierVisa03;
@@ -15,10 +17,21 @@ public class QRData {
     private String merchantIdentifierMastercard05;
     private String merchantIdentifierNPCI06;
     private String merchantIdentifierNPCI07;
+    private String merchantStoreId;
+    private String merchantTerminalId;
+
     private double transactionAmount;
     private TipType tipType;
     private double tip;
     private String currencyNumericCode;
+
+    public String getMerchantCode() {
+        return merchantCode;
+    }
+
+    public void setMerchantCode(String merchantCode) {
+        this.merchantCode = merchantCode;
+    }
 
     public String getMerchantName() {
         return merchantName;
@@ -34,6 +47,14 @@ public class QRData {
 
     public void setMerchantCity(String merchantCity) {
         this.merchantCity = merchantCity;
+    }
+
+    public String getMerchantCountryCode() {
+        return merchantCountryCode;
+    }
+
+    public void setMerchantCountryCode(String merchantCountryCode) {
+        this.merchantCountryCode = merchantCountryCode;
     }
 
     public String getMerchantCategoryCode() {
@@ -90,6 +111,22 @@ public class QRData {
 
     public void setMerchantIdentifierNPCI07(String merchantIdentifierNPCI07) {
         this.merchantIdentifierNPCI07 = merchantIdentifierNPCI07;
+    }
+
+    public String getMerchantStoreId() {
+        return merchantStoreId;
+    }
+
+    public void setMerchantStoreId(String merchantStoreId) {
+        this.merchantStoreId = merchantStoreId;
+    }
+
+    public String getMerchantTerminalId() {
+        return merchantTerminalId;
+    }
+
+    public void setMerchantTerminalId(String merchantTerminalId) {
+        this.merchantTerminalId = merchantTerminalId;
     }
 
     public double getTransactionAmount() {

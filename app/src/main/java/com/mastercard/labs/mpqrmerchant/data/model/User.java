@@ -17,6 +17,7 @@ public class User extends RealmObject {
     private String name;
     private String city;
     private String categoryCode;
+    private String countryCode;
     private String identifierVisa02;
     private String identifierVisa03;
     private String identifierMastercard04;
@@ -58,6 +59,14 @@ public class User extends RealmObject {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 
     public String getCategoryCode() {

@@ -37,8 +37,10 @@ class MainPresenter implements MainContract.Presenter {
             return;
         }
 
+        qrData.setMerchantCode(mUser.getCode());
         qrData.setMerchantName(mUser.getName());
         qrData.setMerchantCity(mUser.getCity());
+        qrData.setMerchantCountryCode(mUser.getCountryCode());
         qrData.setMerchantCategoryCode(mUser.getCategoryCode());
         qrData.setMerchantIdentifierVisa02(mUser.getIdentifierVisa02());
         qrData.setMerchantIdentifierVisa03(mUser.getIdentifierVisa03());
@@ -46,6 +48,8 @@ class MainPresenter implements MainContract.Presenter {
         qrData.setMerchantIdentifierMastercard05(mUser.getIdentifierMastercard05());
         qrData.setMerchantIdentifierNPCI06(mUser.getIdentifierNPCI06());
         qrData.setMerchantIdentifierNPCI07(mUser.getIdentifierNPCI07());
+        qrData.setMerchantStoreId(mUser.getStoreId());
+        qrData.setMerchantTerminalId(mUser.getTerminalId());
 
         qrData.setTransactionAmount(0);
         qrData.setTipType(QRData.TipType.FLAT);
