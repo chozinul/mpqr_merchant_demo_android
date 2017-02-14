@@ -206,7 +206,12 @@ class MainPresenter implements MainContract.Presenter {
         // Version 01
         paymentData.setPayloadFormatIndicator("01");
         // 11 (static) if transaction amount is not provided else 12 (dynamic)
-        paymentData.setPointOfInitiationMethod("1" + (qrData.getTransactionAmount() == 0 ? "1" : "2"));
+        if (qrData.getTransactionAmount() == 0) {
+            paymentData.setPointOfInitiationMethod("11");
+        } else {
+            paymentData.setPointOfInitiationMethod("12");
+            paymentData.setTransactionAmount(qrData.getTransactionAmount());
+        }
         paymentData.setMerchantName(qrData.getMerchantName());
         paymentData.setMerchantCity(qrData.getMerchantCity());
         paymentData.setCountryCode(qrData.getMerchantCountryCode());
@@ -230,7 +235,6 @@ class MainPresenter implements MainContract.Presenter {
             paymentData.setMerchantIdentifierNPCI07(qrData.getMerchantIdentifierNPCI07());
         }
 
-        paymentData.setTransactionAmount(qrData.getTransactionAmount());
         switch (qrData.getTipType()) {
             case FLAT:
                 paymentData.setTipOrConvenienceIndicator(PushPaymentData.TipConvenienceIndicator.FLAT_CONVENIENCE_FEE);
