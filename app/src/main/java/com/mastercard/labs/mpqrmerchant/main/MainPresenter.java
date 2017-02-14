@@ -30,7 +30,7 @@ class MainPresenter implements MainContract.Presenter {
 
     private QRData qrData;
 
-    public MainPresenter(MainContract.View view, DataSource dataSource, long merchantId) {
+    MainPresenter(MainContract.View view, DataSource dataSource, long merchantId) {
         this.mView = view;
         this.mDataSource = dataSource;
         this.mId = merchantId;
