@@ -142,7 +142,7 @@
                 <LinearLayout
                         android:id="@+id/ll_transactions"
                         android:layout_width="wrap_content"
-                        android:layout_height="50dp"
+                        android:layout_height="60dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
                         android:background="@color/colorHeaderBackground"
@@ -150,8 +150,8 @@
                         android:gravity="center">
 
                     <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
                             android:background="@drawable/ic_right_arrow"
                             android:contentDescription="@string/transactions"/>
                 </LinearLayout>
@@ -162,15 +162,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/divider_height"
                     android:id="@+id/main_divider"
-                    android:layout_below="@+id/rl_merchant_info"
                     android:background="@drawable/drawable_divider"/>
 
             <RelativeLayout
                     style="@style/payment_layout"
                     android:id="@+id/rl_payment_layout"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/rectangle_border"
-                    android:layout_below="@id/main_divider">
+                    android:background="@drawable/rectangle_border">
 
                 <RelativeLayout
                         android:id="@+id/rl_currency"
