@@ -147,6 +147,7 @@ class MainPresenter implements MainContract.Presenter {
         // Assign only if valid numeric code
         if (currencyCode != null) {
             qrData.setCurrencyNumericCode(currencyCode.getNumericCode());
+            mView.setCurrency(currencyCode.toString());
             updateTotal();
         } else {
             mView.showInvalidDataError();
