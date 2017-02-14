@@ -17,7 +17,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,6 +25,7 @@ import com.mastercard.labs.mpqrmerchant.data.RealmDataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.QRData;
 import com.mastercard.labs.mpqrmerchant.login.LoginActivity;
 import com.mastercard.labs.mpqrmerchant.network.LoginManager;
+import com.mastercard.labs.mpqrmerchant.qrcode.QRCodeActivity;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 import com.mastercard.labs.mpqrmerchant.utils.DialogUtils;
 import com.mastercard.labs.mpqrmerchant.view.SuffixEditText;
@@ -380,8 +380,9 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
-    public void showQRCode(String merchantCode, String qrCodeString) {
-        // TODO: Implement it
+    public void showQRCode(QRData qrData, String qrCodeString) {
+        Intent intent = QRCodeActivity.newIntent(this, qrData, qrCodeString);
+        startActivity(intent);
     }
 
     @Override

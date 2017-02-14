@@ -269,7 +269,7 @@ class MainPresenter implements MainContract.Presenter {
             return;
         }
 
-        mView.showQRCode(qrData.getMerchantCode(), paymentData.toString());
+        mView.showQRCode(qrData, paymentData.toString());
     }
 
     @Override

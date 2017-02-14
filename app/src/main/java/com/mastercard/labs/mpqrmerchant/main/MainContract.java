@@ -51,7 +51,7 @@ interface MainContract {
 
         void setTotalAmount(double amount, String currencyCode);
 
-        void showQRCode(String merchantCode, String qrCodeString);
+        void showQRCode(QRData qrData, String qrCodeString);
 
         void showLogoutProgress();
 
