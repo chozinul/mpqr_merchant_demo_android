@@ -48,6 +48,7 @@ public class LoginManager {
     }
 
     public void logout() {
+        // TODO: Remove user from database?
         setLoggedInUserId(-1);
         setToken(null);
     }
