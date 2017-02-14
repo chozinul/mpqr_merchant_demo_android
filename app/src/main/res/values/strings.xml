@@ -87,4 +87,6 @@
     <string name="amount_static">Amount - Static</string>
     <string name="amount_dynamic">Amount - Dynamic</string>
     <string name="logout_confirmation">Are you sure you want to logout?</string>
+    <string name="title_activity_qrcode">QRCodeActivity</string>
+    <string name="qrcode">QR Code</string>
 </resources>
