@@ -115,7 +115,7 @@
                     <ImageView
                             android:layout_width="30dp"
                             android:layout_height="30dp"
-                            android:background="@drawable/ic_right_arrow"
+                            android:background="@drawable/ic_show_transaction_list"
                             android:contentDescription="@string/transactions"/>
                 </LinearLayout>
             </RelativeLayout>

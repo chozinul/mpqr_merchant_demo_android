@@ -16,7 +16,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,6 +25,7 @@ import com.mastercard.labs.mpqrmerchant.data.model.QRData;
 import com.mastercard.labs.mpqrmerchant.login.LoginActivity;
 import com.mastercard.labs.mpqrmerchant.network.LoginManager;
 import com.mastercard.labs.mpqrmerchant.qrcode.QRCodeActivity;
+import com.mastercard.labs.mpqrmerchant.transaction.list.TransactionListActivity;
 import com.mastercard.labs.mpqrmerchant.transaction.overview.TransactionOverviewFragment;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 import com.mastercard.labs.mpqrmerchant.utils.DialogUtils;
@@ -183,6 +183,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
                         dialog.dismiss();
                     }
                 }).show();
+    }
+
+    @OnClick(value = R.id.ll_transactions)
+    public void showTransactions() {
+        Intent intent = TransactionListActivity.newIntent(this, userId);
+
+        startActivity(intent);
     }
 
     private double parseAmount(String amountText) {

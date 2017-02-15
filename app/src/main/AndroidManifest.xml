@@ -39,6 +39,15 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.mastercard.labs.mpqrmerchant.main.MainActivity"/>
         </activity>
+        <activity
+                android:name=".transaction.list.TransactionListActivity"
+                android:label="@string/title_activity_transaction_list"
+                android:parentActivityName=".main.MainActivity"
+                android:theme="@style/AppTheme">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.mastercard.labs.mpqrmerchant.main.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

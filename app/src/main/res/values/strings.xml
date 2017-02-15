@@ -91,4 +91,6 @@
     <string name="qrcode">QR Code</string>
     <string name="qr_code_generation_error">Cannot generate QR code. Please try again.</string>
     <string name="qr_merchant_code">Merchant Code: %s</string>
+    <string name="title_activity_transaction_list">Transactions</string>
+    <string name="transaction_detail">Transaction Detail</string>
 </resources>

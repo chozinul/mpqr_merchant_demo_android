@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:padding="20dp">
+
+    <ImageView
+            android:id="@+id/img_tick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_tick"
+            android:contentDescription="@string/tick"
+            android:layout_centerVertical="true"/>
+    
+    <TextView
+            android:id="@+id/txt_transaction_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/img_tick"
+            android:layout_marginStart="15dp"
+            android:textSize="@dimen/size_x"
+            android:textColor="@color/colorTextMainColor"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/img_detail"
+            tools:text="60.00"/>
+
+    <TextView
+            android:id="@+id/txt_invoice_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/size_small"
+            android:layout_below="@id/txt_transaction_amount"
+            android:layout_alignStart="@id/txt_transaction_amount"
+            android:layout_toStartOf="@+id/txt_transaction_date"
+            tools:text="INV 12345678"/>
+
+    <ImageView
+            android:id="@+id/img_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_show_transaction_detail"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/txt_transaction_amount"
+            android:layout_alignBottom="@id/txt_transaction_amount"
+            android:contentDescription="@string/transaction_detail"/>
+
+    <TextView
+            android:id="@+id/txt_transaction_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/size_10"
+            android:layout_below="@id/img_detail"
+            android:layout_alignTop="@id/txt_invoice_number"
+            android:layout_alignParentEnd="true"
+            tools:text="15/2/2017 11:00 AM"/>
+
+</RelativeLayout>

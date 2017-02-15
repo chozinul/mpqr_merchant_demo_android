@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/content_transaction_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@drawable/background"
+        tools:showIn="@layout/activity_transaction_list"
+        tools:context="com.mastercard.labs.mpqrmerchant.transaction.list.TransactionListActivity">
+
+    <!--Background shown for the fragment is only visible in IDE-->
+    <fragment
+            android:name="com.mastercard.labs.mpqrmerchant.transaction.overview.TransactionOverviewFragment"
+            android:id="@+id/frg_transaction_overview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            tools:layout="@layout/fragment_transaction_overview"/>
+
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_transactions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:background="@color/colorLightGrey"
+            android:layout_below="@id/frg_transaction_overview" />
+
+</RelativeLayout>

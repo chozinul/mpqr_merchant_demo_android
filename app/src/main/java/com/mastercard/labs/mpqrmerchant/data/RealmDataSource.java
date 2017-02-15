@@ -3,6 +3,7 @@ package com.mastercard.labs.mpqrmerchant.data;
 import com.mastercard.labs.mpqrmerchant.data.model.User;
 import com.mastercard.labs.mpqrmerchant.data.model.Transaction;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
@@ -54,13 +55,13 @@ public class RealmDataSource implements DataSource {
     @Override
     public List<Transaction> getTransactions(Long id) {
         if (id == null) {
-            return null;
+            return new ArrayList<>();
         }
 
         try (Realm realm = Realm.getDefaultInstance()) {
             User user = realm.where(User.class).equalTo("id", id).findFirst();
             if (user == null) {
-                return null;
+                return new ArrayList<>();
             } else {
                 return realm.copyFromRealm(user.getTransactions());
             }
