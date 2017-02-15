@@ -42,11 +42,21 @@
         <activity
                 android:name=".transaction.list.TransactionListActivity"
                 android:label="@string/title_activity_transaction_list"
+                android:launchMode="singleTop"
                 android:parentActivityName=".main.MainActivity"
                 android:theme="@style/AppTheme">
             <meta-data
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.mastercard.labs.mpqrmerchant.main.MainActivity"/>
+        </activity>
+        <activity
+                android:name=".transaction.detail.TransactionDetailActivity"
+                android:label="@string/title_activity_transaction_detail"
+                android:parentActivityName=".transaction.list.TransactionListActivity"
+                android:theme="@style/AppTheme">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.mastercard.labs.mpqrmerchant.transaction.list.TransactionListActivity"/>
         </activity>
     </application>
 

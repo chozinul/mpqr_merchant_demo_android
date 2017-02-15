@@ -15,6 +15,7 @@ import com.mastercard.labs.mpqrmerchant.R;
 import com.mastercard.labs.mpqrmerchant.adapter.TransactionsAdapter;
 import com.mastercard.labs.mpqrmerchant.data.RealmDataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.Transaction;
+import com.mastercard.labs.mpqrmerchant.transaction.detail.TransactionDetailActivity;
 import com.mastercard.labs.mpqrmerchant.transaction.overview.TransactionOverviewFragment;
 import com.mastercard.labs.mpqrmerchant.utils.DialogUtils;
 
@@ -23,7 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TransactionListActivity extends AppCompatActivity implements TransactionListContract.View {
+public class TransactionListActivity extends AppCompatActivity implements TransactionListContract.View, TransactionsAdapter.TransactionItemListener {
     public static String BUNDLE_USER_KEY = "userId";
 
     @BindView(R.id.rv_transactions)
@@ -95,7 +96,7 @@ public class TransactionListActivity extends AppCompatActivity implements Transa
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
-        });
+        }).show();
     }
 
     @Override
@@ -118,7 +119,13 @@ public class TransactionListActivity extends AppCompatActivity implements Transa
 
     @Override
     public void setTransactions(List<Transaction> transactions) {
-        mTransactionsAdapter = new TransactionsAdapter(transactions);
+        mTransactionsAdapter = new TransactionsAdapter(transactions, this);
         mTransactionsRecyclerView.setAdapter(mTransactionsAdapter);
+    }
+
+    @Override
+    public void onTransactionItemClicked(Transaction transaction) {
+        Intent intent = TransactionDetailActivity.newIntent(this, transaction.getReferenceId());
+        startActivity(intent);
     }
 }

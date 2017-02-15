@@ -24,4 +24,5 @@
     <color name="colorTextBlue">#0082bb</color>
     <color name="colorDisabledDeepSeaBlue">#1F00567e</color>
     <color name="colorHeaderBackground">#1FFFFFFF</color>
+    <color name="colorTextGreen">#6bbb70</color>
 </resources>

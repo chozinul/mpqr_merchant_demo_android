@@ -21,7 +21,7 @@ public class QRData implements Parcelable {
     private String merchantIdentifierNPCI06;
     private String merchantIdentifierNPCI07;
     private String merchantStoreId;
-    private String merchantTerminalId;
+    private String merchantTerminalNumber;
 
     private double transactionAmount;
     private TipType tipType;
@@ -124,12 +124,12 @@ public class QRData implements Parcelable {
         this.merchantStoreId = merchantStoreId;
     }
 
-    public String getMerchantTerminalId() {
-        return merchantTerminalId;
+    public String getMerchantTerminalNumber() {
+        return merchantTerminalNumber;
     }
 
-    public void setMerchantTerminalId(String merchantTerminalId) {
-        this.merchantTerminalId = merchantTerminalId;
+    public void setMerchantTerminalNumber(String merchantTerminalNumber) {
+        this.merchantTerminalNumber = merchantTerminalNumber;
     }
 
     public double getTransactionAmount() {
@@ -206,7 +206,7 @@ public class QRData implements Parcelable {
         dest.writeString(this.merchantIdentifierNPCI06);
         dest.writeString(this.merchantIdentifierNPCI07);
         dest.writeString(this.merchantStoreId);
-        dest.writeString(this.merchantTerminalId);
+        dest.writeString(this.merchantTerminalNumber);
         dest.writeDouble(this.transactionAmount);
         dest.writeInt(this.tipType == null ? -1 : this.tipType.ordinal());
         dest.writeDouble(this.tip);
@@ -229,7 +229,7 @@ public class QRData implements Parcelable {
         this.merchantIdentifierNPCI06 = in.readString();
         this.merchantIdentifierNPCI07 = in.readString();
         this.merchantStoreId = in.readString();
-        this.merchantTerminalId = in.readString();
+        this.merchantTerminalNumber = in.readString();
         this.transactionAmount = in.readDouble();
         int tmpTipType = in.readInt();
         this.tipType = tmpTipType == -1 ? null : TipType.values()[tmpTipType];

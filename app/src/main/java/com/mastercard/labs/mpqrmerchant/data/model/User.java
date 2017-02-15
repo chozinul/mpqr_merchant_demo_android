@@ -25,7 +25,7 @@ public class User extends RealmObject {
     private String identifierNPCI06;
     private String identifierNPCI07;
     private String storeId;
-    private String terminalId;
+    private String terminalNumber;
     private String currencyNumericCode;
     private RealmList<Transaction> transactions;
 
@@ -133,12 +133,12 @@ public class User extends RealmObject {
         this.storeId = storeId;
     }
 
-    public String getTerminalId() {
-        return terminalId;
+    public String getTerminalNumber() {
+        return terminalNumber;
     }
 
-    public void setTerminalId(String terminalId) {
-        this.terminalId = terminalId;
+    public void setTerminalNumber(String terminalNumber) {
+        this.terminalNumber = terminalNumber;
     }
 
     public String getCurrencyNumericCode() {
@@ -174,12 +174,12 @@ public class User extends RealmObject {
                 Objects.equals(identifierNPCI06, user.identifierNPCI06) &&
                 Objects.equals(identifierNPCI07, user.identifierNPCI07) &&
                 Objects.equals(storeId, user.storeId) &&
-                Objects.equals(terminalId, user.terminalId) &&
+                Objects.equals(terminalNumber, user.terminalNumber) &&
                 Objects.equals(currencyNumericCode, user.currencyNumericCode);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, code, name, city, categoryCode, identifierVisa02, identifierVisa03, identifierMastercard04, identifierMastercard05, identifierNPCI06, identifierNPCI07, storeId, terminalId, currencyNumericCode);
+        return Objects.hash(id, code, name, city, categoryCode, identifierVisa02, identifierVisa03, identifierMastercard04, identifierMastercard05, identifierNPCI06, identifierNPCI07, storeId, terminalNumber, currencyNumericCode);
     }
 }

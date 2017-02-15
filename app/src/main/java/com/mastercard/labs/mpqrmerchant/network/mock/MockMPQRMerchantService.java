@@ -50,11 +50,13 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
                 "    \"categoryCode\": \"1234\",\n" +
                 "    \"currencyNumericCode\": \"356\",\n" +
                 "    \"identifierMastercard04\": \"5555222233334444\",\n" +
+                "    \"storeId\": \"87654321\",\n" +
+                "    \"terminalNumber\": \"3124652125\",\n" +
                 "    \"transactions\": [\n" +
                 "      {\n" +
                 "        \"referenceId\": \"0390284231\",\n" +
                 "        \"transactionAmount\": \"190.00\",\n" +
-                "        \"tip\": \"15.00\",\n" +
+                "        \"tipAmount\": \"15.00\",\n" +
                 "        \"currencyNumericCode\": 356,\n" +
                 "        \"transactionDate\": \"" + dateFormat.format(new Date()) + "\",\n" +
                 "        \"invoiceNumber\": \"134652125\",\n" +

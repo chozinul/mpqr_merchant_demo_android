@@ -69,6 +69,22 @@ public class RealmDataSource implements DataSource {
     }
 
     @Override
+    public Transaction getTransaction(String referenceId) {
+        if (referenceId == null) {
+            return null;
+        }
+
+        try (Realm realm = Realm.getDefaultInstance()) {
+            Transaction transaction = realm.where(Transaction.class).equalTo("referenceId", referenceId).findFirst();
+            if (transaction == null) {
+                return null;
+            } else {
+                return realm.copyFromRealm(transaction);
+            }
+        }
+    }
+
+    @Override
     public boolean deleteUser(long id) {
         try (Realm realm = Realm.getDefaultInstance()) {
             User user = realm.where(User.class).equalTo("id", id).findFirst();
