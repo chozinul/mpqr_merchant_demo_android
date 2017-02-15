@@ -120,12 +120,6 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/divider_height"
-                    android:id="@+id/main_divider"
-                    android:background="@drawable/drawable_divider"/>
-
             <RelativeLayout
                     style="@style/payment_layout"
                     android:id="@+id/rl_payment_layout"

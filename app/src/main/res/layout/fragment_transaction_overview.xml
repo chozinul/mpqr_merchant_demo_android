@@ -5,7 +5,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:paddingBottom="30dp"
                 android:paddingTop="16dp"
                 tools:background="@color/colorDeepSeaBlue"
                 tools:context="com.mastercard.labs.mpqrmerchant.transaction.overview.TransactionOverviewFragment">
@@ -59,5 +58,13 @@
             android:fontFamily="sans-serif"
             android:textSize="@dimen/size_x"
             android:layout_below="@id/txt_transactions_daily_value"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:id="@+id/main_divider"
+            android:layout_marginTop="30dp"
+            android:layout_below="@id/txt_transactions_daily"
+            android:background="@drawable/drawable_divider"/>
 
 </RelativeLayout>
