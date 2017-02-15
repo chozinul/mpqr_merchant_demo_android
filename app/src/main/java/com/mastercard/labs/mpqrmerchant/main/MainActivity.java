@@ -26,6 +26,7 @@ import com.mastercard.labs.mpqrmerchant.data.model.QRData;
 import com.mastercard.labs.mpqrmerchant.login.LoginActivity;
 import com.mastercard.labs.mpqrmerchant.network.LoginManager;
 import com.mastercard.labs.mpqrmerchant.qrcode.QRCodeActivity;
+import com.mastercard.labs.mpqrmerchant.transaction.overview.TransactionOverviewFragment;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 import com.mastercard.labs.mpqrmerchant.utils.DialogUtils;
 import com.mastercard.labs.mpqrmerchant.view.SuffixEditText;
@@ -59,15 +60,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
-    @BindView(R.id.txt_total_daily_value)
-    TextView txtTotalDailyValue;
-
-    @BindView(R.id.txt_transactions_daily_value)
-    TextView txtTransactionsDailyValue;
-
-    @BindView(R.id.ll_transactions)
-    LinearLayout layoutTransactions;
 
     @BindView(R.id.txt_currency_value)
     TextView txtCurrencyValue;
@@ -228,14 +220,26 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         txtMerchantCity.setText(String.format(Locale.getDefault(), "@%s", city));
     }
 
+    private TransactionOverviewFragment getTransactionOverviewFragment() {
+        return (TransactionOverviewFragment) getSupportFragmentManager().findFragmentById(R.id.frg_transaction_overview);
+    }
+
     @Override
     public void setTransactionTotalAmount(double amount, String currencyCode) {
-        txtTotalDailyValue.setText(String.format(Locale.getDefault(), "%s %,.2f", currencyCode, amount));
+        TransactionOverviewFragment transactionOverviewFragment = getTransactionOverviewFragment();
+        if (transactionOverviewFragment == null) {
+            return;
+        }
+        transactionOverviewFragment.setTotalDailyAmount(currencyCode, amount);
     }
 
     @Override
     public void setTotalTransactions(int size) {
-        txtTransactionsDailyValue.setText(String.format(Locale.getDefault(), "%d", size));
+        TransactionOverviewFragment transactionOverviewFragment = getTransactionOverviewFragment();
+        if (transactionOverviewFragment == null) {
+            return;
+        }
+        transactionOverviewFragment.setTotalTransactions(size);
     }
 
     @Override

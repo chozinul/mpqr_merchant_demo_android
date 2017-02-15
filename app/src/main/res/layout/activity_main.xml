@@ -91,70 +91,24 @@
                 android:orientation="vertical">
 
             <RelativeLayout
-                    android:id="@+id/rl_merchant_info"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:paddingBottom="30dp"
-                    android:paddingTop="16dp">
+                    android:layout_height="wrap_content">
 
-                <TextView
-                        android:id="@+id/txt_total_daily_value"
+                <!--Background shown for the fragment is only visible in IDE-->
+                <fragment
+                        android:name="com.mastercard.labs.mpqrmerchant.transaction.overview.TransactionOverviewFragment"
+                        android:id="@+id/frg_transaction_overview"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:gravity="center"
-                        android:fontFamily="sans-serif-thin"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/size_32"
-                        tools:text="INR 102.90"/>
-
-                <TextView
-                        android:id="@+id/txt_total_daily"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/total_daily"
-                        android:layout_marginBottom="10dp"
-                        android:gravity="center"
-                        android:textColor="@color/colorWhite"
-                        android:textAllCaps="true"
-                        android:fontFamily="sans-serif"
-                        android:textSize="@dimen/size_x"
-                        android:layout_below="@id/txt_total_daily_value"/>
-
-                <TextView
-                        android:id="@+id/txt_transactions_daily_value"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:gravity="center"
-                        android:fontFamily="sans-serif-thin"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="@dimen/size_32"
-                        android:layout_below="@id/txt_total_daily"
-                        tools:text="100"/>
-
-                <TextView
-                        android:id="@+id/txt_transactions_daily"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/transactions_daily"
-                        android:gravity="center"
-                        android:textColor="@color/colorWhite"
-                        android:textAllCaps="true"
-                        android:fontFamily="sans-serif"
-                        android:textSize="@dimen/size_x"
-                        android:layout_below="@id/txt_transactions_daily_value"/>
+                        tools:layout="@layout/fragment_transaction_overview"/>
 
                 <LinearLayout
                         android:id="@+id/ll_transactions"
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
+                        android:background="@color/colorHeaderBackground"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:background="@color/colorHeaderBackground"
                         android:orientation="vertical"
                         android:gravity="center">
 
@@ -164,7 +118,6 @@
                             android:background="@drawable/ic_right_arrow"
                             android:contentDescription="@string/transactions"/>
                 </LinearLayout>
-
             </RelativeLayout>
 
             <View
