@@ -14,4 +14,6 @@ public interface DataSource {
     User getUser(Long id);
 
     List<Transaction> getTransactions(Long id);
+
+    boolean deleteUser(long id);
 }

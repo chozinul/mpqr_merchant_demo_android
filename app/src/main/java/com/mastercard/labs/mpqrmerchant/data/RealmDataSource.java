@@ -66,4 +66,22 @@ public class RealmDataSource implements DataSource {
             }
         }
     }
+
+    @Override
+    public boolean deleteUser(long id) {
+        try (Realm realm = Realm.getDefaultInstance()) {
+            User user = realm.where(User.class).equalTo("id", id).findFirst();
+            if (user == null) {
+                return false;
+            }
+
+            realm.beginTransaction();
+
+            user.deleteFromRealm();
+
+            realm.commitTransaction();
+        }
+
+        return true;
+    }
 }
