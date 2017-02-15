@@ -102,7 +102,12 @@ class MainPresenter implements MainContract.Presenter {
     private void updateTipAndTotalView() {
         double tip = qrData.getTip();
 
-        switch (qrData.getTipType()) {
+        QRData.TipType tipType = qrData.getTipType();
+        if (tipType == null) {
+            tipType = QRData.TipType.NONE;
+        }
+
+        switch (tipType) {
             case FLAT:
                 mView.setFlatConvenienceFee(tip);
                 mView.enableTipChange();
