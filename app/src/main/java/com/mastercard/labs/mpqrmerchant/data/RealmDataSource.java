@@ -1,10 +1,10 @@
 package com.mastercard.labs.mpqrmerchant.data;
 
-import com.mastercard.labs.mpqrmerchant.data.model.User;
 import com.mastercard.labs.mpqrmerchant.data.model.Transaction;
+import com.mastercard.labs.mpqrmerchant.data.model.User;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import io.realm.Realm;
 
@@ -53,22 +53,6 @@ public class RealmDataSource implements DataSource {
     }
 
     @Override
-    public List<Transaction> getTransactions(Long id) {
-        if (id == null) {
-            return new ArrayList<>();
-        }
-
-        try (Realm realm = Realm.getDefaultInstance()) {
-            User user = realm.where(User.class).equalTo("id", id).findFirst();
-            if (user == null) {
-                return new ArrayList<>();
-            } else {
-                return realm.copyFromRealm(user.getTransactions());
-            }
-        }
-    }
-
-    @Override
     public Transaction getTransaction(String referenceId) {
         if (referenceId == null) {
             return null;
@@ -100,5 +84,36 @@ public class RealmDataSource implements DataSource {
         }
 
         return true;
+    }
+
+    @Override
+    public Transaction saveTransaction(long userId, Transaction transaction) {
+        if (transaction == null) {
+            return null;
+        }
+
+        try (Realm realm = Realm.getDefaultInstance()) {
+            User user = realm.where(User.class).equalTo("id", userId).findFirst();
+            if (user == null) {
+                return null;
+            }
+
+            realm.beginTransaction();
+
+            transaction = realm.copyToRealmOrUpdate(transaction);
+
+            // TODO: Figure out proper way of adding items with relationships
+            Set<Transaction> transactions = new HashSet<>(user.getTransactions());
+            transactions.add(transaction);
+
+            user.getTransactions().clear();
+            user.getTransactions().addAll(transactions);
+
+            realm.copyToRealmOrUpdate(user);
+
+            realm.commitTransaction();
+
+            return realm.copyFromRealm(transaction);
+        }
     }
 }

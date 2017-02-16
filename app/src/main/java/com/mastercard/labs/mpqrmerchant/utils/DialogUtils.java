@@ -35,6 +35,10 @@ public class DialogUtils {
     }
 
     public static AlertDialog.Builder customAlertDialogBuilder(Context context, @StringRes int message) {
+        return customAlertDialogBuilder(context, context.getString(message));
+    }
+
+    public static AlertDialog.Builder customAlertDialogBuilder(Context context, String message) {
         TextView messageTextView = new TextView(context);
         messageTextView.setText(message);
         messageTextView.setGravity(Gravity.CENTER_HORIZONTAL);

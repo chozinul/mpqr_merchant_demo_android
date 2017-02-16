@@ -34,8 +34,6 @@ class MainPresenter implements MainContract.Presenter {
         this.mView = view;
         this.mDataSource = dataSource;
         this.mId = merchantId;
-
-        this.qrData = new QRData();
     }
 
     @Override
@@ -45,6 +43,16 @@ class MainPresenter implements MainContract.Presenter {
             mView.showInvalidDataError();
             return;
         }
+
+        if (qrData == null) {
+            fillQRData();
+        }
+
+        populateView();
+    }
+
+    private void fillQRData() {
+        qrData = new QRData();
 
         qrData.setMerchantCode(mUser.getCode());
         qrData.setMerchantName(mUser.getName());
@@ -64,8 +72,6 @@ class MainPresenter implements MainContract.Presenter {
         qrData.setTipType(QRData.TipType.FLAT);
         qrData.setTip(0);
         qrData.setCurrencyNumericCode(mUser.getCurrencyNumericCode());
-
-        populateView();
     }
 
     private void populateView() {

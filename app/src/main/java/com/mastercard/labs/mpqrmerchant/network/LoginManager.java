@@ -1,8 +1,15 @@
 package com.mastercard.labs.mpqrmerchant.network;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import android.content.SharedPreferences;
 
 import com.mastercard.labs.mpqrmerchant.data.RealmDataSource;
+import com.mastercard.labs.mpqrmerchant.data.model.User;
+
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/8/17
  */
@@ -12,6 +19,7 @@ public class LoginManager {
 
     private static final String USER_ID_KEY = "userId";
     private static final String TOKEN_KEY = "token";
+    private static final String SUBSCRIBED_TOPICS = "subscriptions";
 
     public static void init(SharedPreferences sharedPreferences) {
         INSTANCE = new LoginManager(sharedPreferences);
@@ -34,6 +42,8 @@ public class LoginManager {
 
     public void setLoggedInUserId(long userId) {
         preferences.edit().putLong(USER_ID_KEY, userId).apply();
+
+        subscribeToNotifications();
     }
 
     public boolean isUserLoggedIn() {
@@ -49,9 +59,54 @@ public class LoginManager {
     }
 
     public void logout() {
+        unsubscribeFromNotifications();
+
         RealmDataSource.getInstance().deleteUser(getLoggedInUserId());
 
         setLoggedInUserId(-1);
         setToken(null);
+    }
+
+    public void subscribeToNotifications() {
+        User user = RealmDataSource.getInstance().getUser(getLoggedInUserId());
+
+        Set<String> subscriptions = new HashSet<>();
+        if (user != null) {
+            if (user.getIdentifierMastercard04() != null) {
+                subscriptions.add(user.getIdentifierMastercard04());
+            }
+            if (user.getIdentifierMastercard05() != null) {
+                subscriptions.add(user.getIdentifierMastercard05());
+            }
+            if (user.getIdentifierVisa02() != null) {
+                subscriptions.add(user.getIdentifierVisa02());
+            }
+            if (user.getIdentifierVisa03() != null) {
+                subscriptions.add(user.getIdentifierVisa03());
+            }
+            if (user.getIdentifierNPCI06() != null) {
+                subscriptions.add(user.getIdentifierNPCI06());
+            }
+            if (user.getIdentifierNPCI07() != null) {
+                subscriptions.add(user.getIdentifierNPCI07());
+            }
+        }
+
+        preferences.edit().putStringSet(SUBSCRIBED_TOPICS, subscriptions).apply();
+
+        for (String sub : subscriptions) {
+            FirebaseMessaging.getInstance().subscribeToTopic(sub);
+        }
+    }
+
+    public void unsubscribeFromNotifications() {
+        Set<String> subscriptions = preferences.getStringSet(SUBSCRIBED_TOPICS, null);
+        if (subscriptions == null) {
+            return;
+        }
+
+        for (String sub : subscriptions) {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(sub);
+        }
     }
 }

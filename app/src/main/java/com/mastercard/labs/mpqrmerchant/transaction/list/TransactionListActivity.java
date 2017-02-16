@@ -15,9 +15,14 @@ import com.mastercard.labs.mpqrmerchant.R;
 import com.mastercard.labs.mpqrmerchant.adapter.TransactionsAdapter;
 import com.mastercard.labs.mpqrmerchant.data.RealmDataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.Transaction;
+import com.mastercard.labs.mpqrmerchant.event.TransactionsUpdateEvent;
 import com.mastercard.labs.mpqrmerchant.transaction.detail.TransactionDetailActivity;
 import com.mastercard.labs.mpqrmerchant.transaction.overview.TransactionOverviewFragment;
 import com.mastercard.labs.mpqrmerchant.utils.DialogUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -75,6 +80,23 @@ public class TransactionListActivity extends AppCompatActivity implements Transa
     protected void onResume() {
         super.onResume();
 
+        mPresenter.start();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onTransactionsUpdateEvent(TransactionsUpdateEvent event) {
         mPresenter.start();
     }
 

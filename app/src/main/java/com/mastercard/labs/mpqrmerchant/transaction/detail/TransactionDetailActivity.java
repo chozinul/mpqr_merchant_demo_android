@@ -75,6 +75,16 @@ public class TransactionDetailActivity extends AppCompatActivity implements Tran
     }
 
     @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        setIntent(intent);
+
+        mReferenceId = intent.getStringExtra(BUNDLE_REFERENCE_ID_KEY);
+        mPresenter = new TransactionDetailPresenter(this, RealmDataSource.getInstance(), mReferenceId);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
 

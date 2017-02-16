@@ -13,9 +13,9 @@ public interface DataSource {
 
     User getUser(Long id);
 
-    List<Transaction> getTransactions(Long id);
-
     Transaction getTransaction(String referenceId);
 
     boolean deleteUser(long id);
+
+    Transaction saveTransaction(long userId, Transaction transaction);
 }

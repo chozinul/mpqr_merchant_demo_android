@@ -3,6 +3,7 @@ package com.mastercard.labs.mpqrmerchant.data.model;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 
 import java.util.Date;
+import java.util.Objects;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
@@ -83,5 +84,24 @@ public class Transaction extends RealmObject {
 
     public CurrencyCode getCurrencyCode() {
         return CurrencyCode.fromNumericCode(currencyNumericCode);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return Double.compare(that.transactionAmount, transactionAmount) == 0 &&
+                Double.compare(that.tipAmount, tipAmount) == 0 &&
+                Objects.equals(referenceId, that.referenceId) &&
+                Objects.equals(currencyNumericCode, that.currencyNumericCode) &&
+                Objects.equals(transactionDate, that.transactionDate) &&
+                Objects.equals(invoiceNumber, that.invoiceNumber) &&
+                Objects.equals(terminalNumber, that.terminalNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(referenceId, transactionAmount, tipAmount, currencyNumericCode, transactionDate, invoiceNumber, terminalNumber);
     }
 }

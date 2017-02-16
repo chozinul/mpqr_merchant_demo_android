@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.mastercard.labs.mpqrmerchant.R;
 import com.mastercard.labs.mpqrmerchant.data.RealmDataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.QRData;
+import com.mastercard.labs.mpqrmerchant.event.TransactionsUpdateEvent;
 import com.mastercard.labs.mpqrmerchant.login.LoginActivity;
 import com.mastercard.labs.mpqrmerchant.network.LoginManager;
 import com.mastercard.labs.mpqrmerchant.qrcode.QRCodeActivity;
@@ -30,6 +31,10 @@ import com.mastercard.labs.mpqrmerchant.transaction.overview.TransactionOverview
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 import com.mastercard.labs.mpqrmerchant.utils.DialogUtils;
 import com.mastercard.labs.mpqrmerchant.view.SuffixEditText;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -117,6 +122,23 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     protected void onResume() {
         super.onResume();
 
+        mPresenter.start();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onTransactionsUpdateEvent(TransactionsUpdateEvent event) {
         mPresenter.start();
     }
 
