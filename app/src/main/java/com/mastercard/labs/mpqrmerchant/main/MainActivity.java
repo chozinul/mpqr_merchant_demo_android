@@ -174,11 +174,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         mPresenter.setTip(tip);
     }
 
-    @OnClick(value = R.id.rl_currency)
-    public void onCurrencyPressed(View view) {
-        mPresenter.selectCurrency();
-    }
-
     @OnClick(value = R.id.rl_tip_type)
     public void onTipTypePressed(View view) {
         mPresenter.selectTipType();
