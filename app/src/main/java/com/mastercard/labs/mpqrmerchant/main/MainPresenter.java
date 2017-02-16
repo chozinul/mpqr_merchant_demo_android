@@ -265,8 +265,12 @@ class MainPresenter implements MainContract.Presenter {
 
         if (qrData.getMerchantStoreId() != null || qrData.getMerchantTerminalNumber() != null) {
             AdditionalData additionalData = new AdditionalData();
-            additionalData.setStoreId(qrData.getMerchantStoreId());
-            additionalData.setTerminalId(qrData.getMerchantTerminalNumber());
+            if (qrData.getMerchantStoreId() != null) {
+                additionalData.setStoreId(qrData.getMerchantStoreId());
+            }
+            if (qrData.getMerchantTerminalNumber() != null) {
+                additionalData.setTerminalId(qrData.getMerchantTerminalNumber());
+            }
             paymentData.setAdditionalData(additionalData);
         }
 
