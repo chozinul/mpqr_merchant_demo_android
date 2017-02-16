@@ -259,7 +259,6 @@ class MainPresenter implements MainContract.Presenter {
                 paymentData.setTipOrConvenienceIndicator(PushPaymentData.TipConvenienceIndicator.PROMTED_TO_ENTER_TIP);
                 break;
             case NONE:
-                paymentData.setTipOrConvenienceIndicator(null);
                 break;
         }
         paymentData.setTransactionCurrencyCode(qrData.getCurrencyNumericCode());
