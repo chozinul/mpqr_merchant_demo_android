@@ -280,6 +280,10 @@ class MainPresenter implements MainContract.Presenter {
         }
 
         mView.showQRCode(qrData, paymentData.generatePushPaymentString());
+
+        // Set user entered fields to default
+        fillQRData();
+        populateView();
     }
 
     @Override
