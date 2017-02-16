@@ -78,6 +78,7 @@ public class RealmDataSource implements DataSource {
 
             realm.beginTransaction();
 
+            user.getTransactions().deleteAllFromRealm();
             user.deleteFromRealm();
 
             realm.commitTransaction();
