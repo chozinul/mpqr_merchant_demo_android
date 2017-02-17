@@ -2,14 +2,12 @@ package com.mastercard.labs.mpqrmerchant.login;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,11 +16,11 @@ import android.widget.Toast;
 import com.mastercard.labs.mpqrmerchant.R;
 import com.mastercard.labs.mpqrmerchant.main.MainActivity;
 import com.mastercard.labs.mpqrmerchant.data.RealmDataSource;
+import com.mastercard.labs.mpqrmerchant.utils.KeyboardUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnFocusChange;
 
 /**
  * A login screen that offers login via access code & pin.
@@ -57,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    presenter.login(mAccessCodeEditText.getText().toString(), mPinEditText.getText().toString());
+                    login();
                     return true;
                 }
                 return false;
@@ -76,16 +74,12 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
     @OnClick(value = R.id.sign_in_btn)
     public void signInButtonPressed() {
-        presenter.login(mAccessCodeEditText.getText().toString(), mPinEditText.getText().toString());
+        login();
     }
 
-    @OnFocusChange(value = {R.id.txt_access_code, R.id.txt_pin})
-    public void focusChanged(View view, boolean hasFocus) {
-        if (!hasFocus) {
-            // Hide keyboard
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
+    private void login() {
+        KeyboardUtils.hideKeyboard(this);
+        presenter.login(mAccessCodeEditText.getText().toString(), mPinEditText.getText().toString());
     }
 
     /**
