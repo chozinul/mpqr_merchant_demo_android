@@ -41,7 +41,7 @@
             android:id="@+id/img_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_show_transaction_detail"
+            android:src="@drawable/ic_right_arrow"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@id/txt_transaction_amount"
             android:layout_alignBottom="@id/txt_transaction_amount"

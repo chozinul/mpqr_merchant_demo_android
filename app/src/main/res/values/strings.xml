@@ -96,8 +96,7 @@
     <string name="transaction_detail">Transaction Detail</string>
     <string name="amount_tip_inclusive">Amount (Tip Inclusive)</string>
     <string name="paid">Paid</string>
-    <string name="invoice">Invoice</string>
-    <string name="terminal">Terminal</string>
+    <string name="invoice_no">Invoice No</string>
     <string name="terminal_no">Terminal No</string>
     <string name="error_cannot_find_transaction">Sorry! We cannot find the transaction information. Please try again.</string>
     <string name="reference_id">Reference Id</string>
@@ -108,4 +107,5 @@
     <string name="merchant_category_code">Merchant Category Code</string>
     <string name="card_number">Card Number</string>
     <string name="store_id">Store Id</string>
+    <string name="prompt">Prompt</string>
 </resources>

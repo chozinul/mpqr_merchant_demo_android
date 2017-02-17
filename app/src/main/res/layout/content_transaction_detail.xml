@@ -113,7 +113,7 @@
                     android:id="@+id/txt_invoice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/invoice"
+                    android:text="@string/invoice_no"
                     android:textSize="@dimen/size_x"
                     android:textAllCaps="true"
                     android:labelFor="@+id/txt_invoice_value"/>
@@ -147,7 +147,7 @@
                     android:id="@+id/txt_terminal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/terminal"
+                    android:text="@string/terminal_no"
                     android:textSize="@dimen/size_x"
                     android:textAllCaps="true"
                     android:labelFor="@+id/txt_invoice_value"/>
