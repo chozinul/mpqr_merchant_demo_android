@@ -23,6 +23,8 @@ import retrofit2.mock.Calls;
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/3/17
  */
 public class MockMPQRMerchantService implements MPQRPaymentService {
+    private static final String MERCHANT_CODE = "87654321";
+
     private final BehaviorDelegate<MPQRPaymentService> delegate;
 
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssz", Locale.getDefault());
@@ -35,7 +37,7 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
 
     @Override
     public Call<LoginResponse> login(@Body LoginAccessCodeRequest request) {
-        if (!request.getAccessCode().equals("12345678") || !request.getPin().equals("123456")) {
+        if (!request.getAccessCode().equals(MERCHANT_CODE) || !request.getPin().equals("123456")) {
             ResponseBody responseBody = ResponseBody.create(MediaType.parse("application/json"), "{\"success\": \"false\"}");
             return delegate.returning(Calls.response(Response.error(404, responseBody))).login(request);
         }
@@ -43,7 +45,7 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
         String dummyResponse = "{\n" +
                 "  \"user\": {\n" +
                 "    \"id\": 1,\n" +
-                "    \"code\": \"12345678\",\n" +
+                "    \"code\": \"" + MERCHANT_CODE + "\",\n" +
                 "    \"name\": \"FarmtoTable F&B\",\n" +
                 "    \"city\": \"Delhi\",\n" +
                 "    \"countryCode\": \"IN\",\n" +
