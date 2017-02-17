@@ -28,7 +28,7 @@ class MainPresenter implements MainContract.Presenter {
 
     private User mUser;
 
-    private QRData qrData;
+    private QRData qrData = new QRData();
 
     MainPresenter(MainContract.View view, DataSource dataSource, long merchantId) {
         this.mView = view;
@@ -40,13 +40,11 @@ class MainPresenter implements MainContract.Presenter {
     public void start() {
         mUser = mDataSource.getUser(mId);
         if (mUser == null) {
-            mView.showInvalidDataError();
+            mView.showUserNotFound();
             return;
         }
 
-        if (qrData == null) {
-            fillQRData();
-        }
+        fillQRData();
 
         populateView();
     }
@@ -284,10 +282,6 @@ class MainPresenter implements MainContract.Presenter {
         }
 
         mView.showQRCode(qrData, paymentData.generatePushPaymentString());
-
-        // Set user entered fields to default
-        fillQRData();
-        populateView();
     }
 
     @Override
