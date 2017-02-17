@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+    <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:textSize="@dimen/size_small"
+            android:textColor="@color/colorGrey"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/img_editable"
+            android:layout_alignWithParentIfMissing="true"
+            android:textAllCaps="true"
+            tools:text="Merchant Name"/>
+
+    <TextView
+            android:id="@+id/txt_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/size_x"
+            android:layout_below="@id/txt_title"
+            android:layout_alignStart="@id/txt_title"
+            android:layout_alignEnd="@id/txt_title"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorTextMainColor"
+            tools:text="FarmToTable F&amp;B"/>
+
+    <ImageView
+            android:id="@+id/img_editable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_right_arrow"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@id/txt_title"
+            android:layout_alignBottom="@id/txt_value"
+            android:contentDescription="@string/transaction_detail"/>
+
+</RelativeLayout>

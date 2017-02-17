@@ -98,6 +98,14 @@
     <string name="paid">Paid</string>
     <string name="invoice">Invoice</string>
     <string name="terminal">Terminal</string>
+    <string name="terminal_no">Terminal No</string>
     <string name="error_cannot_find_transaction">Sorry! We cannot find the transaction information. Please try again.</string>
     <string name="reference_id">Reference Id</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="error_user_not_found">Error! User not found. Please try again.</string>
+    <string name="enter_merchant_name">Please enter name</string>
+    <string name="country">Country</string>
+    <string name="merchant_category_code">Merchant Category Code</string>
+    <string name="card_number">Card Number</string>
+    <string name="store_id">Store Id</string>
 </resources>

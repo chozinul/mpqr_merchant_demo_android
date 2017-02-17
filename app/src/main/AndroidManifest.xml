@@ -58,13 +58,24 @@
                     android:name="android.support.PARENT_ACTIVITY"
                     android:value="com.mastercard.labs.mpqrmerchant.transaction.list.TransactionListActivity"/>
         </activity>
+
         <service
                 android:name=".service.FirebaseListener"
-                android:exported="false" >
+                android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
+
+        <activity
+                android:name=".settings.SettingsActivity"
+                android:label="@string/title_activity_settings"
+                android:parentActivityName=".main.MainActivity"
+                android:theme="@style/AppTheme">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.mastercard.labs.mpqrmerchant.main.MainActivity"/>
+        </activity>
     </application>
 
 </manifest>
