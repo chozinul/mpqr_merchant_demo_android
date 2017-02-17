@@ -26,6 +26,7 @@ import com.mastercard.labs.mpqrmerchant.event.TransactionsUpdateEvent;
 import com.mastercard.labs.mpqrmerchant.login.LoginActivity;
 import com.mastercard.labs.mpqrmerchant.network.LoginManager;
 import com.mastercard.labs.mpqrmerchant.qrcode.QRCodeActivity;
+import com.mastercard.labs.mpqrmerchant.settings.SettingsActivity;
 import com.mastercard.labs.mpqrmerchant.transaction.list.TransactionListActivity;
 import com.mastercard.labs.mpqrmerchant.transaction.overview.TransactionOverviewFragment;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
@@ -205,6 +206,13 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @OnClick(value = R.id.ll_transactions)
     public void showTransactions() {
         Intent intent = TransactionListActivity.newIntent(this, userId);
+
+        startActivity(intent);
+    }
+
+    @OnClick(value = R.id.img_settings)
+    public void showSettings() {
+        Intent intent = SettingsActivity.newIntent(this, userId);
 
         startActivity(intent);
     }
