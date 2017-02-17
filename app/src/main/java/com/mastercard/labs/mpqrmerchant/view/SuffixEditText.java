@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.widget.EditText;
@@ -14,10 +16,10 @@ import com.mastercard.labs.mpqrmerchant.R;
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/9/17
  */
 public class SuffixEditText extends EditText {
-    TextPaint textPaint = new TextPaint();
+    private TextPaint textPaint = new TextPaint();
     private String suffix = "";
     private float suffixPadding;
-    private int suffixColor;
+    private @ColorInt int suffixColor;
 
     public SuffixEditText(Context context) {
         super(context);
@@ -81,11 +83,11 @@ public class SuffixEditText extends EditText {
         requestLayout();
     }
 
-    public int getSuffixColor() {
+    public @ColorInt int getSuffixColor() {
         return suffixColor;
     }
 
-    public void setSuffixColor(int suffixColor) {
+    public void setSuffixColor(@ColorInt int suffixColor) {
         this.suffixColor = suffixColor;
         invalidate();
         requestLayout();

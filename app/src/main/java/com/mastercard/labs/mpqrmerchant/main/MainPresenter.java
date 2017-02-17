@@ -149,11 +149,9 @@ class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void setTipType(QRData.TipType tipType) {
+        // Reset tips
+        qrData.setTip(0);
         qrData.setTipType(tipType);
-
-        if (tipType == QRData.TipType.NONE || tipType == QRData.TipType.PROMPT) {
-            qrData.setTip(0);
-        }
 
         updateTipAndTotalView();
     }

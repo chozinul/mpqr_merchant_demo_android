@@ -214,7 +214,7 @@
                                 android:textSize="@dimen/size_small"
                                 android:labelFor="@+id/txt_amount_value"/>
 
-                        <EditText
+                        <com.mastercard.labs.mpqrmerchant.view.AmountEditText
                                 android:id="@+id/txt_amount_value"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -224,6 +224,8 @@
                                 android:textSize="@dimen/size_24"
                                 android:imeOptions="actionNext"
                                 android:maxLines="1"
+                                app:zeroColor="@color/colorLightGrey"
+                                app:nonZeroColor="@color/colorTextMainColor"
                                 tools:text="20.00"/>
                     </RelativeLayout>
 
@@ -244,7 +246,7 @@
                                 android:text="@string/tip"
                                 android:textSize="@dimen/size_small"/>
 
-                        <com.mastercard.labs.mpqrmerchant.view.SuffixEditText
+                        <com.mastercard.labs.mpqrmerchant.view.AmountEditText
                                 android:id="@+id/txt_tip_value"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -256,6 +258,8 @@
                                 android:layout_alignParentStart="true"
                                 android:maxLines="1"
                                 android:imeActionId="@+id/action_generate"
+                                app:zeroColor="@color/colorLightGrey"
+                                app:nonZeroColor="@color/colorTextMainColor"
                                 app:suffixColor="@color/colorWarmGrey"/>
                     </RelativeLayout>
 

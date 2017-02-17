@@ -5,4 +5,9 @@
         <attr name="suffixPadding" format="dimension"/>
         <attr name="suffixColor" format="color|reference"/>
     </declare-styleable>
+
+    <declare-styleable name="AmountEditText">
+        <attr name="zeroColor" format="color|reference"/>
+        <attr name="nonZeroColor" format="color|reference"/>
+    </declare-styleable>
 </resources>
