@@ -5,7 +5,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:gravity="center_horizontal"
               android:orientation="vertical"
-              android:background="@drawable/background_login"
+              tools:background="@drawable/background_login"
               tools:context="com.mastercard.labs.mpqrmerchant.login.LoginActivity">
 
     <!-- Login progress -->

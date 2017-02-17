@@ -51,6 +51,8 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
 
         ButterKnife.bind(this);
 
+        getWindow().setBackgroundDrawableResource(R.drawable.background_login);
+
         mPinEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {

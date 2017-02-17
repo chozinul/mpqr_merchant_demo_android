@@ -105,6 +105,8 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         setSupportActionBar(toolbar);
 
+        getWindow().setBackgroundDrawableResource(R.drawable.background_main);
+
         userId = getIntent().getLongExtra(BUNDLE_USER_KEY, -1L);
         // TODO: Only for debugging purposes till Login screen is implemented.
         userId = LoginManager.getInstance().getLoggedInUserId();
