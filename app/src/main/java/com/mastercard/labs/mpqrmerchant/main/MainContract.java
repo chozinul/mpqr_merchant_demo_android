@@ -60,6 +60,8 @@ interface MainContract {
         void showLoginActivity();
 
         void showLogoutFailed();
+
+        void showUserNotFound();
     }
 
     interface Presenter extends BasePresenter {

@@ -82,8 +82,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/toolbar"
-            android:layout_above="@+id/btn_generate"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:fillViewport="true">
 
         <LinearLayout
                 android:layout_width="match_parent"
@@ -123,7 +124,8 @@
             <RelativeLayout
                     style="@style/payment_layout"
                     android:id="@+id/rl_payment_layout"
-                    android:background="@drawable/rectangle_border">
+                    android:background="@drawable/rectangle_border"
+                    android:layout_marginBottom="40dp">
 
                 <RelativeLayout
                         android:id="@+id/rl_currency"
@@ -220,6 +222,8 @@
                                 android:inputType="numberDecimal"
                                 android:digits="0123456789.,"
                                 android:textSize="@dimen/size_24"
+                                android:imeOptions="actionNext"
+                                android:maxLines="1"
                                 tools:text="20.00"/>
                     </RelativeLayout>
 
@@ -250,6 +254,8 @@
                                 tools:text="20.00"
                                 android:layout_below="@+id/txt_tip"
                                 android:layout_alignParentStart="true"
+                                android:maxLines="1"
+                                android:imeActionId="@+id/action_generate"
                                 app:suffixColor="@color/colorWarmGrey"/>
                     </RelativeLayout>
 
@@ -290,16 +296,20 @@
                         android:background="@color/colorPinkishGrey"/>
 
             </RelativeLayout>
+
+            <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+            <Button
+                    android:id="@+id/btn_generate"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/colorDeepSeaBlue"
+                    android:text="@string/generate"
+                    android:textColor="@color/colorWhite"/>
         </LinearLayout>
     </ScrollView>
-
-    <Button
-            android:id="@+id/btn_generate"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorDeepSeaBlue"
-            android:text="@string/generate"
-            android:textColor="@color/colorWhite"/>
 
 </RelativeLayout>

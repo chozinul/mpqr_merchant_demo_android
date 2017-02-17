@@ -1,6 +1,7 @@
 package com.mastercard.labs.mpqrmerchant.main;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -12,7 +13,10 @@ import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.Spanned;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -31,6 +35,7 @@ import com.mastercard.labs.mpqrmerchant.transaction.list.TransactionListActivity
 import com.mastercard.labs.mpqrmerchant.transaction.overview.TransactionOverviewFragment;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 import com.mastercard.labs.mpqrmerchant.utils.DialogUtils;
+import com.mastercard.labs.mpqrmerchant.utils.KeyboardUtils;
 import com.mastercard.labs.mpqrmerchant.view.SuffixEditText;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,6 +49,7 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnEditorAction;
 import butterknife.OnTextChanged;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View {
@@ -217,6 +223,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         startActivity(intent);
     }
 
+    @OnEditorAction(value = {R.id.txt_amount_value, R.id.txt_tip_value})
+    public boolean onEditorAction(EditText editText, int id, KeyEvent event) {
+        if (event != null && event.getAction() != KeyEvent.ACTION_DOWN) {
+            return false;
+        }
+
+        if (id == R.id.action_generate || id == EditorInfo.IME_NULL) {
+            mPresenter.generateQRString();
+            return true;
+        }
+        return false;
+    }
+
     private double parseAmount(String amountText) {
         try {
             double amount = Double.parseDouble(amountText);
@@ -280,6 +299,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     }
 
     @Override
+    public void showUserNotFound() {
+        DialogUtils.customAlertDialogBuilder(this, R.string.error_user_not_found)
+                .setCancelable(false)
+                .setNegativeButton(R.string.logout, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        mPresenter.logout();
+                    }
+                }).show();
+    }
+
+    @Override
     public void showInvalidDataError() {
         DialogUtils.showDialog(this, 0, R.string.invalid_payment_data);
     }
@@ -325,7 +357,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void setPromptToEnterTip() {
         tipTypeValue.setText(R.string.tip_type_prompt);
-        tipTitleTextView.setText(R.string.tip);
+        tipTitleTextView.setText(R.string.prompt);
         setTipHasPercentage(false);
         setTip(0);
     }
@@ -352,11 +384,17 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void disableTipChange() {
         toggleLayout(tipLayout, tipTitleTextView, tipEditText, false);
+        amountEditText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        KeyboardUtils.restartInput(this, amountEditText);
     }
 
     @Override
     public void enableTipChange() {
         toggleLayout(tipLayout, tipTitleTextView, tipEditText, true);
+        amountEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+
+        KeyboardUtils.restartInput(this, amountEditText);
     }
 
     private void toggleLayout(RelativeLayout layout, TextView titleTextView, EditText editText, boolean enabled) {
