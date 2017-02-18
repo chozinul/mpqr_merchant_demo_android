@@ -310,7 +310,7 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void disableTipChange() {
         toggleLayout(tipLayout, tipTitleTextView, tipEditText, false);
-        amountEditText.setImeActionLabel(getString(R.string.generate), R.id.action_generate);
+        amountEditText.setImeActionLabel(getString(R.string.generate), EditorInfo.IME_ACTION_GO);
         amountEditText.setImeOptions(EditorInfo.IME_ACTION_GO);
 
         amountEditText.setOnEditorActionListener(this);
