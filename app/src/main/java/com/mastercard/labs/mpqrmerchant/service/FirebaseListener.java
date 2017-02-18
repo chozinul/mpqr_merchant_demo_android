@@ -80,6 +80,7 @@ public class FirebaseListener extends FirebaseMessagingService {
 
     private void showTransactionNotification(Transaction transaction) {
         Intent intent = TransactionDetailActivity.newIntent(this, transaction.getReferenceId());
+        intent.setData(Uri.parse("mpqr://merchant/" + transaction.getReferenceId()));
 
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
         stackBuilder.addNextIntent(new Intent(this, MainActivity.class));
@@ -103,6 +104,10 @@ public class FirebaseListener extends FirebaseMessagingService {
 
         Notification notification = notificationBuilder.build();
 
-        notificationManager.notify(0, notification);
+        int uniqueId = 0;
+        if (transaction.getReferenceId() != null) {
+            uniqueId = transaction.getReferenceId().hashCode();
+        }
+        notificationManager.notify(uniqueId, notification);
     }
 }
