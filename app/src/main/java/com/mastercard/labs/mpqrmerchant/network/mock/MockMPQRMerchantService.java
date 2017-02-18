@@ -24,6 +24,7 @@ import retrofit2.mock.Calls;
  */
 public class MockMPQRMerchantService implements MPQRPaymentService {
     private static final String MERCHANT_CODE = "87654321";
+    private static final String MERCHANT_NAME = "Go Go Transport";
 
     private final BehaviorDelegate<MPQRPaymentService> delegate;
 
@@ -46,7 +47,7 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
                 "  \"user\": {\n" +
                 "    \"id\": 1,\n" +
                 "    \"code\": \"" + MERCHANT_CODE + "\",\n" +
-                "    \"name\": \"FarmtoTable F&B\",\n" +
+                "    \"name\": \"" + MERCHANT_NAME + "\",\n" +
                 "    \"city\": \"Delhi\",\n" +
                 "    \"countryCode\": \"IN\",\n" +
                 "    \"categoryCode\": \"1234\",\n" +
