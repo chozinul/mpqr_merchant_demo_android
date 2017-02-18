@@ -45,9 +45,8 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnEditorAction;
 
-public class MainActivity extends AppCompatActivity implements MainContract.View, AmountEditText.AmountListener {
+public class MainActivity extends AppCompatActivity implements MainContract.View, AmountEditText.AmountListener, TextView.OnEditorActionListener {
     public static String BUNDLE_USER_KEY = "userId";
 
     private MainContract.Presenter mPresenter;
@@ -191,19 +190,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
         startActivity(intent);
     }
 
-    @OnEditorAction(value = {R.id.txt_amount_value, R.id.txt_tip_value})
-    public boolean onEditorAction(EditText editText, int id, KeyEvent event) {
-        if (event != null && event.getAction() != KeyEvent.ACTION_DOWN) {
-            return false;
-        }
-
-        if (id == R.id.action_generate || id == EditorInfo.IME_NULL) {
-            mPresenter.generateQRString();
-            return true;
-        }
-        return false;
-    }
-
     @Override
     public void setName(String name) {
         txtMerchantName.setText(name);
@@ -325,7 +311,10 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     public void disableTipChange() {
         toggleLayout(tipLayout, tipTitleTextView, tipEditText, false);
         amountEditText.setImeActionLabel(getString(R.string.generate), R.id.action_generate);
-        amountEditText.setImeOptions(EditorInfo.IME_ACTION_UNSPECIFIED);
+        amountEditText.setImeOptions(EditorInfo.IME_ACTION_GO);
+
+        amountEditText.setOnEditorActionListener(this);
+        tipEditText.setOnEditorActionListener(null);
 
         KeyboardUtils.restartInput(this, amountEditText);
     }
@@ -333,8 +322,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void enableTipChange() {
         toggleLayout(tipLayout, tipTitleTextView, tipEditText, true);
-        amountEditText.setImeActionLabel(getString(R.string.action_next), 0);
+        amountEditText.setImeActionLabel(getString(R.string.action_next), EditorInfo.IME_ACTION_NEXT);
         amountEditText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+
+        amountEditText.setOnEditorActionListener(null);
+        tipEditText.setOnEditorActionListener(this);
 
         KeyboardUtils.restartInput(this, amountEditText);
     }
@@ -430,5 +422,19 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     public void showLogoutFailed() {
         DialogUtils.showDialog(this, 0, R.string.logout_failed);
+    }
+
+    @Override
+    public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+        if (event != null && event.getAction() != KeyEvent.ACTION_DOWN) {
+            return false;
+        }
+
+        if (actionId == R.id.action_generate || actionId == EditorInfo.IME_NULL) {
+            KeyboardUtils.hideKeyboard(this);
+            mPresenter.generateQRString();
+            return true;
+        }
+        return false;
     }
 }
