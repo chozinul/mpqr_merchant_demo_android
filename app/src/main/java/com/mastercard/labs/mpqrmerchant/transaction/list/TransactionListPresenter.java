@@ -5,6 +5,8 @@ import com.mastercard.labs.mpqrmerchant.data.model.Transaction;
 import com.mastercard.labs.mpqrmerchant.data.model.User;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 
+import java.util.List;
+
 /**
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/15/17
  */
@@ -14,6 +16,7 @@ public class TransactionListPresenter implements TransactionListContract.Present
     private long mId;
 
     private User mUser;
+    private List<Transaction> mTransactions;
 
     TransactionListPresenter(TransactionListContract.View view, DataSource dataSource, long merchantId) {
         this.mView = view;
@@ -29,12 +32,14 @@ public class TransactionListPresenter implements TransactionListContract.Present
             return;
         }
 
+        mTransactions = mDataSource.getTransactions(mId);
+
         populateView();
     }
 
     private void populateView() {
         double transactionTotal = 0;
-        for (Transaction transaction : mUser.getTransactions()) {
+        for (Transaction transaction : mTransactions) {
             transactionTotal += transaction.getTotal();
         }
 
@@ -45,8 +50,8 @@ public class TransactionListPresenter implements TransactionListContract.Present
             mView.setTransactionTotalAmount(transactionTotal, "");
         }
 
-        mView.setTotalTransactions(mUser.getTransactions().size());
+        mView.setTotalTransactions(mTransactions.size());
 
-        mView.setTransactions(mUser.getTransactions());
+        mView.setTransactions(mTransactions);
     }
 }

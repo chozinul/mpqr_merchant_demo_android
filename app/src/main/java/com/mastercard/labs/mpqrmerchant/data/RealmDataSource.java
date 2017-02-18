@@ -3,10 +3,13 @@ package com.mastercard.labs.mpqrmerchant.data;
 import com.mastercard.labs.mpqrmerchant.data.model.Transaction;
 import com.mastercard.labs.mpqrmerchant.data.model.User;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import io.realm.Realm;
+import io.realm.Sort;
 
 /**
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/2/17
@@ -65,6 +68,20 @@ public class RealmDataSource implements DataSource {
             } else {
                 return realm.copyFromRealm(transaction);
             }
+        }
+    }
+
+    @Override
+    public List<Transaction> getTransactions(long userId) {
+        try (Realm realm = Realm.getDefaultInstance()) {
+            User user = realm.where(User.class).equalTo("id", userId).findFirst();
+            if (user == null) {
+                return new ArrayList<>();
+            }
+
+            List<Transaction> transactions = user.getTransactions().sort("transactionDate", Sort.DESCENDING);
+
+            return realm.copyFromRealm(transactions);
         }
     }
 
