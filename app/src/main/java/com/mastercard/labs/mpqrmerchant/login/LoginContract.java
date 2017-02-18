@@ -26,6 +26,8 @@ public interface LoginContract {
         void showNetworkError();
 
         void setInvalidAccessCode();
+
+        void setAccessCode(String accessCode);
     }
 
     interface Presenter extends BasePresenter {

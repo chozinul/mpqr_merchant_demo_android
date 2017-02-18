@@ -109,4 +109,8 @@ public class LoginManager {
             FirebaseMessaging.getInstance().unsubscribeFromTopic(sub);
         }
     }
+
+    public String lastAccessToken() {
+        return "87654321";
+    }
 }

@@ -26,7 +26,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     @Override
     public void start() {
-
+        mView.setAccessCode(LoginManager.getInstance().lastAccessToken());
     }
 
     private boolean isPinValid(String pin) {

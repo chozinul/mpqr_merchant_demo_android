@@ -163,5 +163,10 @@ public class LoginActivity extends AppCompatActivity implements LoginContract.Vi
         mAccessCodeEditText.setError(getString(R.string.error_invalid_access_code, getString(R.string.access_code_length)));
         mAccessCodeEditText.requestFocus();
     }
+
+    @Override
+    public void setAccessCode(String accessCode) {
+        mAccessCodeEditText.setText(accessCode);
+    }
 }
 

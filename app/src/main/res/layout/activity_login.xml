@@ -79,7 +79,9 @@
                         android:digits="0123456789"
                         android:maxLength="@string/pin_length"
                         android:maxLines="1"
-                        app:theme="@style/LightEditTextStyle"/>
+                        app:theme="@style/LightEditTextStyle">
+                    <requestFocus />
+                </EditText>
 
             </android.support.design.widget.TextInputLayout>
 
