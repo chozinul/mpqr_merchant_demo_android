@@ -67,7 +67,7 @@ class MainPresenter implements MainContract.Presenter {
         qrData.setMerchantTerminalNumber(mUser.getTerminalNumber());
 
         qrData.setTransactionAmount(0);
-        qrData.setTipType(QRData.TipType.FLAT);
+        qrData.setTipType(QRData.TipType.NONE);
         qrData.setTip(0);
         qrData.setCurrencyNumericCode(mUser.getCurrencyNumericCode());
     }
