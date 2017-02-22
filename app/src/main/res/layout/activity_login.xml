@@ -106,6 +106,14 @@
         </LinearLayout>
     </ScrollView>
 
+    <TextView
+            android:id="@+id/txt_app_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:padding="5dp"
+            android:textColor="@color/colorLightGrey"
+            tools:text="App version"/>
     <Button
             android:id="@+id/sign_in_btn"
             style="?android:textAppearanceSmall"
