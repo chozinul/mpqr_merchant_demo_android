@@ -3,6 +3,7 @@ package com.mastercard.labs.mpqrmerchant.network.mock;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import com.mastercard.labs.mpqrmerchant.BuildConfig;
 import com.mastercard.labs.mpqrmerchant.network.MPQRPaymentService;
 import com.mastercard.labs.mpqrmerchant.network.request.LoginAccessCodeRequest;
 import com.mastercard.labs.mpqrmerchant.network.response.LoginResponse;
@@ -24,7 +25,17 @@ import retrofit2.mock.Calls;
  */
 public class MockMPQRMerchantService implements MPQRPaymentService {
     private static final String MERCHANT_CODE = "87654321";
+    private static final String MERCHANT_PIN = "123456";
     private static final String MERCHANT_NAME = "Go Go Transport";
+
+    private static final String MERCHANT_IDENTIFIER;
+    static {
+        if (BuildConfig.FLAVOR.equals("india")) {
+            MERCHANT_IDENTIFIER = "5555666677778888";
+        } else {
+            MERCHANT_IDENTIFIER = "5555222233334444";
+        }
+    }
 
     private final BehaviorDelegate<MPQRPaymentService> delegate;
 
@@ -38,7 +49,7 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
 
     @Override
     public Call<LoginResponse> login(@Body LoginAccessCodeRequest request) {
-        if (!request.getAccessCode().equals(MERCHANT_CODE) || !request.getPin().equals("123456")) {
+        if (!request.getAccessCode().equals(MERCHANT_CODE) || !request.getPin().equals(MERCHANT_PIN)) {
             ResponseBody responseBody = ResponseBody.create(MediaType.parse("application/json"), "{\"success\": \"false\"}");
             return delegate.returning(Calls.response(Response.error(404, responseBody))).login(request);
         }
@@ -52,7 +63,7 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
                 "    \"countryCode\": \"IN\",\n" +
                 "    \"categoryCode\": \"1234\",\n" +
                 "    \"currencyNumericCode\": \"356\",\n" +
-                "    \"identifierMastercard04\": \"5555222233334444\",\n" +
+                "    \"identifierMastercard04\": \"" + MERCHANT_IDENTIFIER + "\",\n" +
                 "    \"storeId\": \"87654321\",\n" +
                 "    \"terminalNumber\": \"3124652125\",\n" +
                 "    \"transactions\": [\n" +

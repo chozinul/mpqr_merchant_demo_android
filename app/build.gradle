@@ -26,6 +26,9 @@ android {
         ecobank {
             applicationId "com.mastercard.labs.mpqrmerchant.ecobank"
         }
+        india {
+            applicationId "com.mastercard.labs.mpqrmerchant.ecobank"
+        }
     }
 
     sourceSets {
@@ -33,6 +36,9 @@ android {
         main.res.srcDirs = ['src/main/res']
 
         ecobank {
+            res.srcDirs = ['src/brands/ecobank/res']
+        }
+        india {
             res.srcDirs = ['src/brands/ecobank/res']
         }
     }
