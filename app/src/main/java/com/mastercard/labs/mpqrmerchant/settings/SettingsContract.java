@@ -41,8 +41,8 @@ public interface SettingsContract {
 
         void settingsSelected(Settings settings);
 
-        void merchantNameUpdated(String value);
+        void updateMerchantName(String value);
 
-        void merchantCardUpdated(String value);
+        void updateMerchantCard(String value);
     }
 }

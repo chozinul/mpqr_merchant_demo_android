@@ -188,7 +188,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        mPresenter.merchantNameUpdated(input.getText().toString());
+                        mPresenter.updateMerchantName(input.getText().toString());
                     }
                 }).create();
 
@@ -267,7 +267,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
                     input.setError(getString(R.string.error_invalid_card_number));
                 } else {
                     dialog.dismiss();
-                    mPresenter.merchantCardUpdated(input.getText().toString().replace(" ", ""));
+                    mPresenter.updateMerchantCard(input.getText().toString().replace(" ", ""));
                 }
             }
         });

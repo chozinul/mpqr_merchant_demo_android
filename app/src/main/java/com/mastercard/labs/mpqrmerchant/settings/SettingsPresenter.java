@@ -97,7 +97,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
     }
 
     @Override
-    public void merchantNameUpdated(String value) {
+    public void updateMerchantName(String value) {
         if (value == null || value.isEmpty()) {
             return;
         }
@@ -116,7 +116,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
     }
 
     @Override
-    public void merchantCardUpdated(String value) {
+    public void updateMerchantCard(String value) {
         // TODO: Validate credit card number
         if (value == null || value.isEmpty()) {
             return;
