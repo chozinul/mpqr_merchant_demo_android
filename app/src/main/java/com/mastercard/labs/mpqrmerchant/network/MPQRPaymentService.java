@@ -18,4 +18,7 @@ public interface MPQRPaymentService {
 
     @POST("/merchant/logout")
     Call<Void> logout();
+
+    @POST("/merchant")
+    Call<User> save(@Body User user);
 }

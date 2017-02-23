@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import com.mastercard.labs.mpqrmerchant.BuildConfig;
+import com.mastercard.labs.mpqrmerchant.data.model.User;
 import com.mastercard.labs.mpqrmerchant.network.MPQRPaymentService;
 import com.mastercard.labs.mpqrmerchant.network.request.LoginAccessCodeRequest;
 import com.mastercard.labs.mpqrmerchant.network.response.LoginResponse;
+import com.mastercard.labs.mpqrmerchant.utils.PreferenceManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,16 +26,19 @@ import retrofit2.mock.Calls;
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/3/17
  */
 public class MockMPQRMerchantService implements MPQRPaymentService {
+    private static final String MERCHANT_NAME_KEY = "merchantName";
+    private static final String MERCHANT_IDENTIFIER_KEY = "merchantIdentifier";
+
     private static final String MERCHANT_CODE = "87654321";
     private static final String MERCHANT_PIN = "123456";
-    private static final String MERCHANT_NAME = "Go Go Transport";
+    private static final String DEFAULT_MERCHANT_NAME = "Go Go Transport";
 
-    private static final String MERCHANT_IDENTIFIER;
+    private static final String DEFAULT_MERCHANT_IDENTIFIER;
     static {
         if (BuildConfig.FLAVOR.equals("india")) {
-            MERCHANT_IDENTIFIER = "5555666677778888";
+            DEFAULT_MERCHANT_IDENTIFIER = "5555666677778888";
         } else {
-            MERCHANT_IDENTIFIER = "5555222233334444";
+            DEFAULT_MERCHANT_IDENTIFIER = "5555222233334444";
         }
     }
 
@@ -54,16 +59,19 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
             return delegate.returning(Calls.response(Response.error(404, responseBody))).login(request);
         }
 
+        String merchantName = PreferenceManager.getInstance().getString(MERCHANT_NAME_KEY, DEFAULT_MERCHANT_NAME);
+        String merchantIdentifier = PreferenceManager.getInstance().getString(MERCHANT_IDENTIFIER_KEY, DEFAULT_MERCHANT_IDENTIFIER);
+
         String dummyResponse = "{\n" +
                 "  \"user\": {\n" +
                 "    \"id\": 1,\n" +
                 "    \"code\": \"" + MERCHANT_CODE + "\",\n" +
-                "    \"name\": \"" + MERCHANT_NAME + "\",\n" +
+                "    \"name\": \"" + merchantName + "\",\n" +
                 "    \"city\": \"Delhi\",\n" +
                 "    \"countryCode\": \"IN\",\n" +
                 "    \"categoryCode\": \"1234\",\n" +
                 "    \"currencyNumericCode\": \"356\",\n" +
-                "    \"identifierMastercard04\": \"" + MERCHANT_IDENTIFIER + "\",\n" +
+                "    \"identifierMastercard04\": \"" + merchantIdentifier + "\",\n" +
                 "    \"storeId\": \"87654321\",\n" +
                 "    \"terminalNumber\": \"3124652125\",\n" +
                 "    \"transactions\": [\n" +
@@ -89,5 +97,13 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
     @Override
     public Call<Void> logout() {
         return delegate.returningResponse(null).logout();
+    }
+
+    @Override
+    public Call<User> save(@Body User user) {
+        PreferenceManager.getInstance().putString(MERCHANT_NAME_KEY, user.getName());
+        PreferenceManager.getInstance().putString(MERCHANT_IDENTIFIER_KEY, user.getIdentifierMastercard04());
+
+        return delegate.returningResponse(user).save(user);
     }
 }
