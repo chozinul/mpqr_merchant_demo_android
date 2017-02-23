@@ -9,6 +9,7 @@ import com.mastercard.labs.mpqrmerchant.data.model.User;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 /**
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/8/17
@@ -20,6 +21,8 @@ public class LoginManager {
     private static final String USER_ID_KEY = "userId";
     private static final String TOKEN_KEY = "token";
     private static final String SUBSCRIBED_TOPICS = "subscriptions";
+
+    private static final Pattern firebaseTopicPattern = Pattern.compile("[a-zA-Z0-9-_.~%]{1,900}");
 
     public static void init(SharedPreferences sharedPreferences) {
         INSTANCE = new LoginManager(sharedPreferences);
@@ -95,7 +98,9 @@ public class LoginManager {
         preferences.edit().putStringSet(SUBSCRIBED_TOPICS, subscriptions).apply();
 
         for (String sub : subscriptions) {
-            FirebaseMessaging.getInstance().subscribeToTopic(sub);
+            if (firebaseTopicPattern.matcher(sub).matches()) {
+                FirebaseMessaging.getInstance().subscribeToTopic(sub);
+            }
         }
     }
 
@@ -106,7 +111,9 @@ public class LoginManager {
         }
 
         for (String sub : subscriptions) {
-            FirebaseMessaging.getInstance().unsubscribeFromTopic(sub);
+            if (firebaseTopicPattern.matcher(sub).matches()) {
+                FirebaseMessaging.getInstance().unsubscribeFromTopic(sub);
+            }
         }
     }
 
