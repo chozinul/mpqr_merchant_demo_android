@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.SharedPreferences;
 
 import com.mastercard.labs.mpqrmerchant.network.LoginManager;
+import com.mastercard.labs.mpqrmerchant.utils.PreferenceManager;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -25,5 +26,6 @@ public class MainApplication extends Application {
 
         Realm.init(this);
         LoginManager.init(sharedPreferences);
+        PreferenceManager.init(sharedPreferences);
     }
 }
