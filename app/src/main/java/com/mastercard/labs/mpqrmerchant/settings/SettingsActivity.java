@@ -6,12 +6,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AlertDialogLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.ViewGroup;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.InputType;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
@@ -25,6 +30,7 @@ import com.mastercard.labs.mpqrmerchant.data.model.Settings;
 import com.mastercard.labs.mpqrmerchant.utils.DialogUtils;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -165,7 +171,6 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
 
         final EditText input = new EditText(layout.getContext());
         input.setText(name);
-        input.setSelection(name.length(), name.length());
 
         layout.addView(input, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
 
@@ -193,10 +198,117 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
         }
 
         dialog.show();
+
+        input.setSelection(input.length(), input.length());
     }
 
     @Override
     public void onSettingsItemClicked(Settings settings) {
         mPresenter.settingsSelected(settings);
+    }
+
+    @Override
+    public void showCardNumberEditor(String cardNumber) {
+        LinearLayout layout = new LinearLayout(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, getResources().getDimensionPixelSize(R.dimen.credit_card_edittext_height));
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        layout.setLayoutParams(params);
+
+        int padding = getResources().getDimensionPixelSize(R.dimen.size_14);
+        layout.setPadding(padding, 0, padding, 0);
+
+        final EditText input = new EditText(layout.getContext());
+        input.setText(cardNumber);
+        input.setInputType(InputType.TYPE_CLASS_NUMBER);
+        input.addTextChangedListener(new FourDigitCardFormatWatcher());
+        input.setKeyListener(DigitsKeyListener.getInstance("0123456789 "));
+        input.setFilters(new InputFilter[] {new InputFilter.LengthFilter(16 + 3)});
+
+        final ImageView imageView = new ImageView(layout.getContext());
+        imageView.setImageResource(R.drawable.mastercard_logo);
+
+        LinearLayout.LayoutParams inputParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT);
+        inputParams.weight = 1;
+        layout.addView(input, inputParams);
+
+        layout.addView(imageView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.card_number)
+                .setMessage(R.string.enter_card_number)
+                .setView(layout)
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do nothing as we are going to override this behavior
+                    }
+                }).create();
+
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        }
+
+        dialog.show();
+
+        input.setSelection(input.length(), input.length());
+
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: Validation should be done in presenter
+                if (!isValidCardNumber(input.getText().toString().replace(" ", ""))) {
+                    input.setError(getString(R.string.error_invalid_card_number));
+                } else {
+                    dialog.dismiss();
+                    mPresenter.merchantCardUpdated(input.getText().toString().replace(" ", ""));
+                }
+            }
+        });
+    }
+
+    private boolean isValidCardNumber(String cardNumber) {
+        Pattern mastercardPattern = Pattern.compile("^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$");
+        return mastercardPattern.matcher(cardNumber).matches();
+    }
+
+    static class FourDigitCardFormatWatcher implements TextWatcher {
+        private static final char space = ' ';
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            // Remove spacing char
+            if (s.length() > 0 && (s.length() % 5) == 0) {
+                final char c = s.charAt(s.length() - 1);
+                if (space == c) {
+                    s.delete(s.length() - 1, s.length());
+                }
+            }
+            if (s.length() > 0 && (s.length() % 5) == 0) {
+                char c = s.charAt(s.length() - 1);
+                if (Character.isDigit(c) && TextUtils.split(s.toString(), String.valueOf(space)).length <= 3) {
+                    s.insert(s.length() - 1, String.valueOf(space));
+                }
+            }
+
+            // TODO: Remove to support other cards. For now only Mastercard is accepted
+            if (s.length() == 0) {
+                s.insert(0, "5");
+            }
+        }
     }
 }

@@ -108,4 +108,6 @@
     <string name="card_number">Card Number</string>
     <string name="store_id">Store Id</string>
     <string name="prompt">Prompt</string>
+    <string name="enter_card_number">Enter card number</string>
+    <string name="error_invalid_card_number">Invalid card number</string>
 </resources>

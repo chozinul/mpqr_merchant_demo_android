@@ -1,7 +1,5 @@
 package com.mastercard.labs.mpqrmerchant.settings;
 
-import android.text.Editable;
-
 import com.mastercard.labs.mpqrmerchant.BasePresenter;
 import com.mastercard.labs.mpqrmerchant.BaseView;
 import com.mastercard.labs.mpqrmerchant.data.model.Settings;
@@ -35,6 +33,8 @@ public interface SettingsContract {
         void showSettings(List<Settings> allSettings);
 
         void showMerchantNameEditor(String name);
+
+        void showCardNumberEditor(String cardNumber);
     }
 
     interface Presenter extends BasePresenter {
@@ -42,5 +42,7 @@ public interface SettingsContract {
         void settingsSelected(Settings settings);
 
         void merchantNameUpdated(String value);
+
+        void merchantCardUpdated(String value);
     }
 }

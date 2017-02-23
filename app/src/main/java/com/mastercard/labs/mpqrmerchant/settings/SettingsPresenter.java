@@ -3,6 +3,7 @@ package com.mastercard.labs.mpqrmerchant.settings;
 import com.mastercard.labs.mpqrmerchant.data.DataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.Settings;
 import com.mastercard.labs.mpqrmerchant.data.model.User;
+import com.mastercard.labs.mpqrmerchant.network.LoginManager;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         allSettings.add(new Settings(mView.getCountryTitle(), country, false));
         allSettings.add(new Settings(mView.getCityTitle(), mUser.getCity(), false));
         allSettings.add(new Settings(mView.getMerchantCategoryCodeTitle(), mUser.getCategoryCode(), false));
-        allSettings.add(new Settings(mView.getCardNumberTitle(), formattedCardNumber(mUser.getIdentifierMastercard04()), false));
+        allSettings.add(new Settings(mView.getCardNumberTitle(), formattedCardNumber(mUser.getIdentifierMastercard04()), true));
         allSettings.add(new Settings(mView.getCurrencyTitle(), currency, false));
         allSettings.add(new Settings(mView.getStoreIdTitle(), mUser.getStoreId(), false));
         allSettings.add(new Settings(mView.getTerminalIdTitle(), mUser.getTerminalNumber(), false));
@@ -69,6 +70,8 @@ public class SettingsPresenter implements SettingsContract.Presenter {
     }
 
     private String formattedCardNumber(String cardNumber) {
+        cardNumber = cardNumber.replace(" ", "");
+
         String formatted = "";
         for (int i = 0; i < cardNumber.length(); i++) {
             if (i % 4 == 0) {
@@ -88,6 +91,8 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
         if (settings.getTitle().equals(mView.getMerchantNameTitle())) {
             mView.showMerchantNameEditor(mUser.getName());
+        } else if (settings.getTitle().equals(mView.getCardNumberTitle())) {
+            mView.showCardNumberEditor(formattedCardNumber(mUser.getIdentifierMastercard04()));
         }
     }
 
@@ -106,6 +111,30 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         mUser = mDataSource.saveUser(mUser);
 
         settings.setValue(value);
+
+        populateView();
+    }
+
+    @Override
+    public void merchantCardUpdated(String value) {
+        // TODO: Validate credit card number
+        if (value == null || value.isEmpty()) {
+            return;
+        }
+
+        Settings settings = setting(mView.getCardNumberTitle());
+        if (settings == null) {
+            return;
+        }
+
+        mUser.setIdentifierMastercard04(value);
+        mUser = mDataSource.saveUser(mUser);
+
+        settings.setValue(value);
+
+        // Resubscribe to notifications
+        LoginManager.getInstance().unsubscribeFromNotifications();
+        LoginManager.getInstance().subscribeToNotifications();
 
         populateView();
     }
