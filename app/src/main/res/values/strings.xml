@@ -40,6 +40,7 @@
     <string name="txt_return">Return</string>
     <string name="dismiss">Dismiss</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="card_code">Merchant Code</string>
 
     <!-- Strings related to login -->
     <string name="prompt_access_code">Access Code</string>

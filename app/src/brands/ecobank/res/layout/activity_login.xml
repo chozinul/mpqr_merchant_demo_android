@@ -1,0 +1,127 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:gravity="center_horizontal"
+              android:orientation="vertical"
+              tools:background="@drawable/background_login"
+              tools:context="com.mastercard.labs.mpqrmerchant.login.LoginActivity">
+
+    <!-- Login progress -->
+    <ProgressBar
+            android:id="@+id/login_progress"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="8dp"
+            android:visibility="gone"/>
+
+    <ScrollView
+            android:id="@+id/login_form"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_gravity="center">
+
+        <LinearLayout
+                android:id="@+id/email_login_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/bank_logo"
+                    android:contentDescription="@string/logo"
+                    android:layout_marginBottom="40dp"/>
+
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+                <EditText
+                        android:id="@+id/txt_access_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/prompt_access_code"
+                        android:textColor="@color/colorWhite"
+                        android:inputType="numberDecimal"
+                        android:digits="0123456789"
+                        android:maxLength="8"
+                        android:maxLines="1"
+                        android:imeOptions="actionNext"
+                        app:theme="@style/LightEditTextStyle"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+                <EditText
+                        android:id="@+id/txt_pin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/prompt_pin"
+                        android:textColor="@color/colorWhite"
+                        android:imeActionId="@+id/login"
+                        android:imeActionLabel="@string/action_sign_in"
+                        android:imeOptions="actionUnspecified"
+                        android:inputType="numberPassword"
+                        android:digits="0123456789"
+                        android:maxLength="@string/pin_length"
+                        android:maxLines="1"
+                        app:theme="@style/LightEditTextStyle">
+                    <requestFocus />
+                </EditText>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="@string/forgot_pin"
+                    android:layout_gravity="end"
+                    android:gravity="center"
+                    android:textColor="@color/colorLightGreen"
+                    android:visibility="invisible"
+                    tools:visibility="visible"/>
+
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/masterpassqr_logo"
+                    android:layout_margin="10dp"
+                    android:contentDescription="@string/logo"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+            android:id="@+id/txt_app_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:padding="5dp"
+            android:textColor="@color/colorLightGrey"
+            tools:text="App version"/>
+    <Button
+            android:id="@+id/sign_in_btn"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="bottom"
+            android:text="@string/action_sign_in"
+            android:textStyle="bold"
+            android:textColor="@color/colorWhite"
+            android:background="@color/colorDeepSeaBlue"/>
+</LinearLayout>

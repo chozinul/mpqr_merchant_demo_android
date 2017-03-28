@@ -148,7 +148,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="@dimen/size_x"
-                            android:textColor="@color/colorDeepSeaBlue"
+                            android:textColor="@color/colorYellow"
                             android:layout_below="@id/txt_currency"
                             android:gravity="center"
                             android:paddingStart="10dp"
@@ -179,7 +179,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:textSize="@dimen/size_x"
-                            android:textColor="@color/colorDeepSeaBlue"
+                            android:textColor="@color/colorYellow"
                             android:layout_below="@id/txt_type"
                             android:gravity="center"
                             android:paddingStart="10dp"
@@ -309,12 +309,12 @@
                     android:layout_weight="1"/>
 
             <Button
-                    android:id="@+id/btn_generate"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@color/colorDeepSeaBlue"
-                    android:text="@string/generate"
-                    android:textColor="@color/colorWhite"/>
+                android:id="@+id/btn_generate"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/colorYellow"
+                android:text="@string/generate"
+                android:textColor="@color/colorWhite" />
         </LinearLayout>
     </ScrollView>
 

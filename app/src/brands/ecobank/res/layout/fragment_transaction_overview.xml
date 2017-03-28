@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/rl_transaction_overview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="16dp"
+                tools:background="@color/colorDeepSeaBlue"
+                tools:context="com.mastercard.labs.mpqrmerchant.transaction.overview.TransactionOverviewFragment">
+
+    <TextView
+            android:id="@+id/txt_total_daily_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/size_32"
+            tools:text="INR 102.90"/>
+
+    <TextView
+            android:id="@+id/txt_total_daily"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/total_daily"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="true"
+            android:fontFamily="sans-serif"
+            android:textSize="@dimen/size_x"
+            android:layout_below="@id/txt_total_daily_value"/>
+
+    <TextView
+            android:id="@+id/txt_transactions_daily_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/size_32"
+            android:layout_below="@id/txt_total_daily"
+            tools:text="100"/>
+
+    <TextView
+            android:id="@+id/txt_transactions_daily"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/transactions_daily"
+            android:gravity="center"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="true"
+            android:fontFamily="sans-serif"
+            android:textSize="@dimen/size_x"
+            android:layout_below="@id/txt_transactions_daily_value"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/divider_height"
+            android:id="@+id/main_divider"
+            android:layout_marginTop="30dp"
+            android:layout_below="@id/txt_transactions_daily"
+            android:background="@drawable/drawable_divider"/>
+
+</RelativeLayout>

@@ -5,6 +5,7 @@ import com.mastercard.labs.mpqrmerchant.data.model.Settings;
 import com.mastercard.labs.mpqrmerchant.data.model.User;
 import com.mastercard.labs.mpqrmerchant.network.LoginManager;
 import com.mastercard.labs.mpqrmerchant.network.ServiceGenerator;
+import com.mastercard.labs.mpqrmerchant.utils.CalculateCode;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 
 import java.util.ArrayList;
@@ -67,6 +68,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         allSettings.add(new Settings(mView.getCityTitle(), mUser.getCity(), false));
         allSettings.add(new Settings(mView.getMerchantCategoryCodeTitle(), mUser.getCategoryCode(), false));
         allSettings.add(new Settings(mView.getCardNumberTitle(), formattedCardNumber(mUser.getIdentifierMastercard04()), true));
+        allSettings.add(new Settings(mView.getCodeTitle(), CalculateCode.calculate8digit(mUser.getIdentifierMastercard04()), false));
         allSettings.add(new Settings(mView.getCurrencyTitle(), currency, false));
         allSettings.add(new Settings(mView.getStoreIdTitle(), mUser.getStoreId(), false));
         allSettings.add(new Settings(mView.getTerminalIdTitle(), mUser.getTerminalNumber(), false));
@@ -144,6 +146,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         }
 
         mUser.setIdentifierMastercard04(value);
+        mUser.setCode(CalculateCode.calculate8digit(value));
         mUser = mDataSource.saveUser(mUser);
 
         // TODO: Currently we don't care for the response as it is mocked but show progress in the future

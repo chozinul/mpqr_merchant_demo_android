@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 
 import com.mastercard.labs.mpqrmerchant.data.RealmDataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.User;
+import com.mastercard.labs.mpqrmerchant.utils.CalculateCode;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -45,7 +46,6 @@ public class LoginManager {
 
     public void setLoggedInUserId(long userId) {
         preferences.edit().putLong(USER_ID_KEY, userId).apply();
-
         subscribeToNotifications();
     }
 
@@ -76,22 +76,22 @@ public class LoginManager {
         Set<String> subscriptions = new HashSet<>();
         if (user != null) {
             if (user.getIdentifierMastercard04() != null) {
-                subscriptions.add(user.getIdentifierMastercard04());
+                subscriptions.add(CalculateCode.calculate8digit(user.getIdentifierMastercard04()));
             }
             if (user.getIdentifierMastercard05() != null) {
-                subscriptions.add(user.getIdentifierMastercard05());
+                subscriptions.add(CalculateCode.calculate8digit(user.getIdentifierMastercard05()));
             }
             if (user.getIdentifierVisa02() != null) {
-                subscriptions.add(user.getIdentifierVisa02());
+                subscriptions.add(CalculateCode.calculate8digit(user.getIdentifierVisa02()));
             }
             if (user.getIdentifierVisa03() != null) {
-                subscriptions.add(user.getIdentifierVisa03());
+                subscriptions.add(CalculateCode.calculate8digit(user.getIdentifierVisa03()));
             }
             if (user.getIdentifierNPCI06() != null) {
-                subscriptions.add(user.getIdentifierNPCI06());
+                subscriptions.add(CalculateCode.calculate8digit(user.getIdentifierNPCI06()));
             }
             if (user.getIdentifierNPCI07() != null) {
-                subscriptions.add(user.getIdentifierNPCI07());
+                subscriptions.add(CalculateCode.calculate8digit(user.getIdentifierNPCI07()));
             }
         }
 
@@ -118,6 +118,6 @@ public class LoginManager {
     }
 
     public String lastAccessToken() {
-        return "87654321";
+        return "55223345";
     }
 }

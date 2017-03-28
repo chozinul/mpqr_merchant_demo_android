@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/activity_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="@drawable/background_main"
+        tools:context="com.mastercard.labs.mpqrmerchant.main.MainActivity">
+
+    <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:background="@color/colorHeaderBackground"
+                    android:layout_weight="1">
+
+                <ImageView
+                        android:id="@+id/img_merchant_logo"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:src="@drawable/merchant_logo"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/logo"/>
+
+                <TextView
+                        android:id="@+id/txt_merchant_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@id/img_merchant_logo"
+                        android:layout_toEndOf="@id/img_merchant_logo"
+                        android:layout_marginStart="10dp"
+                        android:textSize="@dimen/size_x"
+                        tools:text="Comfort Delgro"/>
+
+                <TextView
+                        android:id="@+id/txt_merchant_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@id/txt_merchant_name"
+                        android:layout_alignEnd="@id/txt_merchant_name"
+                        android:layout_below="@id/txt_merchant_name"
+                        tools:text="\@Singapore"/>
+            </RelativeLayout>
+
+            <ImageButton
+                    android:id="@+id/img_settings"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/settings"
+                    android:background="@color/colorTransparent"
+                    android:scaleType="center"
+                    android:contentDescription="@string/settings"/>
+
+            <ImageButton
+                    android:id="@+id/btn_logout"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_logout"
+                    android:background="@color/colorTransparent"
+                    android:scaleType="center"
+                    android:contentDescription="@string/logout"/>
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbar"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:fillViewport="true">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <!--Background shown for the fragment is only visible in IDE-->
+                <fragment
+                        android:name="com.mastercard.labs.mpqrmerchant.transaction.overview.TransactionOverviewFragment"
+                        android:id="@+id/frg_transaction_overview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        tools:layout="@layout/fragment_transaction_overview"/>
+
+                <LinearLayout
+                        android:id="@+id/ll_transactions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:background="@color/colorHeaderBackground"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="vertical"
+                        android:gravity="center">
+
+                    <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/ic_show_transaction_list"
+                            android:contentDescription="@string/transactions"/>
+                </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                    style="@style/payment_layout"
+                    android:id="@+id/rl_payment_layout"
+                    android:background="@drawable/rectangle_border"
+                    android:layout_marginBottom="40dp">
+
+                <RelativeLayout
+                        android:id="@+id/rl_currency"
+                        android:layout_width="100dp"
+                        android:layout_height="75dp"
+                        android:layout_alignParentStart="true">
+
+                    <TextView
+                            android:id="@+id/txt_currency"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textSize="@dimen/size_x"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/currency"
+                            android:layout_alignParentTop="true"/>
+
+                    <TextView
+                            android:id="@+id/txt_currency_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="@dimen/size_x"
+                            android:textColor="@color/colorDeepSeaBlue"
+                            android:layout_below="@id/txt_currency"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            tools:text="INR"/>
+                </RelativeLayout>
+
+                <RelativeLayout
+                        android:id="@+id/rl_tip_type"
+                        android:layout_width="100dp"
+                        android:layout_height="75dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@id/rl_currency">
+
+                    <TextView
+                            android:id="@+id/txt_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:textSize="@dimen/size_x"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/type"
+                            android:layout_alignParentTop="true"/>
+
+                    <TextView
+                            android:id="@+id/txt_tip_type_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textSize="@dimen/size_x"
+                            android:textColor="@color/colorDeepSeaBlue"
+                            android:layout_below="@id/txt_type"
+                            android:gravity="center"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:drawableEnd="@drawable/ic_down_arrow"
+                            tools:text="Fixed"/>
+                </RelativeLayout>
+
+                <LinearLayout
+                        android:id="@+id/ll_amount_tip_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/rl_currency"
+                        android:orientation="vertical">
+
+
+                    <RelativeLayout
+                            android:id="@+id/rl_amount"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:orientation="vertical"
+                            android:paddingTop="10dp"
+                            android:paddingStart="15dp"
+                            android:paddingEnd="15dp">
+
+                        <TextView
+                                android:id="@+id/txt_amount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/transactionAmount"
+                                android:textSize="@dimen/size_small"
+                                android:labelFor="@+id/txt_amount_value"/>
+
+                        <com.mastercard.labs.mpqrmerchant.view.AmountEditText
+                                android:id="@+id/txt_amount_value"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@id/txt_amount"
+                                android:inputType="numberDecimal"
+                                android:digits="0123456789.,"
+                                android:textSize="@dimen/size_24"
+                                android:imeOptions="actionNext"
+                                android:maxLines="1"
+                                app:zeroColor="@color/colorLightGrey"
+                                app:nonZeroColor="@color/colorTextMainColor"
+                                tools:text="20.00"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                            android:id="@+id/rl_tip"
+                            android:layout_width="match_parent"
+                            android:layout_height="75dp"
+                            android:orientation="vertical"
+                            android:paddingTop="10dp"
+                            android:paddingStart="15dp"
+                            android:paddingEnd="15dp"
+                            tools:background="@color/colorDisabledDeepSeaBlue">
+
+                        <TextView
+                                android:id="@+id/txt_tip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/tip"
+                                android:textSize="@dimen/size_small"/>
+
+                        <com.mastercard.labs.mpqrmerchant.view.AmountEditText
+                                android:id="@+id/txt_tip_value"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:inputType="numberDecimal"
+                                android:digits="0123456789.,"
+                                android:textSize="@dimen/size_24"
+                                tools:text="20.00"
+                                android:layout_below="@+id/txt_tip"
+                                android:layout_alignParentStart="true"
+                                android:maxLines="1"
+                                android:imeActionId="@+id/action_generate"
+                                android:imeActionLabel="@string/generate"
+                                android:imeOptions="actionGo"
+                                app:zeroColor="@color/colorLightGrey"
+                                app:nonZeroColor="@color/colorTextMainColor"
+                                app:suffixColor="@color/colorWarmGrey"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <TextView
+                        android:id="@+id/txt_total_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="5dp"
+                        android:layout_marginEnd="25dp"
+                        android:layout_below="@id/ll_amount_tip_container"
+                        android:gravity="end|center_horizontal"
+                        android:textSize="@dimen/size_24"
+                        android:textStyle="italic"
+                        android:textColor="@color/colorTextBlack"
+                        tools:text="INR 0.00"/>
+
+                <!-->Drawing custom borders</!-->
+                <View
+                        android:layout_width="@dimen/rectangle_border_width"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@id/rl_currency"
+                        android:layout_alignTop="@id/rl_currency"
+                        android:layout_alignBottom="@id/rl_tip_type"
+                        android:background="@color/colorPinkishGrey"/>
+
+                <View
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/rectangle_border_width"
+                        android:layout_alignBottom="@id/rl_currency"
+                        android:background="@color/colorPinkishGrey"/>
+
+                <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/rectangle_border_width"
+                        android:layout_alignTop="@id/txt_total_amount"
+                        android:background="@color/colorPinkishGrey"/>
+
+            </RelativeLayout>
+
+            <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"/>
+
+            <Button
+                    android:id="@+id/btn_generate"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/colorDeepSeaBlue"
+                    android:text="@string/generate"
+                    android:textColor="@color/colorWhite"/>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -30,6 +30,8 @@ public interface SettingsContract {
 
         String getTerminalIdTitle();
 
+        String getCodeTitle();
+
         void showSettings(List<Settings> allSettings);
 
         void showMerchantNameEditor(String name);
