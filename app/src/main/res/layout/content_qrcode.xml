@@ -95,7 +95,7 @@
             android:id="@+id/btn_return"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/colorDeepSeaBlue"
+            android:background="@color/colorButtonColor"
             android:text="@string/txt_return"
             android:textColor="@color/colorWhite"
             android:layout_alignParentBottom="true"/>

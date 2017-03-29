@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textColorHint">@color/colorTextHint</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
@@ -18,12 +20,12 @@
     </style>
 
     <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
-        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColor">@color/colorTextInputLayout</item>
     </style>
 
     <style name="LightEditTextStyle" parent="AppTheme">
         <item name="colorControlNormal">@color/colorWhite</item>
-        <item name="colorControlActivated">@color/colorWhite</item>
-        <item name="colorControlHighlight">@color/colorWhite</item>
+        <item name="colorControlActivated">@color/colorEditTextActivated</item>
+        <item name="colorControlHighlight">@color/colorEditTextHighlighted</item>
     </style>
 </resources>

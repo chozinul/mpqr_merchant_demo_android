@@ -31,7 +31,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_margin="10dp"
                 android:layout_below="@id/img_tick"
-                android:textColor="@color/colorTextGreen"
+                android:textColor="@color/colorPaidColor"
                 android:textSize="@dimen/size_x"
                 android:text="@string/paid"/>
 

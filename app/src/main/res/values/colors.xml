@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#282828</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#e8b406</color>
 
     <color name="colorTextMainColor">#393939</color>
     <color name="colorGrey">#737373</color>
@@ -25,4 +25,15 @@
     <color name="colorDisabledDeepSeaBlue">#1F00567e</color>
     <color name="colorHeaderBackground">#1FFFFFFF</color>
     <color name="colorTextGreen">#6bbb70</color>
+
+    <color name="colorButtonColor">@color/colorYellow</color>
+    <color name="colorForgotPin">@color/colorYellow</color>
+    <color name="colorEmphasisTextColor">@color/colorYellow</color>
+    <color name="colorPaidColor">@color/colorYellow</color>
+
+    <color name="colorEditTextActivated">@color/colorYellow</color>
+    <color name="colorEditTextHighlighted">@color/colorYellow</color>
+
+    <color name="colorTextHint">@color/colorWhite</color>
+    <color name="colorTextInputLayout">@color/colorYellow</color>
 </resources>
