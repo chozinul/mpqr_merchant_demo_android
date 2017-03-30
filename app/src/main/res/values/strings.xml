@@ -110,4 +110,6 @@
     <string name="prompt">Prompt</string>
     <string name="enter_card_number">Enter card number</string>
     <string name="error_invalid_card_number">Invalid card number</string>
+
+    <string name="enter_city_name">Enter city</string>
 </resources>

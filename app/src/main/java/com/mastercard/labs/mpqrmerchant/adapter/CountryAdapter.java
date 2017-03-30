@@ -10,21 +10,21 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.mastercard.labs.mpqrmerchant.R;
-import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
+import com.mastercard.labs.mpqrmerchant.utils.CountryCode;
 
 import java.util.List;
-import java.util.Locale;
 
 /**
- * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/13/17
+ * Created by kaile on 29/3/17.
  */
-public class CurrencyAdapter extends ArrayAdapter<CurrencyCode> {
-    private int selectedIndex;
-    private List<CurrencyCode> currencyCodes;
 
-    public CurrencyAdapter(Context context, List<CurrencyCode> currencyCodes) {
-        super(context, 0, currencyCodes);
-        this.currencyCodes= currencyCodes;
+public class CountryAdapter extends ArrayAdapter<CountryCode> {
+    private int selectedIndex;
+    private List<CountryCode> countryCodes;
+
+    public CountryAdapter(Context context, List<CountryCode> countryCodes) {
+        super(context, 0, countryCodes);
+        this.countryCodes = countryCodes;
     }
 
     @NonNull
@@ -38,15 +38,15 @@ public class CurrencyAdapter extends ArrayAdapter<CurrencyCode> {
             view = convertView;
         }
 
-        TextView currencyTextView = (TextView) view.findViewById(R.id.item_txt);
+        TextView countryTextView = (TextView) view.findViewById(R.id.item_txt);
         RadioButton radioButton = (RadioButton) view.findViewById(R.id.rb_check);
 
-        CurrencyCode currencyCode = getItem(position);
-        if (currencyCode == null) {
+        CountryCode countryCode = getItem(position);
+        if (countryCode == null) {
             return view;
         }
 
-        currencyTextView.setText(String.format(Locale.getDefault(), "%s - %s", currencyCode.toString(), currencyCode.getCurrencyName()));
+        countryTextView.setText(countryCode.getCountryName());
 
         radioButton.setChecked(selectedIndex == position);
 
@@ -61,7 +61,7 @@ public class CurrencyAdapter extends ArrayAdapter<CurrencyCode> {
         return selectedIndex;
     }
 
-    public String getSelectedCurrencyCode() { return currencyCodes.get(selectedIndex).getNumericCode(); }
+    public String getSelectedCountryCode() { return countryCodes.get(selectedIndex).getISO2Code(); }
 
 }
 

@@ -184,7 +184,7 @@ public enum CurrencyCode {
     CNY("Yuan Renminbi", "156"),
     ZMW("Zambian Kwacha", "967"),
     ZML("Zimbabwe Dollar", "932"),
-    PLN("Zloty", "98");
+    PLN("Zloty", "985");
 
     String numericCode;
     String currencyName;

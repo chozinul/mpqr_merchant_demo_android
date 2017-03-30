@@ -63,11 +63,11 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         allSettings = new ArrayList<>();
 
         allSettings.add(new Settings(mView.getMerchantNameTitle(), mUser.getName(), true));
-        allSettings.add(new Settings(mView.getCountryTitle(), country, false));
-        allSettings.add(new Settings(mView.getCityTitle(), mUser.getCity(), false));
+        allSettings.add(new Settings(mView.getCountryTitle(), country, true));
+        allSettings.add(new Settings(mView.getCityTitle(), mUser.getCity(), true));
         allSettings.add(new Settings(mView.getMerchantCategoryCodeTitle(), mUser.getCategoryCode(), false));
         allSettings.add(new Settings(mView.getCardNumberTitle(), formattedCardNumber(mUser.getIdentifierMastercard04()), true));
-        allSettings.add(new Settings(mView.getCurrencyTitle(), currency, false));
+        allSettings.add(new Settings(mView.getCurrencyTitle(), currency, true));
         allSettings.add(new Settings(mView.getStoreIdTitle(), mUser.getStoreId(), false));
         allSettings.add(new Settings(mView.getTerminalIdTitle(), mUser.getTerminalNumber(), false));
 
@@ -98,6 +98,12 @@ public class SettingsPresenter implements SettingsContract.Presenter {
             mView.showMerchantNameEditor(mUser.getName());
         } else if (settings.getTitle().equals(mView.getCardNumberTitle())) {
             mView.showCardNumberEditor(formattedCardNumber(mUser.getIdentifierMastercard04()));
+        } else if (settings.getTitle().equals(mView.getCurrencyTitle())) {
+            mView.showCurrencyEditor(mUser.getCurrencyNumericCode());
+        } else if (settings.getTitle().equals(mView.getCityTitle()))
+            mView.showCityEditor(mUser.getCity());
+        else if (settings.getTitle().equals(mView.getCountryTitle())) {
+            mView.showCountryEditor(mUser.getCountryCode());
         }
     }
 
@@ -166,6 +172,95 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         populateView();
     }
 
+    @Override
+    public void updateCountryCode(String value) {
+        if (value == null || value.isEmpty()) {
+            return;
+        }
+
+        Settings settings = setting(mView.getCountryTitle());
+        if (settings == null) {
+            return;
+        }
+
+        mUser.setCountryCode(value);
+        mUser = mDataSource.saveUser(mUser);
+
+        // TODO: Currently we don't care for the response as it is mocked but show progress in the future
+        ServiceGenerator.getInstance().mpqrPaymentService().save(mUser).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+            }
+        });
+
+        settings.setValue(value);
+
+        populateView();
+    }
+
+    @Override
+    public void updateCityName(String value) {
+        if (value == null || value.isEmpty()) {
+            return;
+        }
+
+        Settings settings = setting(mView.getCityTitle());
+        if (settings == null) {
+            return;
+        }
+
+        mUser.setCity(value);
+        mUser = mDataSource.saveUser(mUser);
+
+        // TODO: Currently we don't care for the response as it is mocked but show progress in the future
+        ServiceGenerator.getInstance().mpqrPaymentService().save(mUser).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+            }
+        });
+
+        settings.setValue(value);
+
+        populateView();
+    }
+
+    @Override
+    public void updateCurrencyCode(String value) {
+        if (value == null || value.isEmpty()) {
+            return;
+        }
+
+        Settings settings = setting(mView.getCurrencyTitle());
+        if (settings == null) {
+            return;
+        }
+
+        mUser.setCurrencyNumericCode(value);
+        mUser = mDataSource.saveUser(mUser);
+
+        // TODO: Currently we don't care for the response as it is mocked but show progress in the future
+        ServiceGenerator.getInstance().mpqrPaymentService().save(mUser).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+            }
+        });
+
+        settings.setValue(value);
+
+        populateView();
+    }
     private Settings setting(String title) {
         for (Settings settings : allSettings) {
             if (settings.getTitle().equals(title)) {

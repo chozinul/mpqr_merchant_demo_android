@@ -16,19 +16,28 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.mastercard.labs.mpqrmerchant.R;
+import com.mastercard.labs.mpqrmerchant.adapter.CountryAdapter;
+import com.mastercard.labs.mpqrmerchant.adapter.CurrencyAdapter;
 import com.mastercard.labs.mpqrmerchant.adapter.SettingsAdapter;
 import com.mastercard.labs.mpqrmerchant.data.RealmDataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.Settings;
+import com.mastercard.labs.mpqrmerchant.utils.CountryCode;
+import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 import com.mastercard.labs.mpqrmerchant.utils.DialogUtils;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -271,6 +280,136 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
                 }
             }
         });
+    }
+
+    @Override
+    public void showCurrencyEditor(String currencyCode) {
+
+        int selectedCurrency = 0;
+        List<CurrencyCode> currencyList = Arrays.asList(CurrencyCode.values());
+        final CurrencyAdapter adapter = new CurrencyAdapter(this, currencyList);
+
+        for (CurrencyCode currency: currencyList)
+        {
+            if (currency.getNumericCode().equals(currencyCode)) {
+                selectedCurrency = currencyList.indexOf(currency);
+                adapter.setSelectedIndex(selectedCurrency);
+            }
+        }
+
+        //TODO: setSelectedIndex
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setSingleChoiceItems(adapter, selectedCurrency, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        adapter.setSelectedIndex(which);
+                        adapter.notifyDataSetChanged();
+                    }
+                })
+                .setCancelable(true)
+                .setPositiveButton(R.string.select, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.updateCurrencyCode(adapter.getSelectedCurrencyCode());
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create();
+
+        dialog.show();
+    }
+
+    @Override
+    public void showCountryEditor(String country) {
+
+        int selectedCountry = 0;
+        List<CountryCode> countryList = Arrays.asList(CountryCode.values());
+        final CountryAdapter adapter = new CountryAdapter(this, countryList);
+
+        for (CountryCode cCountry:  countryList)
+        {
+            if (cCountry.getISO2Code().equals(country)) {
+                Log.d(country, "Matched");
+                selectedCountry = countryList.indexOf(cCountry);
+                Log.d(country, "Matched");
+                adapter.setSelectedIndex(selectedCountry);
+            }
+        }
+
+        //TODO: setSelectedIndex
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setSingleChoiceItems(adapter, selectedCountry, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        adapter.setSelectedIndex(which);
+                        adapter.notifyDataSetChanged();
+                    }
+                })
+                .setCancelable(true)
+                .setPositiveButton(R.string.select, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mPresenter.updateCountryCode(adapter.getSelectedCountryCode());
+                        dialog.dismiss();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).create();
+
+        dialog.show();
+    }
+
+    @Override
+    public void showCityEditor(String city) {
+
+        LinearLayout layout = new LinearLayout(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setLayoutParams(params);
+
+        int padding = getResources().getDimensionPixelSize(R.dimen.size_14);
+        layout.setPadding(padding, 0, padding, 0);
+
+        final EditText input = new EditText(layout.getContext());
+        input.setText(city);
+
+        layout.addView(input, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.city)
+                .setMessage(R.string.enter_city_name)
+                .setView(layout)
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        mPresenter.updateCityName(input.getText().toString());
+                    }
+                }).create();
+
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        }
+
+        dialog.show();
+
+        input.setSelection(input.length(), input.length());
     }
 
     private boolean isValidCardNumber(String cardNumber) {

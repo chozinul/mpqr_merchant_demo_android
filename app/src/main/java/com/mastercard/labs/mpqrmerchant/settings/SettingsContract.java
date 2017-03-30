@@ -35,6 +35,12 @@ public interface SettingsContract {
         void showMerchantNameEditor(String name);
 
         void showCardNumberEditor(String cardNumber);
+
+        void showCurrencyEditor(String currency);
+
+        void showCountryEditor(String country);
+
+        void showCityEditor(String city);
     }
 
     interface Presenter extends BasePresenter {
@@ -44,5 +50,12 @@ public interface SettingsContract {
         void updateMerchantName(String value);
 
         void updateMerchantCard(String value);
+
+        void updateCurrencyCode(String value);
+
+        void updateCountryCode(String value);
+
+        void updateCityName(String value);
+
     }
 }
