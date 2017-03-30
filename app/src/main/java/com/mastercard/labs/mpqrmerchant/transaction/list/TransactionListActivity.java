@@ -96,6 +96,7 @@ public class TransactionListActivity extends AppCompatActivity implements Transa
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onTransactionsUpdateEvent(TransactionsUpdateEvent event) {
+        // Refresh list when a new transaction event is received while viewing this activity
         mPresenter.start();
     }
 
