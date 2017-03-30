@@ -33,7 +33,7 @@ public class CurrencyAdapter extends ArrayAdapter<CurrencyCode> {
         View view;
         LayoutInflater inflater = LayoutInflater.from(getContext());
         if (convertView == null) {
-            view = inflater.inflate(R.layout.list_item, parent, false);
+            view = inflater.inflate(R.layout.simple_list_item, parent, false);
         } else {
             view = convertView;
         }
