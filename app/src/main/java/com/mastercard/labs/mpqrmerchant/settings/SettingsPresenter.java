@@ -261,6 +261,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
         populateView();
     }
+
     private Settings setting(String title) {
         for (Settings settings : allSettings) {
             if (settings.getTitle().equals(title)) {

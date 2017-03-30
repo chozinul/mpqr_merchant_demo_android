@@ -28,12 +28,19 @@ import retrofit2.mock.Calls;
 public class MockMPQRMerchantService implements MPQRPaymentService {
     private static final String MERCHANT_NAME_KEY = "merchantName";
     private static final String MERCHANT_IDENTIFIER_KEY = "merchantIdentifier";
+    private static final String MERCHANT_COUNTRY_CODE_KEY = "merchantCountryCode";
+    private static final String MERCHANT_CITY_KEY = "merchantCity";
+    private static final String MERCHANT_CURRENCY_NUMERIC_CODE_KEY = "merchantCurrencyNumericCode";
 
     private static final String MERCHANT_CODE = "87654321";
     private static final String MERCHANT_PIN = "123456";
     private static final String DEFAULT_MERCHANT_NAME = "Go Go Transport";
+    private static final String DEFAULT_MERCHANT_COUNTRY_CODE = "IN";
+    private static final String DEFAULT_MERCHANT_CITY = "Delhi";
+    private static final String DEFAULT_MERCHANT_CURRENCY_NUMERIC_CODE = "356";
 
     private static final String DEFAULT_MERCHANT_IDENTIFIER;
+
     static {
         if (BuildConfig.FLAVOR.equals("india")) {
             DEFAULT_MERCHANT_IDENTIFIER = "5555666677778888";
@@ -61,16 +68,20 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
 
         String merchantName = PreferenceManager.getInstance().getString(MERCHANT_NAME_KEY, DEFAULT_MERCHANT_NAME);
         String merchantIdentifier = PreferenceManager.getInstance().getString(MERCHANT_IDENTIFIER_KEY, DEFAULT_MERCHANT_IDENTIFIER);
+        String merchantCountryCode = PreferenceManager.getInstance().getString(MERCHANT_COUNTRY_CODE_KEY, DEFAULT_MERCHANT_COUNTRY_CODE);
+        String merchantCity = PreferenceManager.getInstance().getString(MERCHANT_CITY_KEY, DEFAULT_MERCHANT_CITY);
+        String merchantCurrencyNumericCode = PreferenceManager.getInstance().getString(MERCHANT_CURRENCY_NUMERIC_CODE_KEY, DEFAULT_MERCHANT_CURRENCY_NUMERIC_CODE);
+
 
         String dummyResponse = "{\n" +
                 "  \"user\": {\n" +
                 "    \"id\": 1,\n" +
                 "    \"code\": \"" + MERCHANT_CODE + "\",\n" +
                 "    \"name\": \"" + merchantName + "\",\n" +
-                "    \"city\": \"Delhi\",\n" +
-                "    \"countryCode\": \"IN\",\n" +
+                "    \"city\": \"" + merchantCity + "\",\n" +
+                "    \"countryCode\": \"" + merchantCountryCode + "\",\n" +
                 "    \"categoryCode\": \"1234\",\n" +
-                "    \"currencyNumericCode\": \"356\",\n" +
+                "    \"currencyNumericCode\": \"" + merchantCurrencyNumericCode + "\",\n" +
                 "    \"identifierMastercard04\": \"" + merchantIdentifier + "\",\n" +
                 "    \"storeId\": \"87654321\",\n" +
                 "    \"terminalNumber\": \"3124652125\",\n" +
@@ -103,6 +114,9 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
     public Call<User> save(@Body User user) {
         PreferenceManager.getInstance().putString(MERCHANT_NAME_KEY, user.getName());
         PreferenceManager.getInstance().putString(MERCHANT_IDENTIFIER_KEY, user.getIdentifierMastercard04());
+        PreferenceManager.getInstance().putString(MERCHANT_COUNTRY_CODE_KEY, user.getCountryCode());
+        PreferenceManager.getInstance().putString(MERCHANT_CITY_KEY, user.getCity());
+        PreferenceManager.getInstance().putString(MERCHANT_CURRENCY_NUMERIC_CODE_KEY, user.getCurrencyNumericCode());
 
         return delegate.returningResponse(user).save(user);
     }
