@@ -2,6 +2,8 @@ package com.mastercard.labs.mpqrmerchant.utils;
 
 import android.content.SharedPreferences;
 
+import java.util.Set;
+
 /**
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/23/17
  */
@@ -31,5 +33,13 @@ public class PreferenceManager {
 
     public String getString(String key, String defaultValue) {
         return preferences.getString(key, defaultValue);
+    }
+
+    public void putStringSet(String key, Set<String> value) {
+        preferences.edit().putStringSet(key, value).apply();
+    }
+
+    public Set<String> getStringSet(String key, Set<String> defaultValues) {
+        return preferences.getStringSet(key, defaultValues);
     }
 }
