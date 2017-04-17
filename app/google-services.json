@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "761145430488",
+    "firebase_url": "https://mpqr-reference-apps.firebaseio.com",
+    "project_id": "mpqr-reference-apps",
+    "storage_bucket": "mpqr-reference-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761145430488:android:85226a37f432ef5e",
+        "android_client_info": {
+          "package_name": "com.mastercard.labs.mpqrmerchant.demo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761145430488-ebnug50gnaucijp392p4hdqvqj9247ue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS3mdkUNDuSdRMhLOF5tqWcaNVjndxLTc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761145430488:android:36222b92dee25424",
+        "android_client_info": {
+          "package_name": "com.mastercard.labs.mpqrmerchant.ecobank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761145430488-ebnug50gnaucijp392p4hdqvqj9247ue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS3mdkUNDuSdRMhLOF5tqWcaNVjndxLTc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

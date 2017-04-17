@@ -43,7 +43,8 @@ captures/
 .externalNativeBuild
 
 # Google Services (e.g. APIs or Firebase)
-google-services.json
+# google-services.json
+# let's upload the file to repo for now, otherwise everyone need to do it by them own
 
 #Freeline
 freeline.py
