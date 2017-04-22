@@ -29,6 +29,9 @@ android {
         india {
             applicationId "com.mastercard.labs.mpqrmerchant.ecobank"
         }
+        thailand {
+            applicationId "com.mastercard.labs.mpqrmerchant.thailand"
+        }
     }
 
     sourceSets {
@@ -37,9 +40,15 @@ android {
 
         ecobank {
             res.srcDirs = ['src/brands/ecobank/res']
+            java.srcDirs = ['src/brands/thailand/java']
         }
         india {
             res.srcDirs = ['src/brands/ecobank/res']
+            java.srcDirs = ['src/brands/thailand/java']
+        }
+        thailand {
+            res.srcDirs = ['src/brands/thailand/res']
+            java.srcDirs = ['src/brands/thailand/java']
         }
     }
     compileOptions {

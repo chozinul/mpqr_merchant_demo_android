@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "761145430488-mimhar0ch1thq9eqe9lppuu8ov1cf6rm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mastercard.labs.mpqrmerchant.demo",
+            "certificate_hash": "d7871cf6d2109f268434572e5915037e51c3d751"
+          }
+        },
+        {
           "client_id": "761145430488-ebnug50gnaucijp392p4hdqvqj9247ue.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761145430488-ebnug50gnaucijp392p4hdqvqj9247ue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
@@ -46,6 +59,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "761145430488-ii6h2gpd2002i2ou0814mk8qria888st.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mastercard.labs.mpqrmerchant.ecobank",
+            "certificate_hash": "d7871cf6d2109f268434572e5915037e51c3d751"
+          }
+        },
+        {
           "client_id": "761145430488-ebnug50gnaucijp392p4hdqvqj9247ue.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -60,8 +81,57 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761145430488-ebnug50gnaucijp392p4hdqvqj9247ue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761145430488:android:1bf28c99f02c7d85",
+        "android_client_info": {
+          "package_name": "com.mastercard.labs.mpqrmerchant.thailand"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761145430488-q12lpfb9d7bv2ed7ui8ham1mu1oqalln.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mastercard.labs.mpqrmerchant.thailand",
+            "certificate_hash": "d7871cf6d2109f268434572e5915037e51c3d751"
+          }
+        },
+        {
+          "client_id": "761145430488-ebnug50gnaucijp392p4hdqvqj9247ue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS3mdkUNDuSdRMhLOF5tqWcaNVjndxLTc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761145430488-ebnug50gnaucijp392p4hdqvqj9247ue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
