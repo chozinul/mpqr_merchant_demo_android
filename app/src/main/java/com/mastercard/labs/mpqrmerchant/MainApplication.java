@@ -18,9 +18,16 @@ public class MainApplication extends Application {
 
     public static final String APP_VERSION = String.format("%s (v%s)", StringUtils.capitalize(BuildConfig.FLAVOR), BuildConfig.VERSION_NAME);
 
+    protected static MainApplication appInstance = null;
+
+    public static MainApplication getInstance() {
+        return appInstance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        appInstance = this;
 
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE);
 
