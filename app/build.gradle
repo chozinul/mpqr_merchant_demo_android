@@ -40,11 +40,11 @@ android {
 
         ecobank {
             res.srcDirs = ['src/brands/ecobank/res']
-            java.srcDirs = ['src/brands/thailand/java']
+            java.srcDirs = ['src/brands/ecobank/java']
         }
         india {
             res.srcDirs = ['src/brands/ecobank/res']
-            java.srcDirs = ['src/brands/thailand/java']
+            java.srcDirs = ['src/brands/ecobank/java']
         }
         thailand {
             res.srcDirs = ['src/brands/thailand/res']
