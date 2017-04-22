@@ -1,9 +1,12 @@
 package com.mastercard.labs.mpqrmerchant.network.mock;
 
+import android.content.res.AssetManager;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import com.mastercard.labs.mpqrmerchant.BuildConfig;
+import com.mastercard.labs.mpqrmerchant.MainApplication;
 import com.mastercard.labs.mpqrmerchant.data.RealmDataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.Transaction;
 import com.mastercard.labs.mpqrmerchant.data.model.User;
@@ -13,9 +16,11 @@ import com.mastercard.labs.mpqrmerchant.network.request.LoginAccessCodeRequest;
 import com.mastercard.labs.mpqrmerchant.network.response.LoginResponse;
 import com.mastercard.labs.mpqrmerchant.utils.PreferenceManager;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
 import io.realm.RealmList;
@@ -40,18 +45,34 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
 
     private static final String MERCHANT_CODE = "87654321";
     private static final String MERCHANT_PIN = "123456";
-    private static final String DEFAULT_MERCHANT_NAME = "Go Go Transport";
-    private static final String DEFAULT_MERCHANT_COUNTRY_CODE = "IN";
-    private static final String DEFAULT_MERCHANT_CITY = "Delhi";
-    private static final String DEFAULT_MERCHANT_CURRENCY_NUMERIC_CODE = "356";
+    private static String DEFAULT_MERCHANT_NAME;
+    private static String DEFAULT_MERCHANT_COUNTRY_CODE;
+    private static String DEFAULT_MERCHANT_CITY;
+    private static String DEFAULT_MERCHANT_CURRENCY_NUMERIC_CODE;
 
-    private static final String DEFAULT_MERCHANT_IDENTIFIER;
+    private static String DEFAULT_MERCHANT_IDENTIFIER;
 
     static {
-        if (BuildConfig.FLAVOR.equals("india")) {
-            DEFAULT_MERCHANT_IDENTIFIER = "5555666677778888";
-        } else {
-            DEFAULT_MERCHANT_IDENTIFIER = "5555222233334444";
+        try {
+            AssetManager assetManager = MainApplication.getInstance().getBaseContext().getAssets();
+            Properties properties = new Properties();
+            properties.load(assetManager.open("init.properties"));
+            DEFAULT_MERCHANT_NAME = properties.getProperty(MERCHANT_NAME_KEY);
+            DEFAULT_MERCHANT_COUNTRY_CODE = properties.getProperty(MERCHANT_COUNTRY_CODE_KEY);
+            DEFAULT_MERCHANT_CITY = properties.getProperty(MERCHANT_CITY_KEY);
+            DEFAULT_MERCHANT_CURRENCY_NUMERIC_CODE = properties.getProperty(MERCHANT_CURRENCY_NUMERIC_CODE_KEY);
+            DEFAULT_MERCHANT_IDENTIFIER = properties.getProperty(MERCHANT_IDENTIFIER_KEY);
+        } catch (IOException e) {
+            //swallow it
+            DEFAULT_MERCHANT_NAME = "Go Go Transport";
+            DEFAULT_MERCHANT_COUNTRY_CODE = "IN";
+            DEFAULT_MERCHANT_CITY = "Delhi";
+            DEFAULT_MERCHANT_CURRENCY_NUMERIC_CODE = "356";
+            if (BuildConfig.FLAVOR.equals("india")) {
+                DEFAULT_MERCHANT_IDENTIFIER = "5555666677778888";
+            } else {
+                DEFAULT_MERCHANT_IDENTIFIER = "5555222233334444";
+            }
         }
     }
 

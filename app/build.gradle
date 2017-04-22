@@ -29,17 +29,27 @@ android {
         india {
             applicationId "com.mastercard.labs.mpqrmerchant.ecobank"
         }
+        thailand {
+            applicationId "com.mastercard.labs.mpqrmerchant.thailand"
+        }
     }
 
     sourceSets {
         main.java.srcDirs = ['src/main/java']
         main.res.srcDirs = ['src/main/res']
+        main.assets.srcDirs = ['src/main/assets']
 
         ecobank {
             res.srcDirs = ['src/brands/ecobank/res']
+            assets.srcDirs = ['src/brands/ecobank/assets']
         }
         india {
             res.srcDirs = ['src/brands/ecobank/res']
+            assets.srcDirs = ['src/brands/ecobank/assets']
+        }
+        thailand {
+            res.srcDirs = ['src/brands/thailand/res']
+            assets.srcDirs = ['src/brands/thailand/assets']
         }
     }
     compileOptions {
