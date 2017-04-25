@@ -3,11 +3,15 @@ package com.mastercard.labs.mpqrmerchant.network;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 
+import com.mastercard.labs.mpqrmerchant.MainApplication;
 import com.mastercard.labs.mpqrmerchant.data.RealmDataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.User;
 
+import java.io.IOException;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
 import java.util.regex.Pattern;
 
@@ -22,6 +26,7 @@ public class LoginManager {
     private static final String TOKEN_KEY = "token";
     private static final String SUBSCRIBED_TOPICS = "subscriptions";
     private static final String LAST_ACCESS_CODE_KEY = "lastAccessCode";
+    private static String DEFAULT_LAST_ACCESS_CODE = "";
 
     private static final Pattern firebaseTopicPattern = Pattern.compile("[a-zA-Z0-9-_.~%]{1,900}");
 
@@ -38,6 +43,15 @@ public class LoginManager {
 
     private LoginManager(SharedPreferences sharedPreferences) {
         this.preferences = sharedPreferences;
+        try {
+            AssetManager assetManager = MainApplication.getInstance().getBaseContext().getAssets();
+            Properties properties = new Properties();
+            properties.load(assetManager.open("init.properties"));
+            DEFAULT_LAST_ACCESS_CODE = properties.getProperty(LAST_ACCESS_CODE_KEY);
+        } catch (IOException e) {
+            //swallow it
+            DEFAULT_LAST_ACCESS_CODE = "87654321";
+        }
     }
 
     public long getLoggedInUserId() {
@@ -124,6 +138,6 @@ public class LoginManager {
     }
 
     public String lastAccessToken() {
-        return preferences.getString(LAST_ACCESS_CODE_KEY, "87654321");
+        return preferences.getString(LAST_ACCESS_CODE_KEY, DEFAULT_LAST_ACCESS_CODE);
     }
 }

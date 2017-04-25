@@ -68,11 +68,7 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
             DEFAULT_MERCHANT_COUNTRY_CODE = "IN";
             DEFAULT_MERCHANT_CITY = "Delhi";
             DEFAULT_MERCHANT_CURRENCY_NUMERIC_CODE = "356";
-            if (BuildConfig.FLAVOR.equals("india")) {
-                DEFAULT_MERCHANT_IDENTIFIER = "5555666677778888";
-            } else {
-                DEFAULT_MERCHANT_IDENTIFIER = "5555222233334444";
-            }
+            DEFAULT_MERCHANT_IDENTIFIER = "5555222233334444";
         }
     }
 
@@ -87,7 +83,7 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
 
     @Override
     public Call<LoginResponse> login(@Body LoginAccessCodeRequest request) {
-        if (!request.getAccessCode().equals(MERCHANT_CODE) || !request.getPin().equals(MERCHANT_PIN)) {
+        if (request.getAccessCode().length() == 0 || !request.getPin().equals(MERCHANT_PIN)) {
             ResponseBody responseBody = ResponseBody.create(MediaType.parse("application/json"), "{\"success\": \"false\"}");
             return delegate.returning(Calls.response(Response.error(404, responseBody))).login(request);
         }

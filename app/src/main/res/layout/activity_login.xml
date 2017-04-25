@@ -52,9 +52,7 @@
                         android:layout_height="wrap_content"
                         android:hint="@string/prompt_access_code"
                         android:textColor="@color/colorWhite"
-                        android:inputType="numberDecimal"
-                        android:digits="0123456789"
-                        android:maxLength="8"
+                        android:maxLength="20"
                         android:maxLines="1"
                         android:imeOptions="actionNext"
                         app:theme="@style/LightEditTextStyle"/>

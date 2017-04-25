@@ -34,7 +34,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     private boolean isAccessCodeValid(String accessCode) {
-        return accessCode != null && accessCode.length() == 8;
+        return accessCode != null && accessCode.length() > 0;
     }
 
     @Override

@@ -233,14 +233,14 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
         input.setKeyListener(DigitsKeyListener.getInstance("0123456789 "));
         input.setFilters(new InputFilter[] {new InputFilter.LengthFilter(16 + 3)});
 
-        final ImageView imageView = new ImageView(layout.getContext());
-        imageView.setImageResource(R.drawable.mastercard_logo);
+//        final ImageView imageView = new ImageView(layout.getContext());
+//        imageView.setImageResource(R.drawable.mastercard_logo);
 
         LinearLayout.LayoutParams inputParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT);
         inputParams.weight = 1;
         layout.addView(input, inputParams);
 
-        layout.addView(imageView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
+//        layout.addView(imageView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
         final AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(R.string.card_number)
@@ -442,11 +442,6 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
                 if (Character.isDigit(c) && TextUtils.split(s.toString(), String.valueOf(space)).length <= 3) {
                     s.insert(s.length() - 1, String.valueOf(space));
                 }
-            }
-
-            // TODO: Remove to support other cards. For now only Mastercard is accepted
-            if (s.length() == 0) {
-                s.insert(0, "5");
             }
         }
     }
