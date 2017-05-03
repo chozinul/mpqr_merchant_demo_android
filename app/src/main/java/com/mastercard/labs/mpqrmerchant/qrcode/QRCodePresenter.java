@@ -27,7 +27,7 @@ class QRCodePresenter implements QRCodeContract.Presenter {
         }
 
         mView.setTotalAmount(mQRData.getTotal(), currencyCode);
-        mView.setMerchantCode(mQRData.getMerchantCode());
+        mView.setMerchantCode(mQRData.getMerchantIdentifierMastercard04());
         mView.setMerchantName(mQRData.getMerchantName());
         mView.setMerchantCity(mQRData.getMerchantCity());
     }
