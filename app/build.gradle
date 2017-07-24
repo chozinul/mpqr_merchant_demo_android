@@ -32,6 +32,9 @@ android {
         thailand {
             applicationId "com.mastercard.labs.mpqrmerchant.thailand"
         }
+        sbi {
+            applicationId "com.mastercard.labs.mpqrmerchant.sbi"
+        }
     }
 
     sourceSets {
@@ -50,6 +53,9 @@ android {
         thailand {
             res.srcDirs = ['src/brands/thailand/res']
             assets.srcDirs = ['src/brands/thailand/assets']
+        }
+        sbi {
+            res.srcDirs = ['src/brands/sbi/res']
         }
     }
     compileOptions {

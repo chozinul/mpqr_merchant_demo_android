@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SBI Merchant</string>
+    <string name="prompt_access_code">Username</string>
+    <string name="error_invalid_access_code">This username is invalid. It should be %s digits</string>
+</resources>

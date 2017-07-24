@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#332178</color>
+    <color name="colorPrimaryDark">#27195A</color>
+    <color name="colorAccent">#00A9E0</color>
+
+    <color name="colorButtonColor">@color/colorAccent</color>
+    <color name="colorForgotPin">@color/colorAccent</color>
+    <color name="colorEmphasisTextColor">@color/colorAccent</color>
+    <color name="colorPaidColor">@color/colorAccent</color>
+
+    <color name="colorEditTextActivated">@color/colorAccent</color>
+    <color name="colorEditTextHighlighted">@color/colorAccent</color>
+
+    <color name="colorTextInputLayout">@color/colorAccent</color>
+    <color name="colorTextHint">@color/colorWhite</color>
+</resources>

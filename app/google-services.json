@@ -137,6 +137,50 @@
           "status": 2
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:761145430488:android:2bf844698e4f88e3",
+        "android_client_info": {
+          "package_name": "com.mastercard.labs.mpqrmerchant.sbi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "761145430488-cj5qdh4uqhomg7kmjo7p5u1j93qubhnc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mastercard.labs.mpqrmerchant.sbi",
+            "certificate_hash": "d7871cf6d2109f268434572e5915037e51c3d751"
+          }
+        },
+        {
+          "client_id": "761145430488-ebnug50gnaucijp392p4hdqvqj9247ue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDS3mdkUNDuSdRMhLOF5tqWcaNVjndxLTc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "761145430488-ebnug50gnaucijp392p4hdqvqj9247ue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
     }
   ],
   "configuration_version": "1"
