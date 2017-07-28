@@ -112,4 +112,7 @@
     <string name="error_invalid_card_number">Invalid card number</string>
 
     <string name="enter_city_name">Enter city</string>
+    <string name="merchant_phone_title">Phone</string>
+    <string name="mobile">Phone Number</string>
+    <string name="enter_phone_number">Enter your phone number</string>
 </resources>

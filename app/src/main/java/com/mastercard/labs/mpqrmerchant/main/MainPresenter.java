@@ -65,7 +65,7 @@ class MainPresenter implements MainContract.Presenter {
         qrData.setMerchantIdentifierNPCI07(mUser.getIdentifierNPCI07());
         qrData.setMerchantStoreId(mUser.getStoreId());
         qrData.setMerchantTerminalNumber(mUser.getTerminalNumber());
-
+        qrData.setMerchantMobile(mUser.getMobile());
         qrData.setTransactionAmount(0);
         qrData.setTipType(QRData.TipType.NONE);
         qrData.setTip(0);
@@ -259,13 +259,16 @@ class MainPresenter implements MainContract.Presenter {
         }
         paymentData.setTransactionCurrencyCode(qrData.getCurrencyNumericCode());
 
-        if (qrData.getMerchantStoreId() != null || qrData.getMerchantTerminalNumber() != null) {
+        if (qrData.getMerchantStoreId() != null || qrData.getMerchantTerminalNumber() != null || qrData.getMerchantMobile() != null) {
             AdditionalData additionalData = new AdditionalData();
             if (qrData.getMerchantStoreId() != null) {
                 additionalData.setStoreId(qrData.getMerchantStoreId());
             }
             if (qrData.getMerchantTerminalNumber() != null) {
                 additionalData.setTerminalId(qrData.getMerchantTerminalNumber());
+            }
+            if (qrData.getMerchantMobile() != null) {
+                additionalData.setMobileNumber(qrData.getMerchantMobile());
             }
             paymentData.setAdditionalData(additionalData);
         }

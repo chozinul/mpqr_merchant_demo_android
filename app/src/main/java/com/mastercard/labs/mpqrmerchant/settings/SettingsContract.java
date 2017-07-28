@@ -30,6 +30,8 @@ public interface SettingsContract {
 
         String getTerminalIdTitle();
 
+        String getMobileTitle();
+
         void showSettings(List<Settings> allSettings);
 
         void showMerchantNameEditor(String name);
@@ -41,6 +43,8 @@ public interface SettingsContract {
         void showCountryEditor(String country);
 
         void showCityEditor(String city);
+
+        void showMobileEditor(String mobile);
     }
 
     interface Presenter extends BasePresenter {
@@ -56,6 +60,8 @@ public interface SettingsContract {
         void updateCountryCode(String value);
 
         void updateCityName(String value);
+
+        void updateMobile(String value);
 
     }
 }

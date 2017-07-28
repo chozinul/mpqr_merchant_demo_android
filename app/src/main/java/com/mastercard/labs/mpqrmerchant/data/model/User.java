@@ -27,6 +27,7 @@ public class User extends RealmObject {
     private String storeId;
     private String terminalNumber;
     private String currencyNumericCode;
+    private String mobile;
     private RealmList<Transaction> transactions;
 
     public long getId() {
@@ -149,6 +150,14 @@ public class User extends RealmObject {
         this.currencyNumericCode = currencyNumericCode;
     }
 
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
     public RealmList<Transaction> getTransactions() {
         return transactions;
     }
@@ -175,11 +184,12 @@ public class User extends RealmObject {
                 Objects.equals(identifierNPCI07, user.identifierNPCI07) &&
                 Objects.equals(storeId, user.storeId) &&
                 Objects.equals(terminalNumber, user.terminalNumber) &&
-                Objects.equals(currencyNumericCode, user.currencyNumericCode);
+                Objects.equals(currencyNumericCode, user.currencyNumericCode) &&
+                Objects.equals(mobile, user.mobile);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, code, name, city, categoryCode, identifierVisa02, identifierVisa03, identifierMastercard04, identifierMastercard05, identifierNPCI06, identifierNPCI07, storeId, terminalNumber, currencyNumericCode);
+        return Objects.hash(id, code, name, city, categoryCode, identifierVisa02, identifierVisa03, identifierMastercard04, identifierMastercard05, identifierNPCI06, identifierNPCI07, storeId, terminalNumber, currencyNumericCode, mobile);
     }
 }

@@ -163,6 +163,11 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
     }
 
     @Override
+    public String getMobileTitle() {
+        return getString(R.string.merchant_phone_title);
+    }
+
+    @Override
     public void showSettings(List<Settings> allSettings) {
         mSettingsAdapter = new SettingsAdapter(allSettings, this);
         mSettingsRecyclerView.setAdapter(mSettingsAdapter);
@@ -231,7 +236,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
         input.addTextChangedListener(new FourDigitCardFormatWatcher());
         input.setKeyListener(DigitsKeyListener.getInstance("0123456789 "));
-        input.setFilters(new InputFilter[] {new InputFilter.LengthFilter(16 + 3)});
+        input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16 + 3)});
 
 //        final ImageView imageView = new ImageView(layout.getContext());
 //        imageView.setImageResource(R.drawable.mastercard_logo);
@@ -289,8 +294,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
         List<CurrencyCode> currencyList = Arrays.asList(CurrencyCode.values());
         final CurrencyAdapter adapter = new CurrencyAdapter(this, currencyList);
 
-        for (CurrencyCode currency: currencyList)
-        {
+        for (CurrencyCode currency : currencyList) {
             if (currency.getNumericCode().equals(currencyCode)) {
                 selectedCurrency = currencyList.indexOf(currency);
                 adapter.setSelectedIndex(selectedCurrency);
@@ -331,8 +335,7 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
         List<CountryCode> countryList = Arrays.asList(CountryCode.values());
         final CountryAdapter adapter = new CountryAdapter(this, countryList);
 
-        for (CountryCode cCountry:  countryList)
-        {
+        for (CountryCode cCountry : countryList) {
             if (cCountry.getISO2Code().equals(country)) {
                 Log.d(country, "Matched");
                 selectedCountry = countryList.indexOf(cCountry);
@@ -399,6 +402,49 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                         mPresenter.updateCityName(input.getText().toString());
+                    }
+                }).create();
+
+        Window window = dialog.getWindow();
+        if (window != null) {
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        }
+
+        dialog.show();
+
+        input.setSelection(input.length(), input.length());
+    }
+
+    @Override
+    public void showMobileEditor(String mobile) {
+        LinearLayout layout = new LinearLayout(this);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setLayoutParams(params);
+
+        int padding = getResources().getDimensionPixelSize(R.dimen.size_14);
+        layout.setPadding(padding, 0, padding, 0);
+
+        final EditText input = new EditText(layout.getContext());
+        input.setText(mobile);
+
+        layout.addView(input, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle(R.string.mobile)
+                .setMessage(R.string.enter_phone_number)
+                .setView(layout)
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        mPresenter.updateMobile(input.getText().toString());
                     }
                 }).create();
 

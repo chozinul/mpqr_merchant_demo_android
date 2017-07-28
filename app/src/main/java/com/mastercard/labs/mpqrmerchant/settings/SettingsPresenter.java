@@ -1,5 +1,7 @@
 package com.mastercard.labs.mpqrmerchant.settings;
 
+import android.util.Log;
+
 import com.mastercard.labs.mpqrmerchant.data.DataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.Settings;
 import com.mastercard.labs.mpqrmerchant.data.model.User;
@@ -60,6 +62,13 @@ public class SettingsPresenter implements SettingsContract.Presenter {
             currency = merchantCurrencyCode.toString();
         }
 
+        String mobile = "No number entered";
+
+        if (mUser.getMobile() != null)
+            if (!mUser.getMobile().trim().isEmpty())
+                mobile = mUser.getMobile();
+
+
         allSettings = new ArrayList<>();
 
         allSettings.add(new Settings(mView.getMerchantNameTitle(), mUser.getName(), true));
@@ -70,6 +79,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         allSettings.add(new Settings(mView.getCurrencyTitle(), currency, true));
         allSettings.add(new Settings(mView.getStoreIdTitle(), mUser.getStoreId(), false));
         allSettings.add(new Settings(mView.getTerminalIdTitle(), mUser.getTerminalNumber(), false));
+        allSettings.add(new Settings(mView.getMobileTitle(), mobile, true));
 
         mView.showSettings(allSettings);
     }
@@ -104,6 +114,8 @@ public class SettingsPresenter implements SettingsContract.Presenter {
             mView.showCityEditor(mUser.getCity());
         else if (settings.getTitle().equals(mView.getCountryTitle())) {
             mView.showCountryEditor(mUser.getCountryCode());
+        } else if (settings.getTitle().equals(mView.getMobileTitle())) {
+            mView.showMobileEditor(mUser.getMobile());
         }
     }
 
@@ -214,6 +226,40 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         }
 
         mUser.setCity(value);
+        mUser = mDataSource.saveUser(mUser);
+
+        // TODO: Currently we don't care for the response as it is mocked but show progress in the future
+        ServiceGenerator.getInstance().mpqrPaymentService().save(mUser).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+            }
+        });
+
+        settings.setValue(value);
+
+        populateView();
+    }
+
+    @Override
+    public void updateMobile(String value) {
+        // TODO: Validate mobile number
+        if (value == null)
+            return;
+
+        if (value.trim().isEmpty()) {
+            value = null;
+        }
+
+        Settings settings = setting(mView.getMobileTitle());
+        if (settings == null) {
+            return;
+        }
+
+        mUser.setMobile(value);
         mUser = mDataSource.saveUser(mUser);
 
         // TODO: Currently we don't care for the response as it is mocked but show progress in the future

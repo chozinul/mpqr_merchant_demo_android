@@ -22,7 +22,7 @@ public class QRData implements Parcelable {
     private String merchantIdentifierNPCI07;
     private String merchantStoreId;
     private String merchantTerminalNumber;
-
+    private String merchantMobile;
     private double transactionAmount;
     private TipType tipType;
     private double tip;
@@ -180,6 +180,14 @@ public class QRData implements Parcelable {
         return CurrencyCode.fromNumericCode(currencyNumericCode);
     }
 
+    public void setMerchantMobile(String merchantMobile) {
+        this.merchantMobile = merchantMobile;
+    }
+
+    public String getMerchantMobile() {
+        return merchantMobile;
+    }
+
     public enum TipType {
         FLAT,
         PERCENTAGE,
@@ -208,6 +216,7 @@ public class QRData implements Parcelable {
         dest.writeString(this.merchantStoreId);
         dest.writeString(this.merchantTerminalNumber);
         dest.writeDouble(this.transactionAmount);
+        dest.writeString(this.merchantMobile);
         dest.writeInt(this.tipType == null ? -1 : this.tipType.ordinal());
         dest.writeDouble(this.tip);
         dest.writeString(this.currencyNumericCode);
@@ -231,6 +240,7 @@ public class QRData implements Parcelable {
         this.merchantStoreId = in.readString();
         this.merchantTerminalNumber = in.readString();
         this.transactionAmount = in.readDouble();
+        this.merchantMobile = in.readString();
         int tmpTipType = in.readInt();
         this.tipType = tmpTipType == -1 ? null : TipType.values()[tmpTipType];
         this.tip = in.readDouble();
