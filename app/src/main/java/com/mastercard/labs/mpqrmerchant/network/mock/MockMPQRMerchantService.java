@@ -42,6 +42,7 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
     private static final String MERCHANT_CITY_KEY = "merchantCity";
     private static final String MERCHANT_CURRENCY_NUMERIC_CODE_KEY = "merchantCurrencyNumericCode";
     private static final String MERCHANT_TRANSACTIONS_LIST_KEY = "merchantTransactions";
+    private static final String MERCHANT_PHONE_KEY = "merchantPhone";
 
     private static final String MERCHANT_CODE = "87654321";
     private static final String MERCHANT_PIN = "123456";
@@ -51,6 +52,7 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
     private static String DEFAULT_MERCHANT_CURRENCY_NUMERIC_CODE;
 
     private static String DEFAULT_MERCHANT_IDENTIFIER;
+    private static String DEFAULT_MERCHANT_PHONE;
 
     static {
         try {
@@ -62,6 +64,7 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
             DEFAULT_MERCHANT_CITY = properties.getProperty(MERCHANT_CITY_KEY);
             DEFAULT_MERCHANT_CURRENCY_NUMERIC_CODE = properties.getProperty(MERCHANT_CURRENCY_NUMERIC_CODE_KEY);
             DEFAULT_MERCHANT_IDENTIFIER = properties.getProperty(MERCHANT_IDENTIFIER_KEY);
+            DEFAULT_MERCHANT_PHONE = properties.getProperty(MERCHANT_PHONE_KEY, "");
         } catch (IOException e) {
             //swallow it
             DEFAULT_MERCHANT_NAME = "Go Go Transport";
@@ -69,6 +72,7 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
             DEFAULT_MERCHANT_CITY = "Delhi";
             DEFAULT_MERCHANT_CURRENCY_NUMERIC_CODE = "356";
             DEFAULT_MERCHANT_IDENTIFIER = "5555222233334444";
+            DEFAULT_MERCHANT_PHONE = "";
         }
     }
 
@@ -93,6 +97,7 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
         String merchantCountryCode = PreferenceManager.getInstance().getString(MERCHANT_COUNTRY_CODE_KEY, DEFAULT_MERCHANT_COUNTRY_CODE);
         String merchantCity = PreferenceManager.getInstance().getString(MERCHANT_CITY_KEY, DEFAULT_MERCHANT_CITY);
         String merchantCurrencyNumericCode = PreferenceManager.getInstance().getString(MERCHANT_CURRENCY_NUMERIC_CODE_KEY, DEFAULT_MERCHANT_CURRENCY_NUMERIC_CODE);
+        String merchantPhone = PreferenceManager.getInstance().getString(MERCHANT_PHONE_KEY, DEFAULT_MERCHANT_PHONE);
 
         // TODO: Handle version updates because that might invalidate stored data in preferences and cause exceptions while parsing as JSON
         // Parse stored transactions
@@ -114,6 +119,7 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
                 "    \"identifierMastercard04\": \"" + merchantIdentifier + "\",\n" +
                 "    \"storeId\": \"87654321\",\n" +
                 "    \"terminalNumber\": \"3124652125\",\n" +
+                "    \"mobile\": \"" + merchantPhone + "\",\n" +
                 "    \"transactions\": []\n" +
                 "  },\n" +
                 "  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NjIsInR5cGUiOiJjb25zdW1lciIsImlhdCI6MTQ4NjUyNTcwOSwiZXhwIjoxNDg3ODIxNzA5fQ.QbRK_RG1yr40iKK2GKmnMoBKuLxLg-X2gsKPnolyJ7w\"\n" +
@@ -153,6 +159,11 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
         PreferenceManager.getInstance().putString(MERCHANT_COUNTRY_CODE_KEY, user.getCountryCode());
         PreferenceManager.getInstance().putString(MERCHANT_CITY_KEY, user.getCity());
         PreferenceManager.getInstance().putString(MERCHANT_CURRENCY_NUMERIC_CODE_KEY, user.getCurrencyNumericCode());
+        if (user.getMobile() != null && !user.getMobile().isEmpty()) {
+            PreferenceManager.getInstance().putString(MERCHANT_PHONE_KEY, user.getMobile());
+        } else {
+            PreferenceManager.getInstance().removeValue(MERCHANT_PHONE_KEY);
+        }
 
         return delegate.returningResponse(user).save(user);
     }

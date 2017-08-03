@@ -42,4 +42,8 @@ public class PreferenceManager {
     public Set<String> getStringSet(String key, Set<String> defaultValues) {
         return preferences.getStringSet(key, defaultValues);
     }
+
+    public boolean removeValue(String key) {
+        return preferences.edit().remove(key).commit();
+    }
 }
