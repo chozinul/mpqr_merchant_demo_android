@@ -60,12 +60,6 @@ public class LoginManager {
 
     public void setLoggedInUserId(long userId) {
         preferences.edit().putLong(USER_ID_KEY, userId).apply();
-
-        User user = RealmDataSource.getInstance().getUser(userId);
-        if (user != null) {
-            preferences.edit().putString(LAST_ACCESS_CODE_KEY, user.getCode()).apply();
-        }
-
         subscribeToNotifications();
     }
 
@@ -139,5 +133,9 @@ public class LoginManager {
 
     public String lastAccessToken() {
         return preferences.getString(LAST_ACCESS_CODE_KEY, DEFAULT_LAST_ACCESS_CODE);
+    }
+
+    public void setLastAccessToken(String accessToken) {
+        preferences.edit().putString(LAST_ACCESS_CODE_KEY, accessToken).apply();
     }
 }

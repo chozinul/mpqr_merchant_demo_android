@@ -38,7 +38,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     }
 
     @Override
-    public void login(String accessCode, String pin) {
+    public void login(final String accessCode, String pin) {
         if (loginRequest != null) {
             return;
         }
@@ -67,7 +67,7 @@ public class LoginPresenter implements LoginContract.Presenter {
                 loginRequest = null;
 
                 if (response.isSuccessful()) {
-                    loginSuccess(response.body());
+                    loginSuccess(response.body(), accessCode);
 
                     mView.startMainFlow();
                 } else {
@@ -88,11 +88,12 @@ public class LoginPresenter implements LoginContract.Presenter {
         });
     }
 
-    private void loginSuccess(LoginResponse response) {
+    private void loginSuccess(LoginResponse response, String accessCode) {
         LoginManager.getInstance().setToken(response.getToken());
 
         dataSource.saveUser(response.getUser());
 
         LoginManager.getInstance().setLoggedInUserId(response.getUser().getId());
+        LoginManager.getInstance().setLastAccessToken(accessCode);
     }
 }
