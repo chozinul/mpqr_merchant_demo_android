@@ -43,7 +43,7 @@ public class PreferenceManager {
         return preferences.getStringSet(key, defaultValues);
     }
 
-    public boolean removeValue(String key) {
-        return preferences.edit().remove(key).commit();
+    public void removeValue(String key) {
+        preferences.edit().remove(key).apply();
     }
 }
