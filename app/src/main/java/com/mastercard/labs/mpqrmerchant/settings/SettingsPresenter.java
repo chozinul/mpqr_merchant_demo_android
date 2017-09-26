@@ -1,21 +1,14 @@
 package com.mastercard.labs.mpqrmerchant.settings;
 
-import android.util.Log;
-
 import com.mastercard.labs.mpqrmerchant.data.DataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.Settings;
 import com.mastercard.labs.mpqrmerchant.data.model.User;
 import com.mastercard.labs.mpqrmerchant.network.LoginManager;
-import com.mastercard.labs.mpqrmerchant.network.ServiceGenerator;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/16/17
@@ -46,8 +39,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
     }
 
     private void populateView() {
-        // TODO: Find a proper way to inject resource strings
-        // Generate allSettings
+        // Generate all Settings
         String country = "UNKNOWN";
         if (mUser.getCountryCode() != null) {
             Locale countryLocale = new Locale("", mUser.getCountryCode());
@@ -133,17 +125,6 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         mUser.setName(value);
         mUser = mDataSource.saveUser(mUser);
 
-        // TODO: Currently we don't care for the response as it is mocked but show progress in the future
-        ServiceGenerator.getInstance().mpqrPaymentService().save(mUser).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-            }
-        });
-
         settings.setValue(value);
 
         populateView();
@@ -151,7 +132,6 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
     @Override
     public void updateMerchantCard(String value) {
-        // TODO: Validate credit card number
         if (value == null || value.isEmpty()) {
             return;
         }
@@ -164,22 +144,7 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         mUser.setIdentifierMastercard04(value);
         mUser = mDataSource.saveUser(mUser);
 
-        // TODO: Currently we don't care for the response as it is mocked but show progress in the future
-        ServiceGenerator.getInstance().mpqrPaymentService().save(mUser).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-            }
-        });
-
         settings.setValue(value);
-
-        // Resubscribe to notifications
-        LoginManager.getInstance().unsubscribeFromNotifications();
-        LoginManager.getInstance().subscribeToNotifications();
 
         populateView();
     }
@@ -197,17 +162,6 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
         mUser.setCountryCode(value);
         mUser = mDataSource.saveUser(mUser);
-
-        // TODO: Currently we don't care for the response as it is mocked but show progress in the future
-        ServiceGenerator.getInstance().mpqrPaymentService().save(mUser).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-            }
-        });
 
         settings.setValue(value);
 
@@ -228,17 +182,6 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         mUser.setCity(value);
         mUser = mDataSource.saveUser(mUser);
 
-        // TODO: Currently we don't care for the response as it is mocked but show progress in the future
-        ServiceGenerator.getInstance().mpqrPaymentService().save(mUser).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-            }
-        });
-
         settings.setValue(value);
 
         populateView();
@@ -246,7 +189,6 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
     @Override
     public void updateMobile(String value) {
-        // TODO: Validate mobile number
         if (value == null)
             return;
 
@@ -261,17 +203,6 @@ public class SettingsPresenter implements SettingsContract.Presenter {
 
         mUser.setMobile(value);
         mUser = mDataSource.saveUser(mUser);
-
-        // TODO: Currently we don't care for the response as it is mocked but show progress in the future
-        ServiceGenerator.getInstance().mpqrPaymentService().save(mUser).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-            }
-        });
 
         settings.setValue(value);
 
@@ -292,16 +223,6 @@ public class SettingsPresenter implements SettingsContract.Presenter {
         mUser.setCurrencyNumericCode(value);
         mUser = mDataSource.saveUser(mUser);
 
-        // TODO: Currently we don't care for the response as it is mocked but show progress in the future
-        ServiceGenerator.getInstance().mpqrPaymentService().save(mUser).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-            }
-        });
 
         settings.setValue(value);
 

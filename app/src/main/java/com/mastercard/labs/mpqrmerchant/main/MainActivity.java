@@ -22,7 +22,6 @@ import android.widget.TextView;
 import com.mastercard.labs.mpqrmerchant.R;
 import com.mastercard.labs.mpqrmerchant.data.RealmDataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.QRData;
-import com.mastercard.labs.mpqrmerchant.event.TransactionsUpdateEvent;
 import com.mastercard.labs.mpqrmerchant.login.LoginActivity;
 import com.mastercard.labs.mpqrmerchant.network.LoginManager;
 import com.mastercard.labs.mpqrmerchant.qrcode.QRCodeActivity;
@@ -34,10 +33,6 @@ import com.mastercard.labs.mpqrmerchant.utils.DialogUtils;
 import com.mastercard.labs.mpqrmerchant.utils.KeyboardUtils;
 import com.mastercard.labs.mpqrmerchant.view.AmountEditText;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -47,7 +42,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements MainContract.View, AmountEditText.AmountListener, TextView.OnEditorActionListener {
-    public static String BUNDLE_USER_KEY = "userId";
 
     private MainContract.Presenter mPresenter;
     private long userId;
@@ -106,8 +100,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         getWindow().setBackgroundDrawableResource(R.drawable.background_main);
 
-        userId = getIntent().getLongExtra(BUNDLE_USER_KEY, -1L);
-        // TODO: Only for debugging purposes till Login screen is implemented.
         userId = LoginManager.getInstance().getLoggedInUserId();
 
         mPresenter = new MainPresenter(this, RealmDataSource.getInstance(), userId);
@@ -125,18 +117,11 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
     @Override
     protected void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onTransactionsUpdateEvent(TransactionsUpdateEvent event) {
-        mPresenter.start();
     }
 
     @Override
@@ -337,7 +322,6 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
             titleTextView.setTextColor(ContextCompat.getColor(this, R.color.colorWarmGrey));
             editText.setEnabled(true);
         } else {
-            // TODO: Remove line below edit text
             layout.setBackgroundColor(ContextCompat.getColor(this, R.color.colorDisabledDeepSeaBlue));
             titleTextView.setTextColor(ContextCompat.getColor(this, R.color.colorDeepSeaBlue));
             editText.setEnabled(false);
@@ -432,9 +416,22 @@ public class MainActivity extends AppCompatActivity implements MainContract.View
 
         if (actionId == R.id.action_generate || actionId == EditorInfo.IME_NULL) {
             KeyboardUtils.hideKeyboard(this);
+
             mPresenter.generateQRString();
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void showExceptionMessage(String message) {
+        DialogUtils.customAlertDialogBuilder(this, message)
+                .setCancelable(false)
+                .setNegativeButton(R.string.dismiss, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
     }
 }

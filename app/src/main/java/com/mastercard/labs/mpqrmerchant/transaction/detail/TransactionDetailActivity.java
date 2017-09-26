@@ -71,7 +71,7 @@ public class TransactionDetailActivity extends AppCompatActivity implements Tran
             mReferenceId = getIntent().getStringExtra(BUNDLE_REFERENCE_ID_KEY);
         }
 
-        mPresenter = new TransactionDetailPresenter(this, RealmDataSource.getInstance(), mReferenceId);
+        mPresenter = new TransactionDetailPresenter(this, mReferenceId);
     }
 
     @Override
@@ -81,7 +81,7 @@ public class TransactionDetailActivity extends AppCompatActivity implements Tran
         setIntent(intent);
 
         mReferenceId = intent.getStringExtra(BUNDLE_REFERENCE_ID_KEY);
-        mPresenter = new TransactionDetailPresenter(this, RealmDataSource.getInstance(), mReferenceId);
+        mPresenter = new TransactionDetailPresenter(this, mReferenceId);
     }
 
     @Override

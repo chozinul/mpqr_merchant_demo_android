@@ -1,5 +1,6 @@
 package com.mastercard.labs.mpqrmerchant.transaction.detail;
 
+import com.mastercard.labs.mpqrmerchant.MainApplication;
 import com.mastercard.labs.mpqrmerchant.data.DataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.Transaction;
 
@@ -13,21 +14,22 @@ class TransactionDetailPresenter implements TransactionDetailContract.Presenter 
     private static SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm a", Locale.getDefault());
 
     private TransactionDetailContract.View mView;
-    private DataSource mDataSource;
     private String mReferenceId;
 
     private Transaction mTransaction;
 
-    TransactionDetailPresenter(TransactionDetailContract.View view, DataSource dataSource, String referenceId) {
+    TransactionDetailPresenter(TransactionDetailContract.View view, String referenceId) {
         this.mView = view;
-        this.mDataSource = dataSource;
         this.mReferenceId = referenceId;
     }
 
     @Override
     public void start() {
-        mTransaction = mDataSource.getTransaction(mReferenceId);
 
+        for (Transaction transaction : MainApplication.transactionList) {
+            if (transaction.getReferenceId().equals(mReferenceId))
+                mTransaction = transaction;
+        }
         populateView();
     }
 

@@ -28,7 +28,6 @@ public class User extends RealmObject {
     private String terminalNumber;
     private String currencyNumericCode;
     private String mobile;
-    private RealmList<Transaction> transactions;
 
     public long getId() {
         return id;
@@ -156,14 +155,6 @@ public class User extends RealmObject {
 
     public void setMobile(String mobile) {
         this.mobile = mobile;
-    }
-
-    public RealmList<Transaction> getTransactions() {
-        return transactions;
-    }
-
-    public void setTransactions(RealmList<Transaction> transactions) {
-        this.transactions = transactions;
     }
 
     @Override

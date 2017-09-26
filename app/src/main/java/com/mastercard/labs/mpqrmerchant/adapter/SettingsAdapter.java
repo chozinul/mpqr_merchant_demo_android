@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import com.mastercard.labs.mpqrmerchant.R;
 import com.mastercard.labs.mpqrmerchant.data.model.Settings;
-import com.mastercard.labs.mpqrmerchant.data.model.User;
 
 import java.util.List;
 
@@ -20,12 +19,11 @@ import butterknife.ButterKnife;
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/16/17
  */
 public class SettingsAdapter extends RecyclerView.Adapter<SettingsAdapter.ViewHolder> {
-    private User mUser;
     private SettingsItemListener mListener;
 
     List<Settings> settings;
 
-    public SettingsAdapter(List<Settings>settings, SettingsItemListener listener) {
+    public SettingsAdapter(List<Settings> settings, SettingsItemListener listener) {
         this.settings = settings;
         this.mListener = listener;
     }

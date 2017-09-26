@@ -1,5 +1,6 @@
 package com.mastercard.labs.mpqrmerchant.main;
 
+import com.mastercard.labs.mpqrmerchant.MainApplication;
 import com.mastercard.labs.mpqrmerchant.data.DataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.QRData;
 import com.mastercard.labs.mpqrmerchant.data.model.Transaction;
@@ -8,6 +9,8 @@ import com.mastercard.labs.mpqrmerchant.network.LoginManager;
 import com.mastercard.labs.mpqrmerchant.network.ServiceGenerator;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 import com.mastercard.mpqr.pushpayment.exception.FormatException;
+import com.mastercard.mpqr.pushpayment.exception.InvalidTagValueException;
+import com.mastercard.mpqr.pushpayment.exception.RFUTagException;
 import com.mastercard.mpqr.pushpayment.model.AdditionalData;
 import com.mastercard.mpqr.pushpayment.model.PushPaymentData;
 
@@ -76,7 +79,7 @@ class MainPresenter implements MainContract.Presenter {
 
     private void populateView() {
         double transactionTotal = 0;
-        for (Transaction transaction : mUser.getTransactions()) {
+        for (Transaction transaction : MainApplication.transactionList) {
             transactionTotal += transaction.getTotal();
         }
 
@@ -90,7 +93,7 @@ class MainPresenter implements MainContract.Presenter {
             mView.setTransactionTotalAmount(transactionTotal, "");
         }
 
-        mView.setTotalTransactions(mUser.getTransactions().size());
+        mView.setTotalTransactions(MainApplication.transactionList.size());
 
         CurrencyCode currencyCode = qrData.getCurrencyCode();
         if (currencyCode != null) {
@@ -209,16 +212,12 @@ class MainPresenter implements MainContract.Presenter {
 
     @Override
     public void generateQRString() {
-        // TODO: Validate QRData
 
         PushPaymentData paymentData = new PushPaymentData();
-        // Version 01
+
         paymentData.setPayloadFormatIndicator("01");
-        // 11 (static) if transaction amount is not provided else 12 (dynamic)
-        if (qrData.getTransactionAmount() == 0) {
-            paymentData.setPointOfInitiationMethod("11");
-        } else {
-            paymentData.setPointOfInitiationMethod("12");
+
+        if (qrData.getTransactionAmount() != 0) {
             paymentData.setTransactionAmount(qrData.getTransactionAmount());
         }
         paymentData.setMerchantName(qrData.getMerchantName());
@@ -276,15 +275,17 @@ class MainPresenter implements MainContract.Presenter {
         }
 
         try {
-            paymentData.validate();
-        } catch (FormatException ex) {
-            // TODO: Handle all kind of exceptions
-            ex.printStackTrace();
-            mView.showInvalidDataError();
-            return;
+            String paymentString = paymentData.generatePushPaymentString();
+            mView.showQRCode(qrData, paymentString);
+            mView.showExceptionMessage(paymentString);
+        } catch (Exception e) {
+            mView.showExceptionMessage(e.getMessage());
+            if (e instanceof RFUTagException)
+                mView.showExceptionMessage("Error at: " + ((RFUTagException) e).getTag() + ", field is reserved for use and should not be entered");
+            else if (e instanceof InvalidTagValueException)
+                mView.showExceptionMessage("Error at: " + ((InvalidTagValueException) e).getTagString() + ", Price fields entered cannot be zero and must align with currency's decimal rules");
         }
 
-        mView.showQRCode(qrData, paymentData.generatePushPaymentString());
     }
 
     @Override
@@ -311,4 +312,5 @@ class MainPresenter implements MainContract.Presenter {
             }
         });
     }
+
 }

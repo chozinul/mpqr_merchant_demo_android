@@ -1,5 +1,6 @@
 package com.mastercard.labs.mpqrmerchant.transaction.list;
 
+import com.mastercard.labs.mpqrmerchant.MainApplication;
 import com.mastercard.labs.mpqrmerchant.data.DataSource;
 import com.mastercard.labs.mpqrmerchant.data.model.Transaction;
 import com.mastercard.labs.mpqrmerchant.data.model.User;
@@ -32,7 +33,7 @@ public class TransactionListPresenter implements TransactionListContract.Present
             return;
         }
 
-        mTransactions = mDataSource.getTransactions(mId);
+        mTransactions = MainApplication.transactionList;
 
         populateView();
     }

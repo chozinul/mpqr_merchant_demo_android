@@ -4,6 +4,7 @@ import com.mastercard.labs.mpqrmerchant.BasePresenter;
 import com.mastercard.labs.mpqrmerchant.BaseView;
 import com.mastercard.labs.mpqrmerchant.data.model.QRData;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
+import com.mastercard.mpqr.pushpayment.exception.FormatException;
 
 import java.util.List;
 
@@ -62,6 +63,8 @@ interface MainContract {
         void showLogoutFailed();
 
         void showUserNotFound();
+
+        void showExceptionMessage(String s);
     }
 
     interface Presenter extends BasePresenter {

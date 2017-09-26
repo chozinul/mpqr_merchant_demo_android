@@ -99,14 +99,6 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
         String merchantCurrencyNumericCode = PreferenceManager.getInstance().getString(MERCHANT_CURRENCY_NUMERIC_CODE_KEY, DEFAULT_MERCHANT_CURRENCY_NUMERIC_CODE);
         String merchantPhone = PreferenceManager.getInstance().getString(MERCHANT_PHONE_KEY, DEFAULT_MERCHANT_PHONE);
 
-        // TODO: Handle version updates because that might invalidate stored data in preferences and cause exceptions while parsing as JSON
-        // Parse stored transactions
-        Set<String> transactions = PreferenceManager.getInstance().getStringSet(MERCHANT_TRANSACTIONS_LIST_KEY, new HashSet<String>());
-        List<Transaction> transactionList = new ArrayList<>(transactions.size());
-        for (String transaction : transactions) {
-            transactionList.add(gson.fromJson(transaction, Transaction.class));
-        }
-
         String dummyResponse = "{\n" +
                 "  \"user\": {\n" +
                 "    \"id\": 1,\n" +
@@ -126,29 +118,12 @@ public class MockMPQRMerchantService implements MPQRPaymentService {
                 "}";
 
         LoginResponse response = gson.fromJson(dummyResponse, LoginResponse.class);
-        response.getUser().setTransactions(new RealmList<>(transactionList.toArray(new Transaction[]{})));
 
         return delegate.returningResponse(response).login(request);
     }
 
     @Override
     public Call<Void> logout() {
-        // Save transactions during logout so we can retrieve later
-        List<Transaction> transactions = RealmDataSource.getInstance().getTransactions(LoginManager.getInstance().getLoggedInUserId());
-        if (transactions != null) {
-            Set<String> jsonTransactions = new HashSet<>(transactions.size());
-            for (Transaction transaction : transactions) {
-                try {
-                    jsonTransactions.add(gson.toJson(transaction));
-                } catch (Exception ex) {
-                    // Ignore exception
-                    ex.printStackTrace();
-                }
-            }
-
-            PreferenceManager.getInstance().putStringSet(MERCHANT_TRANSACTIONS_LIST_KEY, jsonTransactions);
-        }
-
         return delegate.returningResponse(null).logout();
     }
 

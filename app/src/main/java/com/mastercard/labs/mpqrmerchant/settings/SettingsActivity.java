@@ -238,14 +238,9 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
         input.setKeyListener(DigitsKeyListener.getInstance("0123456789 "));
         input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(16 + 3)});
 
-//        final ImageView imageView = new ImageView(layout.getContext());
-//        imageView.setImageResource(R.drawable.mastercard_logo);
-
         LinearLayout.LayoutParams inputParams = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT);
         inputParams.weight = 1;
         layout.addView(input, inputParams);
-
-//        layout.addView(imageView, new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.MATCH_PARENT));
 
         final AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle(R.string.card_number)
@@ -276,7 +271,6 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
         dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: Validation should be done in presenter
                 if (!isValidCardNumber(input.getText().toString().replace(" ", ""))) {
                     input.setError(getString(R.string.error_invalid_card_number));
                 } else {
@@ -301,7 +295,6 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
             }
         }
 
-        //TODO: setSelectedIndex
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setSingleChoiceItems(adapter, selectedCurrency, new DialogInterface.OnClickListener() {
                     @Override
@@ -344,7 +337,6 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
             }
         }
 
-        //TODO: setSelectedIndex
         AlertDialog dialog = new AlertDialog.Builder(this)
                 .setSingleChoiceItems(adapter, selectedCountry, new DialogInterface.OnClickListener() {
                     @Override
@@ -459,8 +451,6 @@ public class SettingsActivity extends AppCompatActivity implements SettingsContr
     }
 
     private boolean isValidCardNumber(String cardNumber) {
-        //Pattern mastercardPattern = Pattern.compile("^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}$");
-        //return mastercardPattern.matcher(cardNumber).matches();
         return cardNumber.length() == 16;
     }
 

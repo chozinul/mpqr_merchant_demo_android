@@ -6,5 +6,4 @@ package com.mastercard.labs.mpqrmerchant;
 public interface BasePresenter {
     void start();
 
-    // TODO: Implement stop method too
 }

@@ -3,16 +3,12 @@ package com.mastercard.labs.mpqrmerchant.data.model;
 import com.mastercard.labs.mpqrmerchant.utils.CurrencyCode;
 
 import java.util.Date;
-import java.util.Objects;
 
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
 
 /**
  * @author Muhammad Azeem (muhammad.azeem@mastercard.com) on 2/13/17
  */
-public class Transaction extends RealmObject {
-    @PrimaryKey
+public class Transaction {
     private String referenceId;
 
     private double transactionAmount;
@@ -22,6 +18,17 @@ public class Transaction extends RealmObject {
     private String invoiceNumber;
     private String terminalNumber;
 
+    public Transaction(){}
+    public Transaction(String referenceId, double transactionAmount, double tipAmount, String currencyNumericCode, Date transactionDate, String invoiceNumber, String terminalNumber)
+    {
+        this.referenceId = referenceId;
+        this.transactionAmount = transactionAmount;
+        this.tipAmount = tipAmount;
+        this.currencyNumericCode = currencyNumericCode;
+        this.transactionDate = transactionDate;
+        this.invoiceNumber = invoiceNumber;
+        this.terminalNumber = terminalNumber;
+    }
     public String getReferenceId() {
         return referenceId;
     }
@@ -86,22 +93,4 @@ public class Transaction extends RealmObject {
         return CurrencyCode.fromNumericCode(currencyNumericCode);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Transaction that = (Transaction) o;
-        return Double.compare(that.transactionAmount, transactionAmount) == 0 &&
-                Double.compare(that.tipAmount, tipAmount) == 0 &&
-                Objects.equals(referenceId, that.referenceId) &&
-                Objects.equals(currencyNumericCode, that.currencyNumericCode) &&
-                Objects.equals(transactionDate, that.transactionDate) &&
-                Objects.equals(invoiceNumber, that.invoiceNumber) &&
-                Objects.equals(terminalNumber, that.terminalNumber);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(referenceId, transactionAmount, tipAmount, currencyNumericCode, transactionDate, invoiceNumber, terminalNumber);
-    }
 }
