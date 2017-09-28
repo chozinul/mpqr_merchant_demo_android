@@ -277,9 +277,7 @@ class MainPresenter implements MainContract.Presenter {
         try {
             String paymentString = paymentData.generatePushPaymentString();
             mView.showQRCode(qrData, paymentString);
-            mView.showExceptionMessage(paymentString);
         } catch (Exception e) {
-            mView.showExceptionMessage(e.getMessage());
             if (e instanceof RFUTagException)
                 mView.showExceptionMessage("Error at: " + ((RFUTagException) e).getTag() + ", field is reserved for use and should not be entered");
             else if (e instanceof InvalidTagValueException)
